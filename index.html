@@ -1,30 +1,668 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
-  <link rel="stylesheet" href = "style.css">
-  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scoops Ahoy - Home</title>
+<link rel="stylesheet" href="style.css">
+<style>
+     /* Updated Menu Section Styles */
+.menu-section {
+         padding: 40px 10%;
+         max-width: 1200px;
+         margin: 0 auto;
+}
+ 
+     .enhanced-title {
+         text-align: center;
+         font-size: 3rem;
+         color: #8b4513;
+         margin: 40px 0;
+         text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+ 
+     /* Category Headers */
+     .category-header {
+         text-align: center;
+         margin: 50px 0 30px 0;
+}
+ 
+     .category-title {
+         font-size: 2.2rem;
+         color: #8b4513;
+         margin-bottom: 10px;
+         text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+ 
+     .category-subtitle {
+         font-size: 1.1rem;
+         color: #666;
+         font-style: italic;
+         margin-bottom: 20px;
+}
+ 
+     /* 2-Column Grid Layout */
+     .classic-menu-grid,
+     .menu-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 30px;
+         margin-bottom: 40px;
+}
+ 
+     /* Menu Item Cards with Pink Theme */
+     .menu-item.enhanced-item {
+         background: rgba(255, 182, 193, 0.9); /* Same pink as signup form */
+         padding: 25px;
+         border-radius: 20px;
+         box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+         transition: all 0.3s ease;
+         border: 2px solid rgba(255, 105, 180, 0.3);
+}
+ 
+     .menu-item.enhanced-item:hover {
+         transform: translateY(-8px);
+         box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+         background: rgba(255, 182, 193, 0.95);
+         border-color: rgba(255, 105, 180, 0.6);
+}
+ 
+     .item-image-large {
+         width: 100%;
+         height: 200px;
+         object-fit: cover;
+         border-radius: 15px;
+         margin-bottom: 15px;
+         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+         transition: transform 0.3s ease;
+}
+ 
+     .menu-item.enhanced-item:hover .item-image-large {
+         transform: scale(1.05);
+}
+ 
+     .item-content {
+         text-align: center;
+}
+ 
+     .item-name {
+         color: #8b4513;
+         font-size: 1.4rem;
+         font-weight: bold;
+         margin-bottom: 10px;
+         text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+ 
+     .item-description {
+         color: #555;
+         font-size: 0.95rem;
+         line-height: 1.4;
+         margin-bottom: 20px;
+}
+ 
+     .item-footer {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-top: 20px;
+}
+ 
+     .item-price {
+         font-size: 1.6rem;
+         font-weight: bold;
+         color: #ff1493;
+         text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+ 
+     .add-to-cart-btn {
+         background: linear-gradient(135deg, #ff69b4, #ff1493);
+         color: white;
+         border: none;
+         padding: 10px 20px;
+         border-radius: 20px;
+         font-weight: bold;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+ 
+     .add-to-cart-btn:hover {
+         background: linear-gradient(135deg, #ff1493, #dc143c);
+         transform: translateY(-2px);
+         box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+ 
+     /* Updated About Section Styles */
+     .about-section {
+         padding: 40px 10%;
+         max-width: 1200px;
+         margin: 0 auto;
+}
+ 
+     .about-boxes-container {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 30px;
+         margin-top: 40px;
+}
+ 
+     .about-box {
+         background: rgba(255, 182, 193, 0.9); /* Same pink as signup and menu */
+         padding: 30px;
+         border-radius: 20px;
+         box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+         transition: all 0.3s ease;
+         border: 2px solid rgba(255, 105, 180, 0.3);
+}
+ 
+     .about-box:hover {
+         transform: translateY(-5px);
+         box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+         background: rgba(255, 182, 193, 0.95);
+         border-color: rgba(255, 105, 180, 0.6);
+}
+ 
+     .about-box h2 {
+         color: #8b4513;
+         font-size: 1.8rem;
+         margin-bottom: 20px;
+         text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+         text-align: center;
+}
+ 
+     .about-box p {
+         color: #555;
+         line-height: 1.6;
+         font-size: 1rem;
+         text-align: justify;
+}
+ 
+     /* Hero Image Styles - NEW */
+     .hero-image img {
+         width: 100%;
+         max-width: 500px;
+         height: auto;
+         border-radius: 20px;
+         box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+         transition: transform 0.3s ease;
+}
+ 
+     .hero-image img:hover {
+         transform: scale(1.05);
+}
+ 
+     /* Responsive Design for Menu and About */
+     @media (max-width: 768px) {
+         .classic-menu-grid,
+         .menu-grid {
+             grid-template-columns: 1fr;
+             gap: 20px;
+}
+         
+         .enhanced-title {
+             font-size: 2rem;
+}
+         
+         .category-title {
+             font-size: 1.8rem;
+}
+         
+         .item-footer {
+             flex-direction: column;
+             gap: 15px;
+}
+         
+         .add-to-cart-btn {
+             width: 100%;
+}
+ 
+         .about-boxes-container {
+             grid-template-columns: 1fr;
+             gap: 20px;
+}
+         
+         .about-box h2 {
+             font-size: 1.5rem;
+}
+ 
+         /* Responsive for hero image */
+         .hero-image img {
+             max-width: 100%;
+}
+}
+   </style>
+ </head>
+ <body>
+   <!-- Header --> 
+   <header>
+     <!-- Logo (image + text) -->
+     <a href="index.html" class="logo">
+       <img src="./img/logo.png" alt="Scoops Ahoy Logo">
+       <span>Scoops Ahoy</span>
+     </a>
+ 
+     <!-- Navigation -->
+     <nav>
+       <ul class="nav_links">
+         <li><a href="#" onclick="showPage('home')" class="nav-link active">Home</a></li>
+         <li><a href="#" onclick="showPage('menu')" class="nav-link">Menu</a></li>
+         <li><a href="#" onclick="showPage('about')" class="nav-link">About Us</a></li>
+         <li><a href="#" onclick="showPage('contact')" class="nav-link">Contact</a></li>
+       </ul>
+     </nav>
+ 
+     <!-- Cart and Sign up buttons -->
+     <div style="display: flex; gap: 15px; align-items: center;">
+       <button class="cart-btn" onclick="openCart()">
+🛒 Cart
+         <span class="cart-count" id="cartCount" style="display: none;">0</span>
+       </button>
+       <a href="signup.html">
+         <button class="signupbtn">Sign up</button>
+       </a>
+     </div>
+   </header>
+ 
+   <!-- Home Page -->
+   <main id="home-page" class="page-content">
+     <section class="hero-section">
+       <div class="hero-content">
+         <div class="hero-text">
+           <h1>CHOOSE<br>YOUR<br>PLEASURE</h1>
+           <p class="hero-subtitle">Lorem Ipsum Dolor Sit</p>
+           <p class="hero-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat volutpat ut wisi enim ad minim veniam.</p>
+           <div class="delivery-info">
+             <span class="delivery-text">DELIVERY ORDER</span>
+             <span class="phone-number">+123 456 789</span>
+           </div>
+           <button class="read-more-btn">Read More</button>
+         </div>
+         <div class="hero-image">
+           <img src="./img/icecream.jpg" alt="Delicious Ice Cream">
+         </div>
+       </div>
+     </section>
+   </main>
+ 
+   <!-- ENHANCED Menu Page -->
+   <main id="menu-page" class="page-content" style="display: none;">
+     <section class="menu-section">
+       <h1 class="page-title enhanced-title">🌟 Sweet Dreams Menu 🌟</h1>
+ 
+       <!-- Classic Scoops -->
+       <div class="category-header">
+         <h2 class="category-title">🍨 Classic Scoops 🍨</h2>
+         <p class="category-subtitle">The timeless favorites that started it all!</p>
+       </div>
+       
+       <div class="classic-menu-grid">
+         <div class="menu-item enhanced-item">
+           <img src="https://images.unsplash.com/photo-1560008581-09826d1de69e?w=500&h=400&fit=crop" alt="Vanilla Dream" class="item-image-large">
+           <div class="item-content">
+             <h3 class="item-name">🌙 Vanilla Dream</h3>
+             <p class="item-description">Classic vanilla ice cream made with real Madagascar vanilla beans and a touch of magic</p>
+             <div class="item-footer">
+               <span class="item-price">$4.50</span>
+               <button class="add-to-cart-btn" onclick="addToCart('Vanilla Dream', 4.50, 'https://images.unsplash.com/photo-1560008581-09826d1de69e?w=100&h=100&fit=crop')">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+ 
+         <div class="menu-item enhanced-item">
+           <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500&h=400&fit=crop" alt="Chocolate Fudge" class="item-image-large">
+           <div class="item-content">
+             <h3 class="item-name">🍫 Chocolate Fudge Explosion</h3>
+             <p class="item-description">Rich double chocolate ice cream with rivers of hot fudge and chocolate chunks</p>
+             <div class="item-footer">
+               <span class="item-price">$4.75</span>
+               <button class="add-to-cart-btn" onclick="addToCart('Chocolate Fudge Explosion', 4.75, 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=100&h=100&fit=crop')">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+ 
+         <div class="menu-item enhanced-item">
+           <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=500&h=400&fit=crop" alt="Strawberry Bliss" class="item-image-large">
+           <div class="item-content">
+             <h3 class="item-name">🍓 Strawberry Bliss</h3>
+             <p class="item-description">Fresh strawberry ice cream with real fruit pieces and a hint of cream</p>
+             <div class="item-footer">
+               <span class="item-price">$4.50</span>
+               <button class="add-to-cart-btn" onclick="addToCart('Strawberry Bliss', 4.50, 'https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=100&h=100&fit=crop')">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+ 
+         <div class="menu-item enhanced-item">
+           <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=500&h=400&fit=crop" alt="Mint Chocolate Chip" class="item-image-large">
+           <div class="item-content">
+             <h3 class="item-name">🍃 Mint Chocolate Chip</h3>
+             <p class="item-description">Cool mint ice cream with premium dark chocolate chips</p>
+             <div class="item-footer">
+               <span class="item-price">$4.75</span>
+               <button class="add-to-cart-btn" onclick="addToCart('Mint Chocolate Chip', 4.75, 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=100&h=100&fit=crop')">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+       </div>
+ 
+       <!-- Premium Flavors -->
+       <div class="category-header">
+         <h2 class="category-title">✨ Premium Flavors ✨</h2>
+         <p class="category-subtitle">Gourmet creations for the adventurous palate!</p>
+       </div>
+       
+       <div class="menu-grid">
+         <div class="menu-item enhanced-item">
+           <img src="https://images.unsplash.com/photo-1488477304112-4944851de03d?w=500&h=400&fit=crop" alt="Lavender Honey" class="item-image-large">
+           <div class="item-content">
+             <h3 class="item-name">🌸 Lavender Honey Dream</h3>
+             <p class="item-description">Elegant lavender ice cream swirled with local wildflower honey</p>
+             <div class="item-footer">
+               <span class="item-price">$6.25</span>
+               <button class="add-to-cart-btn" onclick="addToCart('Lavender Honey Dream', 6.25, 'https://images.unsplash.com/photo-1488477304112-4944851de03d?w=100&h=100&fit=crop')">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+ 
+         <div class="menu-item enhanced-item">
+           <img src="https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?w=500&h=400&fit=crop" alt="Pistachio Delight" class="item-image-large">
+           <div class="item-content">
+             <h3 class="item-name">🥜 Pistachio Paradise</h3>
+             <p class="item-description">Creamy pistachio ice cream with roasted Sicilian pistachios</p>
+             <div class="item-footer">
+               <span class="item-price">$6.00</span>
+               <button class="add-to-cart-btn" onclick="addToCart('Pistachio Paradise', 6.00, 'https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?w=100&h=100&fit=crop')">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+ 
+         <div class="menu-item enhanced-item">
+           <img src="https://images.unsplash.com/photo-1548021682-1720ed403a5b?w=500&h=400&fit=crop" alt="Mixed Berry Swirl" class="item-image-large">
+           <div class="item-content">
+             <h3 class="item-name">🫐 Mixed Berry Swirl</h3>
+             <p class="item-description">Blueberry, raspberry, and blackberry medley with berry compote swirls</p>
+             <div class="item-footer">
+               <span class="item-price">$5.75</span>
+               <button class="add-to-cart-btn" onclick="addToCart('Mixed Berry Swirl', 5.75, 'https://images.unsplash.com/photo-1548021682-1720ed403a5b?w=100&h=100&fit=crop')">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+       </div>
+ 
+       <!-- Specialty Sundaes -->
+       <div class="category-header">
+         <h2 class="category-title">🍰 Specialty Sundaes 🍰</h2>
+         <p class="category-subtitle">Over-the-top creations for maximum indulgence!</p>
+       </div>
+       
+       <div class="menu-grid">
+         <div class="menu-item enhanced-item">
+           <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=500&h=400&fit=crop" alt="Banana Split Supreme" class="item-image-large">
+           <div class="item-content">
+             <h3 class="item-name">🍌 Banana Split Supreme</h3>
+             <p class="item-description">Three scoops with fresh banana, whipped cream, nuts, cherry & hot fudge</p>
+             <div class="item-footer">
+               <span class="item-price">$8.95</span>
+               <button class="add-to-cart-btn" onclick="addToCart('Banana Split Supreme', 8.95, 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=100&h=100&fit=crop')">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+ 
+         <div class="menu-item enhanced-item">
+           <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=500&h=400&fit=crop" alt="Hot Fudge Brownie" class="item-image-large">
+           <div class="item-content">
+             <h3 class="item-name">🍫 Hot Fudge Brownie Avalanche</h3>
+             <p class="item-description">Warm chocolate brownie with vanilla ice cream, hot fudge & whipped cream</p>
+             <div class="item-footer">
+               <span class="item-price">$7.50</span>
+               <button class="add-to-cart-btn" onclick="addToCart('Hot Fudge Brownie Avalanche', 7.50, 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=100&h=100&fit=crop')">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+ 
+         <div class="menu-item enhanced-item">
+           <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=500&h=400&fit=crop" alt="Caramel Apple Crunch" class="item-image-large">
+           <div class="item-content">
+             <h3 class="item-name">🍎 Caramel Apple Crunch</h3>
+             <p class="item-description">Cinnamon ice cream with caramel sauce, apple pieces & graham cracker crumbs</p>
+             <div class="item-footer">
+               <span class="item-price">$7.25</span>
+               <button class="add-to-cart-btn" onclick="addToCart('Caramel Apple Crunch', 7.25, 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=100&h=100&fit=crop')">Add to Cart</button>
+             </div>
+           </div>
+         </div>
+       </div>
+     </section>
+   </main>
+ 
+   <!-- About Page -->
+   <main id="about-page" class="page-content" style="display: none;">
+     <section class="about-section">
+       <div class="about-content">
+         <h1 class="page-title">About Scoops Ahoy</h1>
+         <div class="about-boxes-container">
+           <div class="about-box">
+             <h2>Our Sweet Story</h2>
+             <p>Founded in 1985, Scoops Ahoy began as a small family-owned ice cream parlor with a simple mission: to bring joy to our community, one scoop at a time. What started as a humble shop with just six flavors has grown into a beloved local institution serving over 50 unique flavors of premium ice cream.</p>
+           </div>
+           
+           <div class="about-box">
+             <h2>Our Philosophy</h2>
+             <p>We believe that ice cream is more than just a dessert – it's a moment of happiness, a celebration of life's sweet moments, and a way to bring people together. Every scoop is crafted with love, using only the finest ingredients sourced from local farms and premium suppliers.</p>
+           </div>
+           
+           <div class="about-box">
+             <h2>Quality Promise</h2>
+             <p>At Scoops Ahoy, we make all our ice cream fresh daily in small batches. We use real vanilla beans, fresh fruits, and premium chocolate to ensure every bite is perfect. Our commitment to quality means no artificial preservatives, no shortcuts, just pure delicious ice cream.</p>
+           </div>
+           
+           <div class="about-box">
+             <h2>Community First</h2>
+             <p>We're proud to be part of this amazing community. From sponsoring local sports teams to hosting birthday parties and community events, Scoops Ahoy is more than just an ice cream shop – we're your neighbors, friends, and fellow ice cream enthusiasts.</p>
+           </div>
+         </div>
+       </div>
+     </section>
+   </main>
+ 
+   <!-- Contact Page -->
+   <main id="contact-page" class="page-content" style="display: none;">
+     <section class="contact-section">
+       <h1 class="page-title">Get in Touch</h1>
+       <div class="contact-container">
+         <div class="contact-info">
+           <h2>Visit Our Shop</h2>
+           <div class="info-item">
+             <h3>Address</h3>
+             <p>123 Ice Cream Lane<br>Sweet Town, ST 12345</p>
+           </div>
+           <div class="info-item">
+             <h3>Phone</h3>
+             <p>+123 456 789</p>
+           </div>
+           <div class="info-item">
+             <h3>Email</h3>
+             <p>hello@scoopsahoy.com</p>
+           </div>
+           <div class="info-item">
+             <h3>Hours</h3>
+             <p>Monday - Thursday: 11am - 9pm<br>
+Friday - Saturday: 11am - 10pm<br>
+Sunday: 12pm - 8pm</p>
+           </div>
+         </div>
+         
+         <div class="contact-form">
+           <h2>Send us a Message</h2>
+           <form>
+             <div class="form-group">
+               <label for="name">Name</label>
+               <input type="text" id="name" name="name" required>
+             </div>
+             <div class="form-group">
+               <label for="email">Email</label>
+               <input type="email" id="email" name="email" required>
+             </div>
+             <div class="form-group">
+               <label for="subject">Subject</label>
+               <input type="text" id="subject" name="subject" required>
+             </div>
+             <div class="form-group">
+               <label for="message">Message</label>
+               <textarea id="message" name="message" rows="5" required></textarea>
+             </div>
+             <button type="submit" class="contact-submit-btn">Send Message</button>
+           </form>
+         </div>
+       </div>
+     </section>
+   </main>
+ 
+   <!-- Cart Modal -->
+   <div class="cart-modal" id="cartModal">
+     <div class="cart-content">
+       <button class="close-cart" onclick="closeCart()">&times;</button>
+       <h2 style="text-align: center; color: #8b4513; margin-bottom: 20px;">🛒 Your Sweet Cart</h2>
+       <div id="cartItems">
+         <p style="text-align: center; color: #666; padding: 40px;">Your cart is empty! Add some sweet treats!</p>
+       </div>
+       <div class="cart-total" id="cartTotal" style="display: none;">
+Total: $0.00
+       </div>
+       <button class="checkout-btn" id="checkoutBtn" style="display: none;" onclick="checkout()">
+🎉 Checkout Now!
+       </button>
+     </div>
+   </div>
+ 
+   <script>
+     let cart = [];
+     let cartCount = 0;
+     let cartTotal = 0;
+ 
+     function addToCart(name, price, image) {
+       cart.push({
+         name: name,
+         price: price,
+         image: image,
+         id: Date.now()
+});
+       
+       cartCount++;
+       cartTotal += price;
+       
+       const countElement = document.getElementById('cartCount');
+       countElement.textContent = cartCount;
+       countElement.style.display = 'flex';
+       
+       showSuccessAnimation(`${name} added to cart!`);
+       updateCartDisplay();
+}
+ 
+     function removeFromCart(id) {
+       const itemIndex = cart.findIndex(item => item.id === id);
+       if (itemIndex > -1) {
+         const item = cart[itemIndex];
+         cartCount--;
+         cartTotal -= item.price;
+         cart.splice(itemIndex, 1);
+         
+         const countElement = document.getElementById('cartCount');
+         if (cartCount === 0) {
+           countElement.style.display = 'none';
+} else {
+           countElement.textContent = cartCount;
+}
+         
+         updateCartDisplay();
+}
+}
+ 
+     function updateCartDisplay() {
+       const cartItems = document.getElementById('cartItems');
+       const cartTotalElement = document.getElementById('cartTotal');
+       const checkoutBtn = document.getElementById('checkoutBtn');
+       
+       if (cart.length === 0) {
+         cartItems.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">Your cart is empty! Add some sweet treats!</p>';
+         cartTotalElement.style.display = 'none';
+         checkoutBtn.style.display = 'none';
+} else {
+         cartItems.innerHTML = cart.map(item => `
+<div class="cart-item">
+<div style="display: flex; align-items: center; gap: 15px;">
+<img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; border-radius: 10px; object-fit: cover;">
+<div>
+<div style="font-weight: bold; color: #8b4513;">${item.name}</div>
+<div style="color: #ff69b4; font-weight: bold;">$${item.price.toFixed(2)}</div>
+</div>
+</div>
+<button onclick="removeFromCart(${item.id})" style="background: #ff6b6b; color: white; border: none; padding: 8px 12px; border-radius: 15px; cursor: pointer;">Remove</button>
+</div>
+`).join('');
+         
+         cartTotalElement.textContent = `Total: $${cartTotal.toFixed(2)}`;
+         cartTotalElement.style.display = 'block';
+         checkoutBtn.style.display = 'block';
+}
+}
+ 
+     function openCart() {
+       document.getElementById('cartModal').style.display = 'flex';
+       document.body.style.overflow = 'hidden';
+}
+ 
+     function closeCart() {
+       document.getElementById('cartModal').style.display = 'none';
+       document.body.style.overflow = 'auto';
+}
 
-</head>
-<body>
-  <header>
-    <!-- <img class="logo" src ="./img/logo.png" alt=" logo"> -->
-    <a href="logo"> Restaurant name</a>
-    <nav>
-      <ul class= "nav_links">
-        <li><a href="#"> Home</a></li>
-        <li><a href="#"> Menu</a></li>
-        <li><a href="#"> About Us</a></li>
-        <li><a href="#"> Contact</a></li>
-      </ul>
-    </nav>
-    <a href="signup.html"><button class='signupbtn'onclick="document.getElementById('login-form').style.display='block'" style="width: auto;">Sign up</button></a>
-  </header>
-  
+   function checkout() {
+     if (cart.length === 0) return;
+     
+     showSuccessAnimation(`Order placed! Total: $${cartTotal.toFixed(2)}`);
+     
+     cart = [];
+     cartCount = 0;
+     cartTotal = 0;
+     document.getElementById('cartCount').style.display = 'none';
+     updateCartDisplay();
+     closeCart();
+}
 
-  
-  
+   function showSuccessAnimation(message) {
+     const successElement = document.createElement('div');
+     successElement.className = 'success-animation';
+     successElement.textContent = message;
+     document.body.appendChild(successElement);
+     
+     setTimeout(() => {
+       document.body.removeChild(successElement);
+}, 2000);
+}
+
+   document.getElementById('cartModal').addEventListener('click', function(e) {
+     if (e.target === this) {
+       closeCart();
+}
+});
+
+   document.addEventListener('keydown', function(e) {
+     if (e.key === 'Escape') {
+       closeCart();
+}
+});
+
+   function showPage(pageId) {
+     const pages = document.querySelectorAll('.page-content');
+     pages.forEach(page => page.style.display = 'none');
+     
+     document.getElementById(pageId + '-page').style.display = 'block';
+     
+     const navLinks = document.querySelectorAll('.nav-link');
+     navLinks.forEach(link => link.classList.remove('active'));
+     event.target.classList.add('active');
+}
+ </script>
 </body>
 </html>
