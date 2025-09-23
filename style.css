@@ -288,7 +288,7 @@ header {
 }
 
 .contact-info {
-    background: rgba(255, 255, 255, 0.9);
+    background: #ffb6c1;
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -317,7 +317,7 @@ header {
 }
 
 .contact-form {
-    background: rgba(255, 255, 255, 0.9);
+    background: #ffb6c1;
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
