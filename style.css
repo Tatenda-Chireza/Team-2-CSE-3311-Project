@@ -7,6 +7,8 @@
         background-color: #C5767B;
 		
 }
+
+/* Bavbar styling */
 li, a, button{
         font-family: "Montserrat", sans-serif;
         font-weight: 500;
@@ -19,7 +21,7 @@ header{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 30px 10%;
+        padding: 30px 1%;
 }
 
 .logo{
@@ -40,20 +42,73 @@ header{
 }
 
 .nav_links li a:hover{
-        color: #6C3423;
+        color: #3b1c13;
 }
 
 button{
         padding: 9px 25px;
         background-color: transparent;
         border-radius: 20px;
-        border-color: #d38f93;
+        border-color:#3b1c13;
         cursor: pointer;
         transition: all 0.3s ease 0s;
 		
 }
 
 button:hover{
-        background-color: #6C3423;
+        background-color: #3b1c13;
 }
 
+
+/* home page styling  */
+
+section{
+	padding: 2rem 9%;
+}
+
+.btn{
+	display: inline-block;
+	margin-top: 1rem;
+	border-radius: 5rem;
+	background:#3b1c13; 
+	padding:.9rem 3.5rem;
+	cursor: pointer;
+	font-size: 1.7rem;
+}
+.btn:hover{
+	background: #cd9da3;
+
+}
+
+.home{
+	display: flex;
+	align-items: center;
+	min-height: 70vh;
+}
+
+.home .content{
+	max-width: 50rem;
+}
+
+.home .content h3{
+	font-size: 6rem;
+	color: #3b1c13;
+}
+
+.home .content span{
+	font-size: 3rem;
+	color:#3b1c13;	
+}
+
+.signupbtn{
+  padding: 9px 25px;
+  border-radius: 20px;
+  border: 1px solid #3b1c13;
+  background-color: transparent;
+  transition: all .3s ease;
+}
+
+.signupbtn:hover{
+  background-color: #3b1c13;
+  color: #fff;
+}
