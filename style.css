@@ -112,3 +112,73 @@ section{
   background-color: #3b1c13;
   color: #fff;
 }
+
+/* Menu grid styles */
+.menu-grid{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+}
+.menu-item{
+        background: #651a1f;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        color: #3b1c13;
+}
+.menu-item h3{
+        margin: .5rem 0;
+}
+.menu-item .price{
+        color: #3b1c13;
+        font-weight: 700;
+        margin-bottom: .5rem;
+}
+.menu-item .desc{
+        color: #6b4a48;
+        font-size: .95rem;
+}
+
+/* Cart styles */
+.cart-btn{
+        background: transparent;
+        border: 1px solid #3b1c13;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 18px;
+        margin-right: .5rem;
+}
+.cart-modal{
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+}
+.cart-panel{
+        background: #fff;
+        width: 360px;
+        max-width: 95%;
+        border-radius: 8px;
+        padding: 0;
+        overflow: hidden;
+}
+.cart-header{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid #eee;
+}
+.cart-items{padding:12px; max-height: 60vh; overflow:auto}
+.cart-line{display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #f0eaea}
+.cart-line-left{max-width: 55%}
+.cart-line-right{display:flex; align-items:center; gap:8px}
+.qty-btn{width:28px; height:28px; border-radius:4px}
+.remove-btn{background:#f8d7da; border:1px solid #f5c2c7; padding:6px 8px; border-radius:6px}
+.cart-footer{padding:12px 16px; border-top:1px solid #eee; display:flex; justify-content:space-between; align-items:center}
+.clear-cart{background:#eee; padding:8px 10px; border-radius:6px}
+.checkout{background:#3b1c13; color:#fff; padding:8px 12px; border-radius:6px}
