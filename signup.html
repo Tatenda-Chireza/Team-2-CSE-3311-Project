@@ -3,99 +3,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
-  <link rel="stylesheet" href = "style.css">
-  <link rel="stylesheet" href = "signup.css">
+  <title>Sign Up Page</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="signup.css">
   <script src="App.js" defer></script>
-  
-
 </head>
-
 <body>
+
   <header>
-    <!-- <img class="logo" src ="./img/logo.png" alt=" logo"> -->
-    <a href="index.html"> ICELAND ICE CREAM</a>
+    <a href="index.html" class="logo-link">
+      <img class="logo" src="./img/LOGO.png" alt="Logo">
+      <span>ICELAND ICE CREAM</span>
+    </a>
     <nav>
-      <ul class= "nav_links">
-        <li><a href="index.html"> Home</a></li>
-        <li><a href="menu.html"> Menu</a></li>
-        <li><a href="#"> About Us</a></li>
-        <li><a href="#"> Contact</a></li>
+      <ul class="nav_links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Menu</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
       </ul>
     </nav>
-    <button class='signupbtn'onclick="document.getElementById('login-form').style.display='block'" style="width: auto;">Sign up</button>
+
+    <!-- ✅ NEW: added id for dynamic update -->
+    <button id="signupBtn" class="signupbtn" onclick="openModal()" style="width: auto;">Sign up</button>
   </header>
-  
-    <div id='login-form' class='login-page'>
-      <div class="form-box">
-                <div class='button-box'>
-                    <div id='btn'></div>
-                    <button type='button'onclick='login()'class='toggle-btn'>Log In</button>
-                    <button type='button'onclick='register()'class='toggle-btn'>Register</button>
-                </div>
-                <!-- creating login form -->
-                <form id='login' class='input-group-login' onsubmit="handleLogin(event)">
-                    <input type='email'name='loginEmail' class='input-field'placeholder='Email Id' required >
-		    <input type='password' name='loginPassword' class='input-field'placeholder='Enter Password' required>
-		    <input type='checkbox'class='check-box'><span>Remember Password</span>
-		    <button type='submit'class='submit-btn'>Log in</button>
-		 </form>
-     <!-- creating the registration from -->
-		 <form id='register' class='input-group-register' onsubmit="handleRegister(event)">
-		     <input type='text' name='firstName'class='input-field'placeholder='First Name' required>
-		     <input type='text'name='lastName'class='input-field'placeholder='Last Name' required>
-		     <input type='email'name='email'class='input-field'placeholder='Email Id' required>
-		     <input type='password' name='password'class='input-field'placeholder='Enter Password' required>
-		     <input type='password'name='confirmPassword'class='input-field'placeholder='Confirm Password'  required>
-		     <input type='checkbox'class='check-box' required><span>I agree to the terms and                                                   conditions</span>
-                    <button type='submit'class='submit-btn'>Register</button>
-	         </form>
+
+  <!-- Login/Register Modal -->
+  <div id="login-form" class="login-page">
+    <div class="form-box">
+      <div class="button-box">
+        <div id="btn"></div>
+        <button type="button" onclick="login()" class="toggle-btn">Log In</button>
+        <button type="button" onclick="register()" class="toggle-btn">Register</button>
+      </div>
+
+      <!-- Login form -->
+      <form id="login" class="input-group-login" onsubmit="handleLogin(event)">
+        <input type="email" name="loginEmail" class="input-field" placeholder="Email Id" required>
+        <input type="password" name="loginPassword" class="input-field" placeholder="Enter Password" required>
+        <input type="checkbox" class="check-box"><span>Remember Password</span>
+        <button type="submit" class="submit-btn">Log in</button>
+      </form>
+
+      <!-- Register form -->
+      <form id="register" class="input-group-register" onsubmit="handleRegister(event)">
+        <input type="text" name="firstName" class="input-field" placeholder="First Name" required>
+        <input type="text" name="lastName" class="input-field" placeholder="Last Name" required>
+        <input type="email" name="email" class="input-field" placeholder="Email Id" required>
+        <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
+        <input type="password" name="confirmPassword" class="input-field" placeholder="Confirm Password" required>
+        <input type="checkbox" class="check-box" required><span>I agree to the terms and conditions</span>
+        <button type="submit" class="submit-btn">Register</button>
+      </form>
     </div>
-
-<!-- Error Message -->
-<div id="errorMessage" style="display: none; color: red; text-align: center; margin-top: 10px;"></div>
-
-<!-- Success Modal -->
-<div id="successModal" style="display: none; position: fixed; top: 0; left: 0; 
-  width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); 
-  justify-content: center; align-items: center; z-index: 1000;">
-  <div style="background: white; padding: 20px; text-align: center;">
-    <h2 id="successTitle"></h2>
-    <p id="successMessage"></p>
-    <button onclick="closeSuccessModal()">Close</button>
   </div>
-</div>
 
-    <script>
-        var x=document.getElementById('login');
-		var y=document.getElementById('register');
-		var z=document.getElementById('btn');
-		function register()
-		{
-			x.style.left='-400px';
-			y.style.left='50px';
-			z.style.left='110px';
-      
-		}
-		function login()
-		{
-			x.style.left='50px';
-			y.style.left='450px';
-			z.style.left='0px';
-		}
-	</script>
-	<script>
-        var modal = document.getElementById('login-form');
-        window.onclick = function(event) 
-        {
-            if (event.target == modal) 
-            {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+  <!-- Error Message -->
+  <div id="errorMessage" style="display: none; color: red; text-align: center; margin-top: 10px;"></div>
 
-  
-  
+  <!-- Success Modal -->
+  <div id="successModal" style="display: none; position: fixed; top: 0; left: 0; 
+ width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); 
+ justify-content: center; align-items: center; z-index: 1000;">
+    <div style="background: white; padding: 20px; text-align: center;">
+      <h2 id="successTitle"></h2>
+      <p id="successMessage"></p>
+      <button onclick="closeSuccessModal()">Close</button>
+    </div>
+  </div>
+
+  <!-- ✅ NEW: JS functions for modal and toggle -->
+  <script>
+    const modal = document.getElementById('login-form');
+
+    function openModal() { 
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden'; // prevent background scroll
+    }
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    var x = document.getElementById('login');
+    var y = document.getElementById('register');
+    var z = document.getElementById('btn');
+
+    function register() {
+      x.style.left = '-400px';
+      y.style.left = '50px';
+      z.style.left = '110px';
+    }
+
+    function login() {
+      x.style.left = '50px';
+      y.style.left = '450px';
+      z.style.left = '0px';
+    }
+  </script>
+
 </body>
 </html>
