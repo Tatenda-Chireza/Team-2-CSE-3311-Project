@@ -4,9 +4,9 @@ const CART_KEY = 'site_cart_v1';
 function loadCart() {
   try {
     return JSON.parse(localStorage.getItem(CART_KEY) || '{}');
-  } catch (e) {
+ } catch (e) {
     return {};
-  }
+ }
 }
 
 function saveCart(cart) {
@@ -74,24 +74,24 @@ function renderCart() {
     container.innerHTML = '<p>Your cart is empty.</p>';
     if (totalEl) totalEl.textContent = '$0.00';
     return;
-  }
+ }
   Object.values(cart).forEach(item => {
     const div = document.createElement('div');
     div.className = 'cart-line';
     div.innerHTML = `
-      <div class="cart-line-left">
-        <strong>${item.name}</strong>
-        <div class="cart-line-price">$${item.price.toFixed(2)}</div>
-      </div>
-      <div class="cart-line-right">
-        <button class="qty-btn" data-action="dec" data-key="${item.key}">-</button>
-        <span class="qty">${item.qty}</span>
-        <button class="qty-btn" data-action="inc" data-key="${item.key}">+</button>
-        <button class="remove-btn" data-key="${item.key}">Remove</button>
-      </div>
-    `;
+ <div class="cart-line-left">
+ <strong>${item.name}</strong>
+ <div class="cart-line-price">$${item.price.toFixed(2)}</div>
+ </div>
+ <div class="cart-line-right">
+ <button class="qty-btn" data-action="dec" data-key="${item.key}">-</button>
+ <span class="qty">${item.qty}</span>
+ <button class="qty-btn" data-action="inc" data-key="${item.key}">+</button>
+ <button class="remove-btn" data-key="${item.key}">Remove</button>
+ </div>
+ `;
     container.appendChild(div);
-  });
+ });
   if (totalEl) totalEl.textContent = `$${cartTotal().toFixed(2)}`;
 }
 
@@ -103,20 +103,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (add) {
       addToCart(add.dataset.id, add.dataset.name, add.dataset.price, add.dataset.size);
       return;
-    }
+ }
 
     const cartBtn = e.target.closest('#cartBtn');
     if (cartBtn) {
       document.getElementById('cartModal').style.display = 'block';
       renderCart();
       return;
-    }
+ }
 
     const close = e.target.closest('#closeCart');
     if (close) {
       document.getElementById('cartModal').style.display = 'none';
       return;
-    }
+ }
 
     const clear = e.target.closest('#clearCart');
     if (clear) { clearCart(); return; }
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (checkout) {
       alert('Checkout not implemented in this demo.');
       return;
-    }
+ }
 
     const remove = e.target.closest('.remove-btn');
     if (remove) { removeFromCart(remove.dataset.key); return; }
@@ -136,6 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const action = qty.dataset.action;
       changeQty(key, action === 'inc' ? 1 : -1);
       return;
-    }
-  });
+ }
+ });
 });

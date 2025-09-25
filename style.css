@@ -24,8 +24,23 @@ header{
         padding: 30px 1%;
 }
 
+/* Logo + text styling */
+.logo-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+}
+.logo-link:hover {
+        color: #3b1c13; /* match nav hover color */
+}
 .logo{
-        cursor: pointer;  
+        cursor: pointer;
+        height: 40px; /* adjust size */
+        width: auto;
 }
 
 .nav_links{
@@ -173,12 +188,61 @@ section{
         padding: 12px 16px;
         border-bottom: 1px solid #eee;
 }
-.cart-items{padding:12px; max-height: 60vh; overflow:auto}
-.cart-line{display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #f0eaea}
-.cart-line-left{max-width: 55%}
-.cart-line-right{display:flex; align-items:center; gap:8px}
-.qty-btn{width:28px; height:28px; border-radius:4px}
-.remove-btn{background:#f8d7da; border:1px solid #f5c2c7; padding:6px 8px; border-radius:6px}
-.cart-footer{padding:12px 16px; border-top:1px solid #eee; display:flex; justify-content:space-between; align-items:center}
-.clear-cart{background:#eee; padding:8px 10px; border-radius:6px}
-.checkout{background:#3b1c13; color:#fff; padding:8px 12px; border-radius:6px}
+.cart-items {
+    padding: 12px;
+    max-height: 60vh;
+    overflow: auto;
+}
+
+.cart-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0eaea;
+}
+
+.cart-line-left {
+    max-width: 55%;
+}
+
+.cart-line-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+}
+
+.remove-btn {
+    background: #f8d7da;
+    border: 1px solid #f5c2c7;
+    padding: 6px 8px;
+    border-radius: 6px;
+}
+
+.cart-footer {
+    padding: 12px 16px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clear-cart {
+    background: #eee;
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+
+.checkout {
+    background: #3b1c13;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
