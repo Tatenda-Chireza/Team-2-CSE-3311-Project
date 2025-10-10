@@ -4,16 +4,15 @@
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        background-color: #C5767B;
-		
+        background-color: #FFE4EC; /* slightly more pink background */
 }
 
-/* Bavbar styling */
+/* Navbar styling */
 li, a, button{
         font-family: "Montserrat", sans-serif;
         font-weight: 500;
         font-size: 16px;
-        color: #fff;
+        color: #2C3E50;
         text-decoration: none;
 }
 
@@ -22,6 +21,11 @@ header{
         justify-content: space-between;
         align-items: center;
         padding: 30px 1%;
+        background-color: #FFB5C5; /* pastel pink header */
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+header *{
+        background-color: #FFB5C5;
 }
 
 /* Logo + text styling */
@@ -31,15 +35,18 @@ header{
         gap: 10px;
         font-size: 20px;
         font-weight: bold;
-        color: #fff;
+        color: #2C3E50;
         text-decoration: none;
 }
+.logo-link span {
+        background-color: #FFB5C5;
+}
 .logo-link:hover {
-        color: #3b1c13; /* match nav hover color */
+        color: #5DADE2; /* light blue on hover */
 }
 .logo{
         cursor: pointer;
-        height: 40px; /* adjust size */
+        height: 40px;
         width: auto;
 }
 
@@ -57,75 +64,80 @@ header{
 }
 
 .nav_links li a:hover{
-        color: #3b1c13;
+        color: #5DADE2; /* light blue hover */
 }
 
 button{
         padding: 9px 25px;
-        background-color: transparent;
+        background-color: #85D4F5; /* sky blue buttons */
         border-radius: 20px;
-        border-color:#3b1c13;
+        border: 2px solid #5DADE2;
         cursor: pointer;
         transition: all 0.3s ease 0s;
-		
+        color: #2C3E50;
 }
 
 button:hover{
-        background-color: #3b1c13;
+        background-color: #5DADE2;
+        color: #fff;
 }
 
-
-/* home page styling  */
-
+/* Home page styling */
 section{
-	padding: 2rem 9%;
+        padding: 2rem 9%;
 }
 
 .btn{
-	display: inline-block;
-	margin-top: 1rem;
-	border-radius: 5rem;
-	background:#3b1c13; 
-	padding:.9rem 3.5rem;
-	cursor: pointer;
-	font-size: 1.7rem;
+        display: inline-block;
+        margin-top: 1rem;
+        border-radius: 5rem;
+        background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%); /* pink to blue gradient */
+        padding:.9rem 3.5rem;
+        cursor: pointer;
+        font-size: 1.7rem;
+        color: #fff;
+        border: none;
 }
 .btn:hover{
-	background: #cd9da3;
-
+        background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .home{
-	display: flex;
-	align-items: center;
-	min-height: 70vh;
+        display: flex;
+        align-items: center;
+        min-height: 70vh;
 }
 
 .home .content{
-	max-width: 50rem;
+        max-width: 50rem;
 }
 
 .home .content h3{
-	font-size: 6rem;
-	color: #3b1c13;
+        font-size: 6rem;
+        color: #FF6B9D; /* vibrant pink */
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
 .home .content span{
-	font-size: 3rem;
-	color:#3b1c13;	
+        font-size: 3rem;
+        color: #5DADE2; /* light blue */
 }
 
 .signupbtn{
   padding: 9px 25px;
   border-radius: 20px;
-  border: 1px solid #3b1c13;
-  background-color: transparent;
+  border: 2px solid #5DADE2;
+  background-color: #85D4F5;
   transition: all .3s ease;
+  color: #2C3E50;
 }
 
 .signupbtn:hover{
-  background-color: #3b1c13;
+  background-color: #5DADE2;
   color: #fff;
+  transform: translateY(-2px);
 }
 
 /* Menu grid styles */
@@ -136,33 +148,55 @@ section{
         margin-top: 1rem;
 }
 .menu-item{
-        background: #651a1f;
+        background: linear-gradient(135deg, #FFE5EC 0%, #E3F2FD 100%); /* pink to blue gradient */
         padding: 1rem;
-        border-radius: 10px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-        color: #3b1c13;
+        border-radius: 15px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        color: #2C3E50;
+        border: 2px solid #FFB5C5;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.menu-item:hover{
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 .menu-item h3{
         margin: .5rem 0;
+        color: #FF6B9D;
+        background-color: transparent;
 }
 .menu-item .price{
-        color: #3b1c13;
+        color: #5DADE2;
         font-weight: 700;
         margin-bottom: .5rem;
+        background-color: transparent;
 }
 .menu-item .desc{
-        color: #6b4a48;
+        color: #34495E;
         font-size: .95rem;
+        background-color: transparent;
 }
 
 /* Cart styles */
 .cart-btn{
-        background: transparent;
-        border: 1px solid #3b1c13;
-        color: #fff;
+        background: #85D4F5;
+        border: 2px solid #5DADE2;
+        color: #2C3E50;
         padding: 8px 12px;
         border-radius: 18px;
         margin-right: .5rem;
+        font-weight: 600;
+}
+.cart-btn span{
+        background: #85D4F5;
+        color: #2C3E50;
+}
+.cart-btn:hover{
+        background: #5DADE2;
+        color: #fff;
+}
+.cart-btn:hover span{
+        background: #5DADE2;
 }
 .cart-modal{
         display: none;
@@ -174,24 +208,41 @@ section{
         z-index: 2000;
 }
 .cart-panel{
-        background: #fff;
+        background: #FFE4EC;
         width: 360px;
         max-width: 95%;
-        border-radius: 8px;
+        border-radius: 15px;
         padding: 0;
         overflow: hidden;
+        border: 3px solid #FFB5C5;
 }
 .cart-header{
         display:flex;
         justify-content: space-between;
         align-items: center;
         padding: 12px 16px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 2px solid #FFB5C5;
+        background: linear-gradient(135deg, #FFB5C5 0%, #85D4F5 100%);
+}
+.cart-header h2{
+        background-color: transparent;
+        color: #2C3E50;
+}
+.close-cart{
+        background-color: transparent;
+        border: none;
+        font-size: 28px;
+        color: #2C3E50;
+        cursor: pointer;
 }
 .cart-items {
     padding: 12px;
     max-height: 60vh;
     overflow: auto;
+    background-color: #FFE4EC;
+}
+.cart-items p{
+    background-color: transparent;
 }
 
 .cart-line {
@@ -199,50 +250,107 @@ section{
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
-    border-bottom: 1px solid #f0eaea;
+    border-bottom: 1px solid #FFB5C5;
+    background-color: transparent;
 }
 
 .cart-line-left {
     max-width: 55%;
+    background-color: transparent;
+}
+.cart-line-left strong, .cart-line-price{
+    background-color: transparent;
+    color: #2C3E50;
 }
 
 .cart-line-right {
     display: flex;
     align-items: center;
     gap: 8px;
+    background-color: transparent;
+}
+.cart-line-right .qty{
+    background-color: transparent;
 }
 
 .qty-btn {
     width: 28px;
     height: 28px;
-    border-radius: 4px;
+    border-radius: 6px;
+    background: #85D4F5;
+    border: 1px solid #5DADE2;
+    color: #2C3E50;
+    font-weight: bold;
 }
 
 .remove-btn {
-    background: #f8d7da;
-    border: 1px solid #f5c2c7;
+    background: #FFB5C5;
+    border: 1px solid #FF85A2;
     padding: 6px 8px;
     border-radius: 6px;
+    color: #2C3E50;
+}
+.remove-btn:hover{
+    background: #FF85A2;
+    color: #fff;
 }
 
 .cart-footer {
     padding: 12px 16px;
-    border-top: 1px solid #eee;
+    border-top: 2px solid #FFB5C5;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: linear-gradient(135deg, #FFE5EC 0%, #E3F2FD 100%);
+}
+.cart-total{
+    background-color: transparent;
+    color: #2C3E50;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.cart-total span{
+    background-color: transparent;
+}
+.cart-actions{
+    background-color: transparent;
 }
 
 .clear-cart {
-    background: #eee;
+    background: #FFB5C5;
     padding: 8px 10px;
     border-radius: 6px;
+    border: 1px solid #FF85A2;
+    color: #2C3E50;
+}
+.clear-cart:hover{
+    background: #FF85A2;
+    color: #fff;
 }
 
 .checkout {
-    background: #3b1c13;
+    background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
     color: #fff;
     padding: 8px 12px;
     border-radius: 6px;
+    border: none;
+}
+.checkout:hover{
+    background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
+    transform: translateY(-2px);
 }
 
+/* Size button styles */
+.size-btn{
+    margin-right: 6px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    background: #85D4F5;
+    border: 1px solid #5DADE2;
+    color: #2C3E50;
+    font-weight: 600;
+}
+.size-btn:hover{
+    background: #5DADE2;
+    color: #fff;
+}

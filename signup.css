@@ -1,4 +1,4 @@
-/* log in form */
+/* Login/Signup form */
 #login-form
 {
     display: none;
@@ -6,16 +6,17 @@
 .form-box
 {
     width:380px;
-    height:480px;
+    height:550px;
     position:relative;
     margin:2% auto;
-    background:#d38f93; 
+    background: linear-gradient(135deg, #FFB5C5 0%, #85D4F5 100%); /* pink to blue gradient */
     padding:10px;
     overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 .button-box
 {
-    
     margin:35px auto;
     position:relative;
     display: flex;
@@ -23,35 +24,41 @@
     align-items: center;
     gap: 20px;
     border-radius: 30px;
-    background:#d38f93; 
+    background: transparent;
+    width: 240px;
 } 
-
-
 
 .toggle-btn
 {
     padding:10px 30px;
     cursor:pointer;
     background:transparent;
-    border:1;
-    border-color: transparent;
+    border:0;
     outline: none;
     position: relative;
+    color: #fff;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    z-index: 1;
+    white-space: nowrap;
 }
 
+.toggle-btn:hover{
+    color: #2C3E50;
+}
 
 #btn
 {
     top: 0;
-    left:0;
+    left: 0;
     position: absolute;
     width: 110px;
     height: 100%;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 30px;
     transition: .5s;
+    z-index: 0;
 }
-
 
 .input-group-login
 {
@@ -59,7 +66,7 @@
     position:absolute;
     width:280px;
     transition:.5s;
-    background:#d38f93; 
+    background: transparent;
 }
 .input-group-register
 {
@@ -67,7 +74,7 @@
     position:absolute;
     width:280px;
     transition:.5s;
-    background:#d38f93; 
+    background: transparent;
 }
 .input-field
 {
@@ -77,9 +84,11 @@
     border-left:0;
     border-top:0;
     border-right:0;
-    border-bottom: 1px solid #f3ebeb;
+    border-bottom: 2px solid #fff;
     outline:none;
     background: transparent;
+    color: #fff;
+    font-size: 15px;
 }
 .submit-btn
 {
@@ -88,23 +97,32 @@
     cursor: pointer;
     display: block;
     margin: auto;
-    background: #C5767B;
+    background: #fff;
     border: 0;
     outline: none;
     border-radius: 30px;
-    
+    color: #5DADE2;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+.submit-btn:hover{
+    background: #5DADE2;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 .check-box
 {
     margin: 30px 10px 34px 0;
-    background:#d38f93; 
+    background: transparent;
 }
 span
 {
-    color:#eeecec;
+    color:#fff;
     font-size:12px;
     bottom:68px;
     position:absolute;
+    background: transparent;
 }
 #login
 {
@@ -113,7 +131,7 @@ span
 #login input
 {
     color:white;
-    font-size:15;
+    font-size:15px;
 }
 #register
 {
@@ -122,8 +140,31 @@ span
 #register input
 {
     color:white;
-    font-size: 15;
+    font-size: 15px;
 }
 input::placeholder {
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Success Modal Styling */
+#successModal {
+    background: transparent;
+}
+#successModal .cart-panel {
+    background: linear-gradient(135deg, #FFE5EC 0%, #E3F2FD 100%);
+    border: 3px solid #FFB5C5;
+}
+#successModal h2, #successModal p {
+    background: transparent;
+    color: #2C3E50;
+}
+
+/* Error message styling */
+#errorMessage {
+    background: #FF6B9D;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    text-align: center;
 }
