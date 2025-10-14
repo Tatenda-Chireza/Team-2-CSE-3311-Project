@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "stripe": "^19.1.0"
+  },
+  "name": "team-2-cse-3311-project",
+  "version": "1.0.0",
+  "description": "Create a website for existing ice cream shop, Iceland Ice Cream. The goal is to enhance user experience through interactive and easy to use menu, efficient online ordering, and fast contact with store owner. How to Run: Pull github repository and run on VS Code. Use Live Server extension to view.",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

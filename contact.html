@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"> <!-- Set character encoding -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design -->
+  <title>Contact Us - Iceland Ice Cream</title> <!-- Page title -->
+  <link rel="stylesheet" href="style.css"> <!-- External stylesheet -->
+
+  <style>
+    /* Main container for the contact page */
+    .contact-container {
+      max-width: 1100px; /* Limits width */
+      margin: 2rem auto; /* Center horizontally with top/bottom margin */
+      padding: 2rem; /* Inner padding */
+    }
+
+    /* Hero section at the top of the contact page */
+    .contact-hero {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .contact-hero h1 {
+      font-size: 3.5rem; /* Large heading */
+      color: #FF6B9D; /* Pink color */
+      margin-bottom: 1rem;
+    }
+
+    .contact-hero p {
+      font-size: 1.2rem;
+      color: #2C3E50; /* Dark blue-gray text */
+    }
+
+    /* Grid layout for form and contact info side by side */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal columns */
+      gap: 3rem; /* Space between columns */
+      margin-top: 2rem;
+    }
+
+    /* Contact form styling */
+    .contact-form {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 20px; /* Rounded corners */
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1); /* Soft shadow */
+      border: 3px solid #FFB5C5; /* Pink border */
+    }
+
+    .contact-form h2 {
+      color: #FF6B9D;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block; /* Each label on its own line */
+      color: #2C3E50;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%; /* Full width input fields */
+      padding: 12px;
+      border: 2px solid #FFB5C5;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s ease; /* Smooth focus effect */
+      background: #FFF5F7;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none; /* Remove default outline */
+      border-color: #5DADE2; /* Change border color on focus */
+    }
+
+    .form-group textarea {
+      resize: vertical; /* Allow vertical resizing */
+      min-height: 120px;
+    }
+
+    /* Submit button styling */
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
+      transform: translateY(-2px); /* Slight lift effect */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Shadow on hover */
+    }
+
+    /* Contact info section */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .info-card {
+      background: linear-gradient(135deg, #FFE5EC 0%, #E3F2FD 100%);
+      padding: 2rem;
+      border-radius: 15px;
+      border: 2px solid #FFB5C5;
+    }
+
+    .info-card h3 {
+      color: #FF6B9D;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-card p {
+      color: #2C3E50;
+      line-height: 1.8;
+    }
+
+    .info-icon {
+      font-size: 1.5rem;
+    }
+
+    /* Hours grid layout */
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two columns for days & times */
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .hours-item {
+      display: flex;
+      justify-content: space-between; /* Space between day and time */
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 8px;
+    }
+
+    /* Map container */
+    .map-container {
+      margin-top: 3rem;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      border: 3px solid #FFB5C5;
+      text-align: center;
+    }
+
+    .map-placeholder {
+      background: linear-gradient(135deg, #FFB5C5 0%, #85D4F5 100%);
+      height: 300px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr; /* Stack form & info vertically */
+      }
+      .contact-hero h1 {
+        font-size: 2.5rem; /* Smaller heading */
+      }
+      .hours-grid {
+        grid-template-columns: 1fr; /* Stack hours vertically */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with logo and navigation -->
+  <header>
+    <a href="index.html" class="logo-link">
+      <img class="logo" src="./img/LOGO.png" alt="Logo">
+      <span>ICELAND ICE CREAM</span>
+    </a>
+    <nav>
+      <ul class="nav_links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="signupbtn" href="signup.html">Sign up</a>
+  </header>
+
+  <!-- Main content container -->
+  <div class="contact-container">
+    <!-- Hero section -->
+    <div class="contact-hero">
+      <h1>📞 Get in Touch</h1>
+      <p>We'd love to hear from you! Reach out with any questions or feedback.</p>
+    </div>
+
+    <!-- Grid for form and contact info -->
+    <div class="contact-grid">
+      <!-- Contact form -->
+      <div class="contact-form">
+        <h2>Send us a Message</h2>
+        <form id="contactForm">
+          <!-- Name input -->
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="John Doe">
+          </div>
+          <!-- Email input -->
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="john@example.com">
+          </div>
+          <!-- Subject input -->
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required placeholder="How can we help?">
+          </div>
+          <!-- Message textarea -->
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Tell us more..."></textarea>
+          </div>
+          <!-- Submit button -->
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Contact info cards -->
+      <div class="contact-info">
+        <!-- Location info -->
+        <div class="info-card">
+          <h3><span class="info-icon">📍</span> Location</h3>
+          <p>123 Sweet Street<br>Ice Cream City, IC 12345<br>United States</p>
+        </div>
+        <!-- Email & phone -->
+        <div class="info-card">
+          <h3><span class="info-icon">📧</span> Email & Phone</h3>
+          <p><strong>Email:</strong> hello@icelandicecream.com<br>
+          <strong>Phone:</strong> (555) 123-4567<br>
+          <strong>Catering:</strong> catering@icelandicecream.com</p>
+        </div>
+        <!-- Opening hours -->
+        <div class="info-card">
+          <h3><span class="info-icon">🕒</span> Hours</h3>
+          <div class="hours-grid">
+            <div class="hours-item">
+              <span>Monday - Thursday</span>
+              <span>11am - 9pm</span>
+            </div>
+            <div class="hours-item">
+              <span>Friday - Saturday</span>
+              <span>11am - 10pm</span>
+            </div>
+            <div class="hours-item">
+              <span>Sunday</span>
+              <span>12pm - 8pm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map placeholder section -->
+    <div class="map-container">
+      <h2>📍 Find Us</h2>
+      <div class="map-placeholder">🗺️</div>
+      <p style="margin-top: 1rem; color: #666;">Visit us at our location for the best ice cream experience!</p>
+    </div>
+  </div>
+
+  <!-- JavaScript for form submission -->
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent default page reload
+
+      // Get input values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+
+      // Show alert to user
+      alert(`Thank you, ${name}! Your message has been received. We'll get back to you soon at ${email}.`);
+
+      // Reset form fields
+      this.reset();
+
+      // Log data to console (replace with server request in real app)
+      console.log('Form submitted:', { name, email, subject, message });
+    });
+  </script>
+</body>
+</html>

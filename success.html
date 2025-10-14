@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Success - Iceland Ice Cream</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .success-container {
+      max-width: 600px;
+      margin: 4rem auto;
+      padding: 3rem;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .success-container * {
+      background: transparent;
+    }
+    .success-icon {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+    }
+    .success-title {
+      color: #FF6B9D;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .success-message {
+      color: #2C3E50;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    .success-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      padding: 15px 35px;
+      background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+    .btn-secondary {
+      padding: 15px 35px;
+      background: #85D4F5;
+      color: #2C3E50;
+      border: 2px solid #5DADE2;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .btn-secondary:hover {
+      background: #5DADE2;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .order-details {
+      background: linear-gradient(135deg, #FFE5EC 0%, #E3F2FD 100%);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin: 2rem 0;
+      border: 2px solid #FFB5C5;
+    }
+    .order-details h3 {
+      color: #2C3E50;
+      margin-bottom: 0.5rem;
+    }
+    .order-details p {
+      color: #666;
+      margin: 0.3rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo-link">
+      <img class="logo" src="./img/LOGO.png" alt="Logo">
+      <span>ICELAND ICE CREAM</span>
+    </a>
+    <nav>
+      <ul class="nav_links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="signupbtn" href="signup.html">Sign up</a>
+  </header>
+
+  <div class="success-container">
+    <div class="success-icon">🎉</div>
+    <h1 class="success-title">Payment Successful!</h1>
+    <p class="success-message">
+      Thank you for your order! Your delicious ice cream is being prepared and will be ready soon.
+    </p>
+    
+    <div class="order-details">
+      <h3>What's Next?</h3>
+      <p>✅ Payment confirmed</p>
+      <p>🍦 Order is being prepared</p>
+      <p>📧 Confirmation email sent</p>
+    </div>
+
+    <div class="success-buttons">
+      <a href="menu.html" class="btn-primary">Order More</a>
+      <a href="index.html" class="btn-secondary">Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    // Clear cart on success
+    localStorage.removeItem('site_cart_v1');
+  </script>
+</body>
+</html>
