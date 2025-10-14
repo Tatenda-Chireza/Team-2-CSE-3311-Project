@@ -140,6 +140,10 @@ section{
   transform: translateY(-2px);
 }
 
+h1 {
+  text-align: center;
+}
+
 /* Menu grid styles */
 .menu-grid{
         display: grid;
@@ -147,6 +151,8 @@ section{
         gap: 1.25rem;
         margin-top: 1rem;
 }
+
+
 
 /* Image-focused card styles with your color palette */
 .menu-card{
@@ -165,7 +171,7 @@ section{
         box-shadow: 0 18px 48px rgba(0,0,0,0.12);
 }
 .menu-card .thumb{
-        height: 170px;
+        aspect-ratio: 1/1;
         background-size: cover;
         background-position: center;
         flex-shrink: 0;
@@ -402,3 +408,386 @@ section{
     background: #5DADE2;
     color: #fff;
 }
+
+/* ================================
+   BYO: page layout + switches
+   ================================ */
+ 
+.byo-wrap {
+  padding: 2rem 9%;
+}
+ 
+.byo-title {
+  color: #3b1c13;
+  margin: 0 0 1rem 0;
+}
+ 
+.switch-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 1rem 0 2rem;
+}
+ 
+.switch-btn {
+  padding: 10px 16px;
+  border: 1px solid #5DADE2;
+  border-radius: 999px;
+  background: transparent;
+  color: #3b1c13;
+  text-decoration: none;
+  transition: 0.2s;
+}
+ 
+.switch-btn:hover,
+.switch-btn.active {
+  background:#5DADE2;
+  color: #fff;
+}
+ 
+ 
+/* ================================
+   BYO: base flavor grid + cards
+   ================================ */
+ 
+.flavor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+}
+ 
+.flavor-card {
+  background: #fff;
+  border: 2px solid #c9858a;
+  border-radius: 16px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+ 
+.flavor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+ 
+.flavor-card img {
+  width: 100%;
+  display: block;            /* removes baseline gap under images */
+  border-radius: 12px;
+}
+ 
+.modal-header img {
+  width: 100%;
+  display: block;            
+  border-radius: 50px;
+}
+ 
+.flavor-name {
+  font-weight: 700;
+  margin: 8px 0 2px;
+  color: #3b1c13;
+}
+ 
+.flavor-meta {
+  color: #2f3030;
+  font-size: 0.9rem;
+}
+ 
+ 
+/* ================================
+   BYO: modal (panel fixed shape)
+   ================================ */
+ 
+.modal[hidden] {
+  display: none;
+}
+ 
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 16px;        /* gutter on small screens */
+}
+ 
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+ 
+.modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+  background: #fff;
+  color: #111827;
+  border-radius: 16px;
+  border: 2px solid #ffffff; /* thin outer white border */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;          /* keep panel within viewport */
+  padding: 10px;
+  overflow: hidden;          /* clip inner edges so no white “ring” while scrolling */
+}
+ 
+.modal-close {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  font-size: 28px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+ 
+.modal-header {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  /* no border-bottom here to avoid a line under the image */
+}
+ 
+.modal-header img {
+  width: 100%;
+  display: block;            /* removes stray line under header image */
+  border-radius: 12px;
+}
+ 
+.modal-title {
+  margin: 0 0 6px 0;
+}
+ 
+.modal-desc {
+  margin: 0;
+  color: #2f3030;
+}
+ 
+/* Only the content between header/footer scrolls */
+.modal-scroll {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 0;                /* no inner gutter (prevents inner “white border”) */
+  -webkit-overflow-scrolling: touch;
+}
+ 
+.modal-section {
+  padding: 12px 20px;
+  border-top: 1px solid #f2f2f2;
+}
+ 
+.modal-section:first-child {
+  border-top: none;
+}
+ 
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+  margin-top: 16px;
+}
+ 
+ 
+/* ================================
+   BYO: options + controls
+   ================================ */
+ 
+.option-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+ 
+.opt-btn {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 2px solid #5DADE2;
+  background: transparent;
+  cursor: pointer;
+}
+ 
+.opt-btn[aria-pressed="true"] {
+  border-color: #3b1c13;
+  background: #5DADE2;
+}
+ 
+.toppings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+ 
+.top-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+ 
+.top-card img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 999px;
+}
+ 
+.top-name {
+  font-size: 0.9rem;
+}
+ 
+.top-price {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+ 
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+ 
+.qty-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #c9858a;
+  background: #fff;
+  cursor: pointer;
+}
+ 
+.add-btn {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1;
+  /* background: linear-gradient(90deg,#C5767B,#A33F45); */
+  background: transparent;
+  color: #211e1e;
+  font-weight: 600;
+  cursor: pointer;
+}
+ 
+.price {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+ 
+ 
+/* ================================
+   BYO: notes
+   ================================ */
+ 
+.note-wrap {
+  margin-top: 12px;
+}
+ 
+.note-label {
+  font-weight: 600;
+  color: #3b1c13;
+  display: block;
+  margin-bottom: 6px;
+}
+ 
+.note-textarea {
+  width: 100%;
+  min-height: 84px;
+  resize: vertical;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font: inherit;
+  background: #fff;
+}
+ 
+.note-textarea:focus {
+  outline: 2px solid #c9858a;
+  border-color: #c9858a;
+}
+ 
+ 
+/* ================================
+   BYO: nicer, subtle scrollbars
+   ================================ */
+ 
+.modal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+ 
+.modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+ 
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+ 
+.modal-scroll {
+  scrollbar-width: thin;                     /* Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+ 
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+ 
+.qty-btn {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  min-width: 30px;
+  text-align: center;
+}
+ 
+.qty-val {
+  min-width: 20px;
+  text-align: center;
+  display: inline-block;
+  font-weight: bold;
+}
+ 
+img {
+ 
+      border-radius: 50%; /* Rounds all corners by 10 pixels */
+ 
+}
+
+/* ================================
+   BYO: For combination description
+  ================================ */  
+.combo-info {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  background-color: #f9fafb;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-top: 8px;
+  color: #333;
+}
+
+/* ================================
+   Responsive
+   ================================ */
+ 
+@media (max-width: 780px) {
+  .modal-header {
+    grid-template-columns: 1fr;
+  }
+}
+ 

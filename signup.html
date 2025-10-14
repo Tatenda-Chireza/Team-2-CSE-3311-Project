@@ -13,7 +13,6 @@
   <header>
     <a href="index.html" class="logo-link">
       <img class="logo" src="./img/LOGO.png" alt="Logo">
-      <span>ICELAND ICE CREAM</span>
     </a>
     <nav>
       <ul class="nav_links">
@@ -39,7 +38,7 @@
 
       <!-- Login form -->
       <form id="login" class="input-group-login" onsubmit="handleLogin(event)">
-        <input type="email" name="loginEmail" class="input-field" placeholder="Email Id" required>
+        <input type="email" name="loginEmail" class="input-field" placeholder="Email" required>
         <input type="password" name="loginPassword" class="input-field" placeholder="Enter Password" required>
         <input type="checkbox" class="check-box"><span>Remember Password</span>
         <button type="submit" class="submit-btn">Log in</button>
@@ -49,7 +48,7 @@
       <form id="register" class="input-group-register" onsubmit="handleRegister(event)">
         <input type="text" name="firstName" class="input-field" placeholder="First Name" required>
         <input type="text" name="lastName" class="input-field" placeholder="Last Name" required>
-        <input type="email" name="email" class="input-field" placeholder="Email Id" required>
+        <input type="email" name="email" class="input-field" placeholder="Email" required>
         <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
         <input type="password" name="confirmPassword" class="input-field" placeholder="Confirm Password" required>
         <input type="checkbox" class="check-box" required><span>I agree to the terms and conditions</span>
@@ -59,7 +58,7 @@
   </div>
 
   <!-- Error Message -->
-  <div id="errorMessage" style="display: none; color: red; text-align: center; margin-top: 10px;"></div>
+  <div id="errorMessage" style="display: none; color: black; text-align: center; margin-top: 10px;"></div>
 
   <!-- Success Modal -->
   <div id="successModal" style="display: none; position: fixed; top: 0; left: 0; 
