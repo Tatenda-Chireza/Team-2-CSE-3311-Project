@@ -137,6 +137,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Header with logo and navigation links -->
   <header>
@@ -152,7 +153,8 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
-    <a class="signupbtn" href="signup.html">Sign up</a>
+    <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
+    <button id="logoutBtn" style="display: none;">Log out</button>
   </header>
 
   <!-- Main content container -->
@@ -208,5 +210,7 @@
       <a href="menu.html" class="btn" style="margin-top: 1rem;">Explore Our Menu</a>
     </div>
   </div>
+  <!-- Link authentication  -->
+  <script type="module" src="auth.js"></script>
 </body>
 </html>

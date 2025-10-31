@@ -1,18 +1,28 @@
 {
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "stripe": "^19.1.0"
-  },
   "name": "team-2-cse-3311-project",
   "version": "1.0.0",
-  "description": "Create a website for existing ice cream shop, Iceland Ice Cream. The goal is to enhance user experience through interactive and easy to use menu, efficient online ordering, and fast contact with store owner. How to Run: Pull github repository and run on VS Code. Use Live Server extension to view.",
+  "description": "Create a website for existing ice cream shop, Iceland Ice Cream. The goal is to enhance user experience through interactive and easy to use menu, efficient online ordering, and fast contact with store owner.\r How to Run: Pull github repository and run on VS Code. Use Live Server extension to view.",
   "main": "App.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tatenda-Chireza/Team-2-CSE-3311-Project.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tatenda-Chireza/Team-2-CSE-3311-Project/issues"
+  },
+  "homepage": "https://github.com/Tatenda-Chireza/Team-2-CSE-3311-Project#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "eslint": "^9.38.0",
+    "globals": "^16.4.0",
+    "google-closure-compiler": "^20251021.0.0"
+  }
 }

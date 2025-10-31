@@ -262,6 +262,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <a href="index.html" class="logo-link">
@@ -276,7 +277,8 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
-    <a class="signupbtn" href="signup.html">Sign up</a>
+    <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
+    <button id="logoutBtn" style="display: none;">Log out</button>
   </header>
 
   <div class="checkout-container" id="checkoutContainer">
@@ -488,5 +490,8 @@
     // Load cart on page load
     loadCartData();
   </script>
+
+  <!-- Link authentication  -->
+  <script type="module" src="auth.js"></script>
 </body>
 </html>

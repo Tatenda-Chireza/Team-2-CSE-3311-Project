@@ -189,6 +189,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Header with logo and navigation -->
   <header>
@@ -204,7 +205,8 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
-    <a class="signupbtn" href="signup.html">Sign up</a>
+    <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
+    <button id="logoutBtn" style="display: none;">Log out</button>
   </header>
 
   <!-- Main content container -->
@@ -306,5 +308,8 @@
       console.log('Form submitted:', { name, email, subject, message });
     });
   </script>
+
+  <!-- Link authentication  -->
+  <script type="module" src="auth.js"></script>
 </body>
 </html>

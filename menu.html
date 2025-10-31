@@ -15,6 +15,7 @@
       .size-btn{margin-right:6px; padding:6px 8px; border-radius:6px}
     </style>
   </head>
+
   <body>
     <header>
       <a href="index.html" class="logo-link">
@@ -30,7 +31,8 @@
         </ul>
       </nav>
     <button id="cartBtn" class="cart-btn">Cart (<span id="cartCount">0</span>)</button>
-    <a class="signupbtn" href="signup.html">Sign up</a>
+    <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
+    <button id="logoutBtn" style="display: none;">Log out</button>
     </header>
 
     <main style="padding: 2rem 9%;">
@@ -216,6 +218,9 @@
     </div>
 
     <script src="menu.js" defer></script>
+
+  <!-- Link authentication  -->
+  <script type="module" src="auth.js"></script>
 
   </body>
   </html>

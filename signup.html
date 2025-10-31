@@ -4,66 +4,158 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up Page</title>
+
+  <!-- Shared styles -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="signup.css">
+
+  <!-- Your old global JS. This still has UI functions you might be using elsewhere. -->
   <script src="App.js" defer></script>
 </head>
-<body>
 
+<body>
+  <!-- ===========================
+       HEADER / NAV BAR
+       =========================== -->
   <header>
     <a href="index.html" class="logo-link">
       <img class="logo" src="./img/LOGO.png" alt="Logo">
     </a>
+
     <nav>
       <ul class="nav_links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="#">Menu</a></li>
+        <!-- Menu currently links to # in your version. You can point this to menu.html if desired. -->
+        <li><a href="menu.html">Menu</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
 
-    <!-- ✅ NEW: added id for dynamic update -->
-    <button id="signupBtn" class="signupbtn" onclick="openModal()" style="width: auto;">Sign up</button>
+    <!-- signupBtn:
+         This button text will be changed by auth.js ("Sign up" -> "Hi, Name")
+         We KEEP onclick="openModal()" here so clicking it on this page still opens the modal.
+         On other pages, signupBtn is usually an <a href="signup.html">Sign up</a> instead. -->
+    <div class="buttons">
+      <button
+        id="signupBtn"
+        class="signupbtn"
+        onclick="openModal()"
+        style="width: auto;">
+        Sign up
+      </button>
+
+      <!-- logoutBtn:
+           Hidden by default. auth.js will unhide it if the user is logged in
+           and will wire it to signOut(). -->
+      <button id="logoutBtn" style="display:none;">Log out</button>
+    </div>
   </header>
 
-  <!-- Login/Register Modal -->
+  <!-- ===========================
+       LOGIN / REGISTER MODAL
+       =========================== -->
   <div id="login-form" class="login-page">
     <div class="form-box">
+
+      <!-- Toggle buttons for switching views -->
       <div class="button-box">
         <div id="btn"></div>
         <button type="button" onclick="login()" class="toggle-btn">Log In</button>
         <button type="button" onclick="register()" class="toggle-btn">Register</button>
       </div>
 
-      <!-- Login form -->
-      <form id="login" class="input-group-login" onsubmit="handleLogin(event)">
-        <input type="email" name="loginEmail" class="input-field" placeholder="Email" required>
-        <input type="password" name="loginPassword" class="input-field" placeholder="Enter Password" required>
+      <!--
+        IMPORTANT CHANGE:
+        We REMOVED onsubmit="handleLogin(event)" from this <form>.
+        That old inline handler was your demo logic that always said "login success"
+        even with bad credentials, then redirected.
+        Now the Firebase code (further down) will attach the real submit listener.
+      -->
+      <form id="login" class="input-group-login">
+        <input
+          type="email"
+          name="loginEmail"
+          class="input-field"
+          placeholder="Email"
+          required
+        >
+        <input
+          type="password"
+          name="loginPassword"
+          class="input-field"
+          placeholder="Enter Password"
+          required
+        >
         <input type="checkbox" class="check-box"><span>Remember Password</span>
         <button type="submit" class="submit-btn">Log in</button>
       </form>
 
-      <!-- Register form -->
-      <form id="register" class="input-group-register" onsubmit="handleRegister(event)">
-        <input type="text" name="firstName" class="input-field" placeholder="First Name" required>
-        <input type="text" name="lastName" class="input-field" placeholder="Last Name" required>
-        <input type="email" name="email" class="input-field" placeholder="Email" required>
-        <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
-        <input type="password" name="confirmPassword" class="input-field" placeholder="Confirm Password" required>
-        <input type="checkbox" class="check-box" required><span>I agree to the terms and conditions</span>
+      <!--
+        Same idea here:
+        We REMOVED onsubmit="handleRegister(event)" from this <form>.
+        That old inline handler always "succeeded" and redirected.
+        Now Firebase's createUserWithEmailAndPassword will run instead.
+      -->
+      <form id="register" class="input-group-register">
+        <input
+          type="text"
+          name="firstName"
+          class="input-field"
+          placeholder="First Name"
+          required
+        >
+        <input
+          type="text"
+          name="lastName"
+          class="input-field"
+          placeholder="Last Name"
+          required
+        >
+        <input
+          type="email"
+          name="email"
+          class="input-field"
+          placeholder="Email"
+          required
+        >
+        <input
+          type="password"
+          name="password"
+          class="input-field"
+          placeholder="Enter Password"
+          required
+        >
+        <input
+          type="password"
+          name="confirmPassword"
+          class="input-field"
+          placeholder="Confirm Password"
+          required
+        >
+        <input type="checkbox" class="check-box" required>
+        <span>I agree to the terms and conditions</span>
+
         <button type="submit" class="submit-btn">Register</button>
       </form>
     </div>
   </div>
 
-  <!-- Error Message -->
-  <div id="errorMessage" style="display: none; color: black; text-align: center; margin-top: 10px;"></div>
+  <!-- This area can be used to show inline auth errors if you want -->
+  <div
+    id="errorMessage"
+    style="display: none; color: black; text-align: center; margin-top: 10px;">
+  </div>
 
-  <!-- Success Modal -->
-  <div id="successModal" style="display: none; position: fixed; top: 0; left: 0; 
- width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); 
- justify-content: center; align-items: center; z-index: 1000;">
+  <!-- Success overlay modal.
+       You were using this in the original demo for "success".
+       We are leaving it in case you still want to show success manually,
+       but our Firebase flow now redirects directly instead of showing this. -->
+  <div
+    id="successModal"
+    style="display: none; position: fixed; top: 0; left: 0;
+           width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);
+           justify-content: center; align-items: center; z-index: 1000;">
     <div style="background: white; padding: 20px; text-align: center;">
       <h2 id="successTitle"></h2>
       <p id="successMessage"></p>
@@ -71,38 +163,204 @@
     </div>
   </div>
 
-  <!-- ✅ NEW: JS functions for modal and toggle -->
+  <!-- ===========================
+       MODAL / TAB TOGGLE LOGIC
+       (non-module script)
+       =========================== -->
   <script>
+    // Cache modal root for open/close behavior
     const modal = document.getElementById('login-form');
 
-    function openModal() { 
+    // Show the modal
+    function openModal() {
       modal.style.display = 'block';
       document.body.style.overflow = 'hidden'; // prevent background scroll
     }
 
-    window.onclick = function(event) {
-      if (event.target === modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
+    // Hide the modal
+    function closeModal() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
     }
 
+    // Close modal if user clicks outside the popup box
+    window.addEventListener('click', function (event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Get the form containers and the highlight bar
     var x = document.getElementById('login');
     var y = document.getElementById('register');
     var z = document.getElementById('btn');
 
+    // Slide UI to "Register" form
     function register() {
       x.style.left = '-400px';
       y.style.left = '50px';
       z.style.left = '110px';
     }
 
+    // Slide UI to "Login" form
     function login() {
       x.style.left = '50px';
       y.style.left = '450px';
       z.style.left = '0px';
     }
+
+    // OPTIONAL: This was in your file.
+    // Auto-open the modal as soon as the page loads so users
+    // do not have to click twice.
+    window.addEventListener('DOMContentLoaded', () => {
+      // You can force which tab shows first by calling login() or register() here.
+      // login();
+      // register();
+
+      openModal();
+    });
+
+    // These were your old handlers that always "succeeded."
+    // We redefine them as NO-OP so they do nothing.
+    // We keep them only so there are no reference errors if something in HTML still calls them.
+    function handleLogin(e) {
+      if (e) e.preventDefault();
+      // Intentionally empty. Firebase login handler will run instead.
+    }
+    function handleRegister(e) {
+      if (e) e.preventDefault();
+      // Intentionally empty. Firebase register handler will run instead.
+    }
+
+    // If you still want to use successModal manually, keep this:
+    function closeSuccessModal() {
+      document.getElementById('successModal').style.display = 'none';
+    }
   </script>
 
+  <!-- ===========================
+       FIREBASE AUTH LOGIC
+       This script:
+       1. Hooks into the login and register forms.
+       2. Talks to Firebase Auth.
+       3. Redirects to menu.html ONLY on success.
+       4. Shows a readable error on failure.
+       =========================== -->
+  <script type="module">
+    import { auth } from "./auth.js";
+    import {
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+    // Grab the forms by their actual IDs in your markup
+    const loginForm    = document.getElementById("login");
+    const registerForm = document.getElementById("register");
+
+    // Helper: pull a field's value by [name="..."] inside the given form
+    const byName = (form, name) =>
+      form?.querySelector(`[name="${name}"]`)?.value?.trim() || "";
+
+    // Turn Firebase error codes into human-friendly messages
+    function readableAuthError(err) {
+      switch (err?.code) {
+        case "auth/user-not-found":
+          return "No account exists for that email.";
+        case "auth/wrong-password":
+          return "Incorrect password. Please try again.";
+        case "auth/invalid-credential":
+          return "Invalid email or password.";
+        case "auth/weak-password":
+          return "Password must be at least 6 characters.";
+        case "auth/email-already-in-use":
+          return "That email is already registered.";
+        case "auth/invalid-email":
+          return "Please enter a valid email address.";
+        default:
+          return err?.message || "Authentication error. Please try again.";
+      }
+    }
+
+    // LOGIN SUBMIT HANDLER (Log In tab)
+    if (loginForm) {
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email    = byName(loginForm, "loginEmail");
+        const password = byName(loginForm, "loginPassword");
+
+        try {
+          // Ask Firebase to sign in with email/password
+          await signInWithEmailAndPassword(auth, email, password);
+
+          // SUCCESS ONLY:
+          // If we get here, credentials were valid.
+          // Close modal (so user doesn't see it flash on next page load)
+          closeModal();
+
+          // Go to menu.html (your desired redirect target)
+          window.location.href = "menu.html";
+
+        } catch (err) {
+          // FAILURE ONLY:
+          // Show error text in an alert, stay on the same page/modal.
+          alert(readableAuthError(err));
+
+          // IMPORTANT: we DO NOT redirect here.
+          return;
+        }
+      });
+    }
+
+    // REGISTER SUBMIT HANDLER (Register tab)
+    if (registerForm) {
+      registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const firstName        = byName(registerForm, "firstName");
+        const email            = byName(registerForm, "email");
+        const password         = byName(registerForm, "password");
+        const confirmPassword  = byName(registerForm, "confirmPassword");
+
+        // Simple client-side password match check
+        if (password !== confirmPassword) {
+          alert("Passwords do not match. Please re-enter.");
+          return;
+        }
+
+        try {
+          // Create the account in Firebase
+          const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+          // Set Firebase displayName so header can say "Hi, <firstName>"
+          if (firstName) {
+            await updateProfile(cred.user, { displayName: firstName });
+          }
+
+          // SUCCESS ONLY:
+          closeModal();
+          window.location.href = "menu.html";
+
+        } catch (err) {
+          // FAILURE ONLY:
+          alert(readableAuthError(err));
+          return;
+        }
+      });
+    }
+  </script>
+
+  <!-- ===========================
+       auth.js:
+       - Initializes Firebase with your project keys
+       - Watches login state (onAuthStateChanged)
+       - Updates #signupBtn text ("Sign up" -> "Hi, Name")
+       - Shows / hides #logoutBtn
+       - Handles logout click
+       MAKE SURE every page that has the header includes this line
+       *at the END of <body>* like this.
+       =========================== -->
+  <script type="module" src="auth.js"></script>
 </body>
 </html>

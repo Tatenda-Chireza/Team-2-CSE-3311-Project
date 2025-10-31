@@ -4,6 +4,7 @@
   <title>Build Your Own</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <!-- Header -->
   <header>
@@ -20,7 +21,8 @@
       </ul>
     </nav>
     <button id="cartBtn" class="cart-btn">Cart (<span id="cartCount">0</span>)</button>
-    <a class="signupbtn" href="signup.html">Sign up</a>
+    <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
+    <button id="logoutBtn" style="display: none;">Log out</button>
   </header>
 
   <main class="byo-wrap">
@@ -118,6 +120,9 @@
   <!-- Scripts: menu.js should define addToCart(), openCart(), etc. -->
   <script src="menu.js"></script>
   <script src="build.js"></script>
+
+  <!-- Link authentication  -->
+  <script type="module" src="auth.js"></script>
 
 
 </body></html>
