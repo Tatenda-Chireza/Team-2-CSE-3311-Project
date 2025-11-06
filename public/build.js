@@ -6,15 +6,15 @@
 
 // Array of base flavor options with metadata (id, name, image path, description with calories)
 const BASE_FLAVORS = [
-  { id:'original',  name:'Original (Vanilla)', img:'img/original.jpeg',  desc:'Classic vanilla base. Calories: 415' },
-  { id:'df-vanilla',name:'Dairy Free (Vanilla)', img:'img/dairyfree.jpeg',  desc:'Dairy-free vanilla (Almond Milk). Calories: 250' },
-  { id:'chocolate', name:'Chocolate', img:'img/chocolate.jpeg',  desc:'Rich chocolate. Calories: 450' },
-  { id:'mango',     name:'Mango', img:'img/mango.jpeg',  desc:'Tropical mango. Calories: 300' },
-  { id:'green-tea', name:'Green Tea', img:'img/greentea.jpeg',  desc:'Matcha-style. Calories: 315' },
-  { id:'thai-tea',  name:'Thai Tea', img:'img/thaitea.jpeg',  desc:'Spiced tea flavor. Calories: 350' },
-  { id:'taro',      name:'Taro', img:'img/taro.jpeg',  desc:'Creamy taro. Calories: 420' },
-  { id:'milk-tea',  name:'Milk Tea', img:'img/milktea.jpeg',  desc:'Milk tea base. Calories: 300' },
-  { id:'coffee',    name:'Coffee', img:'img/coffee.jpeg',  desc:'Coffee kick. Calories: 415' }
+  { id:'original',  name:'Original (Vanilla)', img:'/img/original.jpeg',  desc:'Classic vanilla base. Calories: 415' },
+  { id:'df-vanilla',name:'Dairy Free (Vanilla)', img:'/img/dairyfree.jpeg',  desc:'Dairy-free vanilla (Almond Milk). Calories: 250' },
+  { id:'chocolate', name:'Chocolate', img:'/img/chocolate.jpeg',  desc:'Rich chocolate. Calories: 450' },
+  { id:'mango',     name:'Mango', img:'/img/mango.jpeg',  desc:'Tropical mango. Calories: 300' },
+  { id:'green-tea', name:'Green Tea', img:'/img/greentea.jpeg',  desc:'Matcha-style. Calories: 315' },
+  { id:'thai-tea',  name:'Thai Tea', img:'/img/thaitea.jpeg',  desc:'Spiced tea flavor. Calories: 350' },
+  { id:'taro',      name:'Taro', img:'/img/taro.jpeg',  desc:'Creamy taro. Calories: 420' },
+  { id:'milk-tea',  name:'Milk Tea', img:'/img/milktea.jpeg',  desc:'Milk tea base. Calories: 300' },
+  { id:'coffee',    name:'Coffee', img:'/img/coffee.jpeg',  desc:'Coffee kick. Calories: 415' }
 ];
 
 // Available cup sizes with pricing
