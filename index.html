@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Home Page</title>
-  <link rel="stylesheet" href = "style.css">
-  <!-- <script src="App.js"></script> -->
-  
-
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
   <!-- Navbar -->
   <header>
+    <!-- Logo and brand name link - clicking returns user to home page -->
     <a href="index.html" class="logo-link">
       <img class="logo" src="./img/LOGO.png" alt="Logo">
       <span>ICELAND ICE CREAM</span>
     </a>
+    
+    <!-- Main navigation menu -->
     <nav>
       <ul class="nav_links">
         <li><a href="index.html">Home</a></li>
@@ -26,21 +26,112 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
+    
+    <!-- Authentication buttons - visibility toggled by auth.js -->
     <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
     <button id="logoutBtn" style="display: none;">Log out</button>
   </header>
-  
 
-  <!-- Home page -->
-   <section class="home" id="home">
+  <!-- Home section -->
+  <section class="home" id="home">
     <div class="content">
+      <!-- Hero content with brand name and tagline -->
       <h3>ICELAND ICE CREAM</h3>
       <span>Make your day great with a sweet treat!<br></span>
-      <a href="#" class="btn">Book Catering</a>
+      <!-- Button to open catering booking modal -->
+      <button class="btn" id="openCatering">Book Catering</button>
     </div>
    </section>
   
-   <!-- Link authentication  -->
+   <!-- Link authentication script for handling user login/logout state -->
   <script type="module" src="auth.js"></script>
+  </section>
+
+  <!-- Catering Modal (v2 UI) -->
+  <!-- Modal overlay and container - hidden by default, shown when user clicks "Book Catering" -->
+  <div class="cater-modal" id="cateringModal" aria-hidden="true">
+    <!-- Dark overlay background for modal -->
+    <div class="cater-overlay" id="cateringOverlay" tabindex="-1"></div>
+
+    <!-- Main modal content container with animation -->
+    <div class="cater-content cater-animate" role="dialog" aria-modal="true" aria-labelledby="cateringTitle">
+      <!-- Close button (X) in top corner -->
+      <button class="cater-close" id="closeCatering" aria-label="Close">×</button>
+
+      <!-- Modal header with icon, title, and description -->
+      <div class="cater-hero">
+        <div class="cater-hero-badge">🍦 Catering</div>
+        <h2 id="cateringTitle">Book your event</h2>
+        <p>Tell us the basics—we'll confirm details by email.</p>
+      </div>
+
+      <!-- Catering booking form -->
+      <form id="cateringForm" novalidate>
+        <div class="cater-grid v2">
+          <!-- Full name input field -->
+          <label class="cater-field">
+            <span class="cater-label">Full name</span>
+            <input type="text" name="name" placeholder="e.g., Alex Morgan" required>
+            <small class="cater-error" aria-live="polite"></small>
+          </label>
+
+          <!-- Email input field -->
+          <label class="cater-field">
+            <span class="cater-label">Email</span>
+            <input type="email" name="email" placeholder="you@example.com" required>
+            <small class="cater-error" aria-live="polite"></small>
+          </label>
+
+          <!-- Event date picker -->
+          <label class="cater-field">
+            <span class="cater-label">Event date</span>
+            <input type="date" name="date" id="eventDate" required>
+            <small class="cater-error" aria-live="polite"></small>
+          </label>
+
+          <!-- Number of guests input -->
+          <label class="cater-field">
+            <span class="cater-label">Guests</span>
+            <input type="number" name="guests" min="1" step="1" placeholder="e.g., 60" required>
+            <small class="cater-error" aria-live="polite"></small>
+          </label>
+
+          <!-- Optional notes textarea - spans full width of grid -->
+          <label class="cater-field full">
+            <span class="cater-label">Notes (optional)</span>
+            <textarea name="notes" rows="3" placeholder="Occasion, location, preferred flavors, time window…"></textarea>
+          </label>
+        </div>
+
+        <!-- Form submit button with loading spinner -->
+        <button type="submit" class="btn submit" id="caterSubmit">
+          <span class="cater-btn-text">Submit request</span>
+          <span class="cater-spinner" aria-hidden="true"></span>
+        </button>
+
+        <!-- Status message area for form feedback -->
+        <p id="cateringStatus" class="cater-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <!-- Success state - shown after successful form submission -->
+      <div class="cater-success" id="caterSuccess" hidden>
+        <!-- Success checkmark icon -->
+        <div class="cater-check">
+          <svg viewBox="0 0 24 24" width="56" height="56" aria-hidden="true">
+            <path d="M20.285 6.709a1 1 0 0 1 .006 1.414l-9.19 9.287a1 1 0 0 1-1.43.01L3.72 12.35a1 1 0 1 1 1.42-1.408l5.034 5.074 8.48-8.567a1 1 0 0 1 1.431-.01z" fill="currentColor"/>
+          </svg>
+        </div>
+        <!-- Success message -->
+        <h3>Request received!</h3>
+        <p>We'll email you soon to confirm details and finalize flavors. 💌</p>
+        <!-- Button to close modal and return to home -->
+        <button class="btn" id="caterDone">Back to home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Catering modal functionality (open/close, form validation, submission) -->
+  <script src="catering.js"></script>
 </body>
 </html>

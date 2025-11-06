@@ -1,8 +1,12 @@
 /* Login/Signup form */
+
+/* Initially hide the login form container */
 #login-form
 {
     display: none;
 }
+
+/* Main container for the login/signup form */
 .form-box
 {
     width:380px;
@@ -15,6 +19,8 @@
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
+
+/* Container for the toggle buttons (Login/Sign Up) */
 .button-box
 {
     margin:35px auto;
@@ -28,6 +34,7 @@
     width: 240px;
 } 
 
+/* Individual toggle button styling (Login and Sign Up buttons) */
 .toggle-btn
 {
     padding:10px 30px;
@@ -43,11 +50,12 @@
     white-space: nowrap;
 }
 
+/* Hover effect for toggle buttons */
 .toggle-btn:hover{
     color: #2C3E50;
 }
 
-
+/* Sliding background indicator for active toggle button */
 #btn
 {
     top: 0;
@@ -60,6 +68,7 @@
     transition: .5s;
 }
 
+/* Input field container for login form */
 .input-group-login
 {
     top: 150px;
@@ -68,6 +77,8 @@
     transition:.5s;
     background: transparent;
 }
+
+/* Input field container for registration form */
 .input-group-register
 {
     top: 120px;
@@ -76,6 +87,8 @@
     transition:.5s;
     background: transparent;
 }
+
+/* Styling for individual input fields (email, password, etc.) */
 .input-field
 {
     width: 100%;
@@ -90,6 +103,8 @@
     color: #fff;
     font-size: 15px;
 }
+
+/* Submit button styling (Login/Sign Up button) */
 .submit-btn
 {
     width: 85%;
@@ -105,17 +120,23 @@
     font-weight: 700;
     transition: all 0.3s ease;
 }
+
+/* Hover effect for submit button */
 .submit-btn:hover{
     background: #5DADE2;
     color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+
+/* Checkbox styling (Remember me, Terms & Conditions) */
 .check-box
 {
     margin: 30px 10px 34px 0;
     background: transparent;
 }
+
+/* Span text styling (for labels and small text) */
 span
 {
     color:#fff;
@@ -124,42 +145,60 @@ span
     position:absolute;
     background: transparent;
 }
+
+/* Login form positioning */
 #login
 {
     left:50px;
 }
+
+/* Login form input text styling */
 #login input
 {
     color:white;
     font-size:15px;
 }
+
+/* Register form positioning (off-screen initially) */
 #register
 {
     left:450px;
 }
+
+/* Register form input text styling */
 #register input
 {
     color:white;
     font-size: 15px;
 }
+
+/* Placeholder text styling for input fields */
 input::placeholder {
   color: rgba(255, 255, 255, 0.8);
 }
 
 /* Success Modal Styling */
+
+/* Success modal background */
 #successModal {
     background: transparent;
 }
+
+/* Success modal panel/card styling */
 #successModal .cart-panel {
     background: linear-gradient(135deg, #FFE5EC 0%, #E3F2FD 100%);
     border: 3px solid #FFB5C5;
 }
+
+/* Success modal text styling */
 #successModal h2, #successModal p {
     background: transparent;
     color: #2C3E50;
 }
 
 /* Error message styling */
+
+/* Error message container styling */
 #errorMessage {
     background: #FF6B9D;
     color: #fff;

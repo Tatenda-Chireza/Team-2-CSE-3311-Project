@@ -1,131 +1,104 @@
+/* ================================
+   IMPORTS & FONTS
+   ================================ */
+/* Import Google Font - Montserrat with 500 weight */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:500');
 
-*{
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        background-color: #FFE4EC; /* slightly more pink background */
+/* ================================
+   GLOBAL RESET / BASE STYLES
+   ================================ */
+/* Apply border-box sizing to all elements for easier layout calculations */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Navbar styling */
-li, a, button{
-        font-family: "Montserrat", sans-serif;
-        font-weight: 500;
-        font-size: 16px;
-        color: #2C3E50;
-        text-decoration: none;
+/* Set soft pink background for the entire page */
+html, body {
+  background-color: #FFE4EC; /* soft pink background for entire page */
 }
 
-header{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 30px 1%;
-        background-color: #FFB5C5; /* pastel pink header */
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-header *{
-        background-color: #FFB5C5;
+/* ================================
+   TYPOGRAPHY / LINKS / BUTTONS
+   ================================ */
+/* Base styling for list items, links, and buttons */
+li, a, button {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #2C3E50;
+  text-decoration: none;
 }
 
-/* Logo + text styling */
+/* Default button styling with light blue background */
+button {
+  padding: 9px 25px;
+  background-color: #85D4F5;
+  border-radius: 20px;
+  border: 2px solid #5DADE2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #2C3E50;
+}
+
+/* Button hover effect - darker blue with white text */
+button:hover { background-color: #5DADE2; color: #fff; }
+
+/* Center align all h1 headings */
+h1 { text-align: center; }
+
+/* ================================
+   HEADER / NAVBAR
+   ================================ */
+/* Main header container with flexbox layout */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 1%;
+  background-color: #FFB5C5; /* pastel pink header */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Keep header pink but make inner elements transparent */
+header { background-color: #FFB5C5; }
+header * { background-color: transparent; }
+
+/* Logo link styling with flex layout for icon + text */
 .logo-link {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 20px;
-        font-weight: bold;
-        color: #2C3E50;
-        text-decoration: none;
-}
-.logo-link span {
-        background-color: #FFB5C5;
-}
-.logo-link:hover {
-        color: #5DADE2; /* light blue on hover */
-}
-.logo{
-        cursor: pointer;
-        height: 40px;
-        width: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #2C3E50;
+  text-decoration: none;
 }
 
-.nav_links{
-        list-style: none;
-}
+/* Logo text background matches header */
+.logo-link span { background-color: #FFB5C5; }
 
-.nav_links li{
-        display: inline-block;
-        padding: 0px 20px;
-}
+/* Logo link hover effect - changes to blue */
+.logo-link:hover { color: #5DADE2; }
 
-.nav_links li a {
-        transition: all 0.3s ease 0s;
-}
+/* Logo image dimensions */
+.logo { cursor: pointer; height: 40px; width: auto; }
 
-.nav_links li a:hover{
-        color: #5DADE2; /* light blue hover */
-}
+/* Navigation links list - removes default list styling */
+.nav_links { list-style: none; }
 
-button{
-        padding: 9px 25px;
-        background-color: #85D4F5; /* sky blue buttons */
-        border-radius: 20px;
-        border: 2px solid #5DADE2;
-        cursor: pointer;
-        transition: all 0.3s ease 0s;
-        color: #2C3E50;
-}
+/* Display nav items horizontally with spacing */
+.nav_links li { display: inline-block; padding: 0 20px; }
 
-button:hover{
-        background-color: #5DADE2;
-        color: #fff;
-}
+/* Smooth transition for nav link interactions */
+.nav_links li a { transition: all 0.3s ease; }
 
-/* Home page styling */
-section{
-        padding: 2rem 9%;
-}
+/* Nav link hover effect - blue color */
+.nav_links li a:hover { color: #5DADE2; }
 
-.btn{
-        display: inline-block;
-        margin-top: 1rem;
-        border-radius: 5rem;
-        background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%); /* pink to blue gradient */
-        padding:.9rem 3.5rem;
-        cursor: pointer;
-        font-size: 1.7rem;
-        color: #fff;
-        border: none;
-}
-.btn:hover{
-        background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.home{
-        display: flex;
-        align-items: center;
-        min-height: 70vh;
-}
-
-.home .content{
-        max-width: 50rem;
-}
-
-.home .content h3{
-        font-size: 6rem;
-        color: #FF6B9D; /* vibrant pink */
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-.home .content span{
-        font-size: 3rem;
-        color: #5DADE2; /* light blue */
-}
-
-.signupbtn{
+/* Sign up button specific styling */
+.signupbtn {
   padding: 9px 25px;
   border-radius: 20px;
   border: 2px solid #5DADE2;
@@ -134,328 +107,526 @@ section{
   color: #2C3E50;
 }
 
-.signupbtn:hover{
-  background-color: #5DADE2;
+/* Sign up button hover - darker blue with lift effect */
+.signupbtn:hover { background-color: #5DADE2; color: #fff; transform: translateY(-2px); }
+
+/* ================================
+   SECTIONS / BUTTONS
+   ================================ */
+/* Standard section padding throughout the site */
+section { padding: 2rem 9%; }
+
+/* Primary call-to-action button with gradient */
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  border-radius: 5rem;
+  background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
+  padding:.9rem 3.5rem;
+  cursor: pointer;
+  font-size: 1.7rem;
   color: #fff;
+  border: none;
+}
+
+/* CTA button hover - darker gradient with shadow and lift */
+.btn:hover {
+  background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-h1 {
-  text-align: center;
+/* ================================
+   HOME SECTION
+   ================================ */
+/* Home section - hero area with flex layout */
+.home { display: flex; align-items: center; min-height: 70vh; }
+
+/* Home content container max width */
+.home .content { max-width: 50rem; }
+
+/* Main hero heading - large pink text with shadow */
+.home .content h3 {
+  font-size: 6rem;
+  color: #FF6B9D;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Menu grid styles */
-.menu-grid{
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1.25rem;
-        margin-top: 1rem;
+/* Hero subheading text - blue color */
+.home .content span { font-size: 3rem; color: #5DADE2; }
+
+/* ================================
+   MENU GRID & CARDS
+   ================================ */
+/* Responsive grid layout for menu items */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
 }
 
+/* Individual menu card styling */
+.menu-card {
+  background: #FFE4EC;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #2C3E50;
+  min-height: 360px;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
 
+/* Menu card hover - lifts up with enhanced shadow */
+.menu-card:hover { transform: translateY(-6px); box-shadow: 0 18px 48px rgba(0,0,0,0.12); }
 
-/* Image-focused card styles with your color palette */
-.menu-card{
-        background: #FFE4EC; /* light pink background */
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        color: #2C3E50; /* main text color */
-        min-height: 360px;
-        transition: transform .18s ease, box-shadow .18s ease;
+/* Menu card thumbnail image area */
+.menu-card .thumb {
+ aspect-ratio: 1/1;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
 }
-.menu-card:hover{
-        transform: translateY(-6px);
-        box-shadow: 0 18px 48px rgba(0,0,0,0.12);
+
+/* Menu card text content area */
+.menu-card .content {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
 }
-.menu-card .thumb{
-        aspect-ratio: 1/1;
-        background-size: cover;
-        background-position: center;
-        flex-shrink: 0;
+
+/* Menu card title - pink color */
+.menu-card h3 { margin: 0; font-size: 1.05rem; color: #FF6B9D; }
+
+/* Menu card description with line clamping */
+.menu-card .desc {
+  margin: 0;
+  color: #5DADE2;
+  font-size: .95rem;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1;
 }
-.menu-card .content{
-        padding: 14px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        flex-grow: 1;
-}
-.menu-card h3{
-        margin: 0;
-        font-size: 1.05rem;
-        color: #FF6B9D; /* vibrant pink */
-}
-.menu-card .desc{
-        margin: 0;
-        color: #5DADE2; /* light blue */
-        font-size: .95rem;
-        line-height: 1.35;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        flex-grow: 1;
-}
+
+/* Menu card footer - two-column layout for size options */
 .menu-card .footer{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        padding-top: 6px;
-}
-.menu-card .price{
-        color: #5DADE2; /* light blue price */
-        font-weight: 700;
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* left = small, right = regular */
+  align-items: start;
+  gap: 10px 16px;
+  padding-top: 6px;
 }
 
-/* make the existing add-cart buttons look like CTAs */
-.menu-card .add-cart{
-        background: linear-gradient(90deg, #FF85A2, #5DADE2); /* pink to blue gradient */
-        color: white;
-        border: none;
-        padding: 8px 10px;
-        border-radius: 9px;
-        cursor: pointer;
-        font-weight: 600;
+/* Vertical container for each size option (label + button) */
+.size-block{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-.menu-card .add-cart:active{ transform: translateY(1px); }
 
-/* small size buttons cluster */
-.menu-card .sizes{ display: flex; gap: 8px; }
+/* Price label for each size */
+.size-label{
+  color: #5DADE2;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
 
+/* Add-to-cart button for each size option */
+.size-block .add-cart{
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 9px;
+  border: none;
+  background: linear-gradient(90deg, #FF85A2, #5DADE2);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Active state for add-to-cart button */
+.size-block .add-cart:active { transform: translateY(1px); }
+
+/* Mobile adjustments for menu cards */
 @media (max-width:420px){
   .menu-card{ min-height: 320px; }
   .menu-card .thumb{ height: 140px; }
-}
-
-/* Cart styles */
-.cart-btn{
-        background: #85D4F5;
-        border: 2px solid #5DADE2;
-        color: #2C3E50;
-        padding: 8px 12px;
-        border-radius: 18px;
-        margin-right: .5rem;
-        font-weight: 600;
-}
-.cart-btn span{
-        background: #85D4F5;
-        color: #2C3E50;
-}
-.cart-btn:hover{
-        background: #5DADE2;
-        color: #fff;
-}
-.cart-btn:hover span{
-        background: #5DADE2;
-}
-.cart-modal{
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.4);
-        justify-content: center;
-        align-items: center;
-        z-index: 2000;
-}
-.cart-panel{
-        background: #FFE4EC;
-        width: 360px;
-        max-width: 95%;
-        border-radius: 15px;
-        padding: 0;
-        overflow: hidden;
-        border: 3px solid #FFB5C5;
-}
-.cart-header{
-        display:flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 16px;
-        border-bottom: 2px solid #FFB5C5;
-        background: linear-gradient(135deg, #FFB5C5 0%, #85D4F5 100%);
-}
-.cart-header h2{
-        background-color: transparent;
-        color: #2C3E50;
-}
-.close-cart{
-        background-color: transparent;
-        border: none;
-        font-size: 28px;
-        color: #2C3E50;
-        cursor: pointer;
-}
-.cart-items {
-    padding: 12px;
-    max-height: 60vh;
-    overflow: auto;
-    background-color: #FFE4EC;
-}
-.cart-items p{
-    background-color: transparent;
-}
-
-.cart-line {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #FFB5C5;
-    background-color: transparent;
-}
-
-.cart-line-left {
-    max-width: 55%;
-    background-color: transparent;
-}
-.cart-line-left strong, .cart-line-price{
-    background-color: transparent;
-    color: #2C3E50;
-}
-
-.cart-line-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: transparent;
-}
-.cart-line-right .qty{
-    background-color: transparent;
-}
-
-.qty-btn {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    background: #85D4F5;
-    border: 1px solid #5DADE2;
-    color: #2C3E50;
-    font-weight: bold;
-}
-
-.remove-btn {
-    background: #FFB5C5;
-    border: 1px solid #FF85A2;
-    padding: 6px 8px;
-    border-radius: 6px;
-    color: #2C3E50;
-}
-.remove-btn:hover{
-    background: #FF85A2;
-    color: #fff;
-}
-
-.cart-footer {
-    padding: 12px 16px;
-    border-top: 2px solid #FFB5C5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(135deg, #FFE5EC 0%, #E3F2FD 100%);
-}
-.cart-total{
-    background-color: transparent;
-    color: #2C3E50;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-.cart-total span{
-    background-color: transparent;
-}
-.cart-actions{
-    background-color: transparent;
-}
-
-.clear-cart {
-    background: #FFB5C5;
-    padding: 8px 10px;
-    border-radius: 6px;
-    border: 1px solid #FF85A2;
-    color: #2C3E50;
-}
-.clear-cart:hover{
-    background: #FF85A2;
-    color: #fff;
-}
-
-.checkout {
-    background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: none;
-}
-.checkout:hover{
-    background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
-    transform: translateY(-2px);
-}
-
-/* Size button styles */
-.size-btn{
-    margin-right: 6px;
-    padding: 6px 8px;
-    border-radius: 6px;
-    background: #85D4F5;
-    border: 1px solid #5DADE2;
-    color: #2C3E50;
-    font-weight: 600;
-}
-.size-btn:hover{
-    background: #5DADE2;
-    color: #fff;
+  .menu-card .footer{ grid-template-columns: 1fr; }
 }
 
 /* ================================
-   BYO: page layout + switches
+   CART (BUTTON & MODAL)
    ================================ */
- 
-.byo-wrap {
-  padding: 2rem 9%;
+/* Cart button in header */
+.cart-btn {
+  background: #85D4F5;
+  border: 2px solid #5DADE2;
+  color: #2C3E50;
+  padding: 8px 12px;
+  border-radius: 18px;
+  margin-right: .5rem;
+  font-weight: 600;
 }
- 
-.byo-title {
-  color: #3b1c13;
-  margin: 0 0 1rem 0;
-}
- 
-.switch-bar {
-  display: flex;
+
+/* Cart button hover state */
+.cart-btn:hover { background: #5DADE2; color: #fff; }
+
+/* Full-screen cart modal overlay */
+.cart-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
   justify-content: center;
-  gap: 12px;
-  margin: 1rem 0 2rem;
+  align-items: center;
+  z-index: 2000;
 }
- 
-.switch-btn {
-  padding: 10px 16px;
-  border: 1px solid #5DADE2;
-  border-radius: 999px;
-  background: transparent;
-  color: #3b1c13;
-  text-decoration: none;
-  transition: 0.2s;
+
+/* Cart panel container */
+.cart-panel {
+  background: #FFE4EC;
+  width: 360px;
+  max-width: 95%;
+  border-radius: 15px;
+  padding: 0;
+  overflow: hidden;
+  border: 3px solid #FFB5C5;
 }
- 
-.switch-btn:hover,
-.switch-btn.active {
-  background:#5DADE2;
+
+/* Cart header with gradient background */
+.cart-header {
+  display:flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px;
+  border-bottom: 2px solid #FFB5C5;
+  background: linear-gradient(135deg, #FFB5C5 0%, #85D4F5 100%);
+}
+
+/* Cart header title */
+.cart-header h2 { background-color: transparent; color: #2C3E50; }
+
+/* Close cart button */
+.close-cart { background-color: transparent; border: none; font-size: 28px; color: #2C3E50; cursor: pointer; }
+
+/* Scrollable cart items container */
+.cart-items { padding: 12px; max-height: 60vh; overflow: auto; background-color: #FFE4EC; }
+
+/* Cart footer with total and action buttons */
+.cart-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 16px;
+  border-top:2px solid #FFB5C5;
+  background:#FFE4EC;
+  flex-wrap:wrap;
+}
+
+/* Cart total price display */
+.cart-total{
+  font-weight:700;
+  color:#2C3E50;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Container for cart action buttons */
+.cart-actions{
+  display:flex;
+  gap:10px;
+  margin-left:auto;
+}
+
+/* Clear cart and checkout button base styles */
+.clear-cart,
+.checkout{
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* Clear cart button styling */
+.clear-cart{
+  background:#fff;
+  border:2px solid #5DADE2;
+  color:#2C3E50;
+}
+
+/* Clear cart button hover state */
+.clear-cart:hover{ background:#5DADE2; color:#fff; }
+
+/* Checkout button styling with gradient */
+.checkout{
+  border:none;
+  background:linear-gradient(90deg, #FF85A2, #5DADE2);
+  color:#fff;
+  box-shadow:0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Checkout button active state */
+.checkout:active{ transform: translateY(1px); }
+
+/* Cart item layout - grid with item info and controls */
+.cart-items > *{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  align-items:start;
+  gap:8px 12px;
+  padding:10px 0;
+  border-bottom:1px solid #ffd6e1;
+}
+
+/* Remove border from last cart item */
+.cart-items > *:last-child{ border-bottom:none; }
+
+/* Quantity controls in cart - inline layout for minus, quantity, plus buttons */
+.cart-items .qty-row,
+.cart-items .qty,
+.cart-items .qty-control,
+.cart-items .quantity-controls,
+.cart-items .cart-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Quantity increment/decrement buttons */
+.cart-items .qty-btn,
+.cart-items .qty-minus,
+.cart-items .qty-plus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #c9858a;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* Quantity value display */
+.cart-items .qty-val,
+.cart-items .quantity,
+.cart-items .qty-value {
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ================================
+   CATERING MODAL
+   ================================ */
+/* Full-screen catering modal container */
+.cater-modal { position: fixed; inset: 0; display: none; z-index: 3000; }
+
+/* Show catering modal when open */
+.cater-modal.open { display: block; }
+
+/* Catering modal backdrop with blur effect */
+.cater-overlay {
+  position: absolute; inset: 0;
+  background: rgba(10, 15, 20, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+/* Catering modal content panel */
+.cater-content {
+  position: relative;
+  margin: 6vh auto;
+  max-width: 760px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.65);
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.30);
+  overflow: hidden;
+}
+
+/* Catering modal header with gradient */
+.cater-hero {
+  padding: 26px 22px 18px;
+  background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
   color: #fff;
 }
- 
- 
+
+/* Make catering form elements transparent to show gradient/background */
+#cateringForm,
+.cater-grid.v2,
+.cater-field,
+.cater-label,
+.cater-status,
+.cater-success,
+.cater-hero-badge {
+  background: transparent !important;
+}
+
+/* Catering form container padding */
+#cateringForm { padding: 18px 20px 24px; }
+
+/* Two-column grid layout for catering form fields */
+.cater-grid.v2 {
+  display: grid; gap: 14px;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Full-width form field spanning both columns */
+.cater-grid.v2 .full { grid-column: 1 / -1; }
+
+/* Individual form field container */
+.cater-field { display: grid; gap: 6px; }
+
+/* Form field label styling */
+.cater-label { font-weight: 700; color: #2C3E50; }
+
+/* Form input and textarea styling */
+.cater-field input,
+.cater-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #ffffff;
+  color: #2C3E50;
+  transition: box-shadow .15s ease, border-color .15s ease, transform .04s ease;
+}
+
+/* Form input focus state with blue border and shadow */
+.cater-field input:focus, .cater-field textarea:focus {
+  outline: none;
+  border-color: rgba(93, 173, 226, .9);
+  box-shadow: 0 0 0 4px rgba(93,173,226,.18);
+  transform: translateY(-1px);
+}
+
+/* Catering modal close button */
+.cater-close {
+  position: absolute; right: 12px; top: 10px;
+  font-size: 28px; border: 0; background: transparent; cursor: pointer;
+  color: #2C3E50; z-index: 2;
+}
+
+/* Submit button styling with full width */
+.btn.submit {
+  width: 100%; margin-top: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 10px; border: none;
+}
+
+/* Loading spinner animation for form submission */
+.cater-spinner {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.6);
+  border-top-color: #fff;
+  display: none;
+  animation: cater-spin .9s linear infinite;
+}
+
+/* Spinner rotation animation */
+@keyframes cater-spin { to { transform: rotate(360deg); } }
+
+/* Show spinner when form is loading */
+.is-loading .cater-spinner { display: inline-block; }
+
+/* Dim button text during loading */
+.is-loading .cater-btn-text { opacity: .8; }
+
+/* Status message container below form */
+.cater-status { margin-top: 10px; min-height: 1.2em; font-size: .95rem; }
+
+/* Success message color */
+.cater-status.success { color: #137333; }
+
+/* Error message color */
+.cater-status.error { color: #b3261e; }
+
+/* Success confirmation screen */
+.cater-success { padding: 30px 22px 28px; text-align: center; }
+
+/* Success checkmark icon container */
+.cater-check {
+  width: 84px; height: 84px; margin: 4px auto 10px;
+  border-radius: 999px; color: #2ecc71;
+  background: radial-gradient(circle at 30% 30%, rgba(46, 204, 113,.18), rgba(46, 204, 113,.06));
+  display: grid; place-items: center;
+}
+
+/* Success message heading */
+.cater-success h3 { margin: 8px 0 6px; color: #2C3E50; }
+
+/* Mobile responsive layout for catering form */
+@media (max-width: 680px) {
+  .cater-grid.v2 { grid-template-columns: 1fr; }
+  .cater-hero { padding: 24px 18px; }
+}
+
 /* ================================
-   BYO: base flavor grid + cards
+   BYO (BUILD YOUR OWN) PAGE
    ================================ */
- 
+/* BYO page wrapper with standard padding */
+.byo-wrap { padding: 2rem 9%; }
+
+/* BYO page title */
+.byo-title { color: #3b1c13; margin: 0 0 1rem 0; }
+
+/* Size switch toggle bar (Small/Regular buttons) */
+.switch-bar{
+  width: 100%;
+  margin: 1.25rem auto 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Individual size switch button */
+.switch-btn{
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  min-width: 140px;
+  line-height: 1;
+  border: 2px solid #5DADE2;
+  border-radius: 999px;
+  background: #fff;
+  color: #2C3E50;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform .15s ease, box-shadow .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+/* Switch button hover state */
+.switch-btn:hover{
+  background: #5DADE2; color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Active/selected switch button state */
+.switch-btn.active{ background: #5DADE2; color: #fff; border-color: #5DADE2; }
+
+/* ================================
+   BYO: FLAVOR GRID & CARDS
+   ================================ */
+/* Responsive grid for flavor cards */
 .flavor-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 18px;
 }
- 
+
+/* Individual flavor card */
 .flavor-card {
   background: #fff;
   border: 2px solid #c9858a;
@@ -465,316 +636,158 @@ h1 {
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.2s ease;
 }
- 
-.flavor-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-}
- 
+
+/* Flavor card hover effect */
+.flavor-card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); }
+
+/* Flavor card image styling */
 .flavor-card img {
   width: 100%;
-  display: block;            /* removes baseline gap under images */
+  height: 160px;
+  object-fit: cover;
+  display: block;
   border-radius: 12px;
 }
- 
-.modal-header img {
-  width: 100%;
-  display: block;            
-  border-radius: 50px;
-}
- 
-.flavor-name {
-  font-weight: 700;
-  margin: 8px 0 2px;
-  color: #3b1c13;
-}
- 
-.flavor-meta {
-  color: #2f3030;
-  font-size: 0.9rem;
-}
- 
- 
+
 /* ================================
-   BYO: modal (panel fixed shape)
+   BYO: MODAL (CUSTOMIZATION)
    ================================ */
- 
-.modal[hidden] {
-  display: none;
-}
- 
+/* Hide modal when not active */
+.modal[hidden] { display: none; }
+
+/* Full-screen modal container */
 .modal {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 32px 16px;        /* gutter on small screens */
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; justify-content: center; align-items: center;
+  padding: 32px 16px;
 }
- 
+
+/* Modal backdrop overlay */
 .modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  position: absolute; inset: 0; background: rgba(0, 0, 0, 0.45);
 }
- 
+
+/* Modal content panel */
 .modal-panel {
-  position: relative;
-  width: 100%;
-  max-width: 980px;
-  background: #fff;
-  color: #111827;
-  border-radius: 16px;
-  border: 2px solid #ffffff; /* thin outer white border */
+  position: relative; width: 100%; max-width: 980px;
+  background: #FFE4EC; color: #111827;
+  border-radius: 16px; border: 2px solid #FFB5C5;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-  display: flex;
-  flex-direction: column;
-  max-height: 90vh;          /* keep panel within viewport */
-  padding: 10px;
-  overflow: hidden;          /* clip inner edges so no white “ring” while scrolling */
+  display: flex; flex-direction: column;
+  max-height: 90vh; padding: 10px; overflow: hidden;
 }
- 
+
+/* Modal close button */
 .modal-close {
-  position: absolute;
-  right: 12px;
-  top: 8px;
-  font-size: 28px;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
+  position: absolute; right: 12px; top: 8px;
+  font-size: 28px; background: transparent; border: 0; cursor: pointer;
 }
- 
+
+/* Modal header with image and title - two-column layout */
 .modal-header {
   display: grid;
   grid-template-columns: 220px 1fr;
   gap: 16px;
-  /* no border-bottom here to avoid a line under the image */
+  background: transparent;
 }
- 
+
+/* Modal header image */
 .modal-header img {
   width: 100%;
-  display: block;            /* removes stray line under header image */
+  height: 220px;
+  object-fit: cover;
   border-radius: 12px;
 }
- 
-.modal-title {
-  margin: 0 0 6px 0;
-}
- 
-.modal-desc {
-  margin: 0;
-  color: #2f3030;
-}
- 
-/* Only the content between header/footer scrolls */
+
+/* Scrollable modal content area */
 .modal-scroll {
-  flex: 1 1 auto;
-  overflow: auto;
-  padding: 0;                /* no inner gutter (prevents inner “white border”) */
-  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto; overflow: auto; padding: 0; -webkit-overflow-scrolling: touch;
 }
- 
+
+/* Individual sections within modal */
 .modal-section {
   padding: 12px 20px;
-  border-top: 1px solid #f2f2f2;
+  border-top: 1px solid #FFB5C5;
+  background: transparent;
 }
- 
-.modal-section:first-child {
-  border-top: none;
-}
- 
+
+/* Remove top border from first section */
+.modal-section:first-child { border-top: none; }
+
+/* Modal footer with price and add to cart button */
 .modal-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  border-top: 1px solid #e5e7eb;
-  padding-top: 12px;
-  margin-top: 16px;
-}
- 
- 
-/* ================================
-   BYO: options + controls
-   ================================ */
- 
-.option-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
- 
-.opt-btn {
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 2px solid #5DADE2;
-  background: transparent;
-  cursor: pointer;
-}
- 
-.opt-btn[aria-pressed="true"] {
-  border-color: #3b1c13;
-  background: #5DADE2;
-}
- 
-.toppings-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
-}
- 
-.top-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 10px;
-  display: grid;
-  gap: 6px;
-  justify-items: center;
-}
- 
-.top-card img {
-  width: 72px;
-  height: 72px;
-  object-fit: cover;
-  border-radius: 999px;
-}
- 
-.top-name {
-  font-size: 0.9rem;
-}
- 
-.top-price {
-  color: #6b7280;
-  font-size: 0.85rem;
-}
- 
-.qty {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
- 
-.qty-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  border: 1px solid #c9858a;
-  background: #fff;
-  cursor: pointer;
-}
- 
-.add-btn {
-  padding: 12px 18px;
-  border-radius: 999px;
-  border: 1;
-  /* background: linear-gradient(90deg,#C5767B,#A33F45); */
-  background: transparent;
-  color: #211e1e;
-  font-weight: 600;
-  cursor: pointer;
-}
- 
-.price {
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-}
- 
- 
-/* ================================
-   BYO: notes
-   ================================ */
- 
-.note-wrap {
-  margin-top: 12px;
-}
- 
-.note-label {
-  font-weight: 600;
-  color: #3b1c13;
-  display: block;
-  margin-bottom: 6px;
-}
- 
-.note-textarea {
-  width: 100%;
-  min-height: 84px;
-  resize: vertical;
-  padding: 10px 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  font: inherit;
-  background: #fff;
-}
- 
-.note-textarea:focus {
-  outline: 2px solid #c9858a;
-  border-color: #c9858a;
-}
- 
- 
-/* ================================
-   BYO: nicer, subtle scrollbars
-   ================================ */
- 
-.modal-scroll::-webkit-scrollbar {
-  width: 8px;
-}
- 
-.modal-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
- 
-.modal-scroll::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-}
- 
-.modal-scroll {
-  scrollbar-width: thin;                     /* Firefox */
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-}
- 
-.qty-control {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 6px;
-}
- 
-.qty-btn {
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 4px 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  min-width: 30px;
-  text-align: center;
-}
- 
-.qty-val {
-  min-width: 20px;
-  text-align: center;
-  display: inline-block;
-  font-weight: bold;
-}
- 
-img {
- 
-      border-radius: 50%; /* Rounds all corners by 10 pixels */
- 
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; border-top: 1px solid #FFB5C5; padding-top: 12px; margin-top: 16px;
 }
 
 /* ================================
-   BYO: For combination description
-  ================================ */  
+   BYO: OPTIONS & CONTROLS
+   ================================ */
+/* Horizontal layout for option buttons (e.g., cake types) */
+.option-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+
+/* Individual option button */
+.opt-btn {
+  padding: 10px 14px; border-radius: 12px;
+  border: 2px solid #5DADE2; background: transparent; cursor: pointer;
+}
+
+/* Selected option button state */
+.opt-btn[aria-pressed="true"] { border-color: #3b1c13; background: #5DADE2; color: #fff; }
+
+/* Grid layout for toppings selection */
+.toppings-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px;
+}
+
+/* Individual topping card */
+.top-card {
+  border: 1px solid #FFD6E1; border-radius: 12px; padding: 10px;
+  display: grid; gap: 6px; justify-items: center;
+  background: #fff;
+}
+
+/* Topping card image */
+.top-card img {
+  width: 72px; height: 72px; object-fit: cover; border-radius: 999px;
+}
+
+/* Topping name text */
+.top-name { font-size: 0.9rem; }
+
+/* Topping price text */
+.top-price { color: #6b7280; font-size: 0.85rem; }
+
+/* Quantity control container */
+.qty { display: flex; align-items: center; gap: 10px; }
+
+/* Quantity increment/decrement buttons */
+.qty-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid #c9858a; background: #fff; cursor: pointer; }
+
+/* Add to cart button in modal */
+.add-btn { padding: 12px 18px; border-radius: 999px; border: 1px solid #c9858a; background: transparent; color: #211e1e; font-weight: 600; cursor: pointer; }
+
+/* Price display with tabular numbers */
+.price { font-variant-numeric: tabular-nums; font-weight: 700; }
+
+/* Quantity control layout */
+.qty-control { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+
+/* Quantity button styling */
+.qty-btn { background-color: #eee; border: 1px solid #ccc; border-radius: 4px; padding: 4px 10px; font-size: 1rem; cursor: pointer; min-width: 30px; text-align: center; }
+
+/* Quantity value display */
+.qty-val { min-width: 20px; text-align: center; display: inline-block; font-weight: bold; }
+
+/* ================================
+   BYO: COMBO DESCRIPTION BOX
+   ================================ */
+/* White info box showing combo details */
 .combo-info {
   font-size: 0.9rem;
   line-height: 1.5;
-  background-color: #f9fafb;
-  border: 1px solid #ddd;
+  background-color: #fff;       /* changed from #FFDCE6 */
+  border: 1px solid #FFB5C5;
   border-radius: 6px;
   padding: 10px 12px;
   margin-top: 8px;
@@ -782,12 +795,64 @@ img {
 }
 
 /* ================================
-   Responsive
+   BYO: SPECIAL INSTRUCTIONS
    ================================ */
- 
-@media (max-width: 780px) {
-  .modal-header {
-    grid-template-columns: 1fr;
-  }
+/* Special instructions section with white background and border */
+.modal-section.note-wrap {
+  border-top: 0;
+  background: #ffffff;
+  border: 2px solid #FFB5C5;
+  border-radius: 14px;
+  margin: 12px 20px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 8px;
 }
- 
+
+/* Special instructions label */
+.note-label { font-weight: 700; color: #2C3E50; background: transparent; }
+
+/* Special instructions textarea */
+.note-textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #FFD6E1;
+  background: #fff;
+  color: #2C3E50;
+  line-height: 1.4;
+  transition: box-shadow .15s ease, border-color .15s ease, transform .04s ease;
+}
+
+/* Textarea placeholder styling */
+.note-textarea::placeholder { color: #8aa1b2; }
+
+/* Textarea focus state with blue border and shadow */
+.note-textarea:focus {
+  outline: none;
+  border-color: rgba(93,173,226,.9);
+  box-shadow: 0 0 0 4px rgba(93,173,226,.18);
+  transform: translateY(-1px);
+}
+
+/* ================================
+   RESPONSIVE ADJUSTMENTS
+   ================================ */
+/* Tablet and mobile layout adjustments for modal */
+@media (max-width: 780px) {
+  .modal-header { grid-template-columns: 1fr; }
+  .modal-header img { height: 200px; }
+  .modal-section.note-wrap { margin: 12px; }
+}
+
+/* ================================
+   IMAGE SAFETY
+   ================================ */
+/* Prevent images from exceeding container width */
+.byo-wrap img,
+.modal-panel img {
+  max-width: 100%;
+  height: auto;
+}

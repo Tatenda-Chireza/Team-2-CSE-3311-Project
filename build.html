@@ -2,16 +2,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Build Your Own</title>
+  <!-- Link to external stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- Header -->
+  <!-- Header Section: Contains logo, navigation, and user action buttons -->
   <header>
+    <!-- Logo and brand name linking back to homepage -->
     <a href="index.html" class="logo-link">
       <img class="logo" src="./img/LOGO.png" alt="Logo">
       <span>ICELAND ICE CREAM</span>
     </a>
+    
+    <!-- Main navigation menu -->
     <nav>
       <ul class="nav_links">
         <li><a href="index.html">Home</a></li>
@@ -20,32 +24,42 @@
         <li><a href="#">Contact</a></li>
       </ul>
     </nav>
+    
+    <!-- Cart button displaying item count -->
     <button id="cartBtn" class="cart-btn">Cart (<span id="cartCount">0</span>)</button>
+    
+    <!-- Sign up button (visible when logged out) -->
     <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
+    
+    <!-- Logout button (hidden by default, shown when logged in) -->
     <button id="logoutBtn" style="display: none;">Log out</button>
   </header>
 
+  <!-- Main Content Wrapper for Build Your Own page -->
   <main class="byo-wrap">
     <h1 style="color:#3b1c13; margin-bottom:1rem;">Build Your Own</h1>
 
-    <!-- Switch buttons (tabs) -->
+    <!-- Tab Navigation: Switch between Pre Made and Build Your Own -->
     <div class="switch-bar">
       <a class="switch-btn" href="menu.html">Pre Made</a>
       <a class="switch-btn active" href="build.html">Build Your Own</a>
     </div>
 
-    <!-- Base flavor grid (cards) -->
+    <!-- Grid container for base flavor cards (populated by JavaScript) -->
     <section class="flavor-grid" id="flavorGrid"></section>
   </main>
 
-  <!-- BYO Modal -->
+  <!-- Build Your Own Modal: Opens when user selects a base flavor -->
   <div id="byoModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden="">
+    <!-- Modal backdrop for closing on outside click -->
     <div class="modal-backdrop" data-close=""></div>
 
-    <!-- tabindex enables keyboard scroll focus -->
+    <!-- Main modal panel (tabindex enables keyboard scroll focus) -->
     <div class="modal-panel" role="document" tabindex="-1">
+      <!-- Close button in top corner -->
       <button class="modal-close" aria-label="Close" data-close="">×</button>
 
+      <!-- Modal Header: Displays selected flavor image and details -->
       <div class="modal-header">
         <img id="mImg" src="" alt="">
         <div>
@@ -54,42 +68,49 @@
         </div>
       </div>
 
-      <!-- Only this section scrolls -->
+      <!-- Scrollable section containing all customization options -->
       <div class="modal-scroll">
+        <!-- Size Selection (Required) -->
         <div class="modal-section">
           <h3>Size <span style="color:#b91c1c;font-size:.9rem;">Required</span></h3>
           <div id="sizeRow" class="option-row"></div>
         </div>
 
-      <div class="modal-section">
-        <div id="comboInfo" class="combo-info"></div>
-      </div>
+        <!-- Combo Information Display (populated by JavaScript) -->
+        <div class="modal-section">
+          <div id="comboInfo" class="combo-info"></div>
+        </div>
 
+        <!-- Mix-in Selection -->
         <div class="modal-section">
           <h3>Mix-in</h3>
           <div id="mixRow" class="toppings-grid"></div>
         </div>
 
+        <!-- Toppings Selection -->
         <div class="modal-section">
           <h3>Toppings</h3>
           <div id="toppingsRow" class="toppings-grid"></div>
         </div>
       
-
-        <!-- Special instructions -->
+        <!-- Special Instructions Textarea (Optional) -->
         <div class="modal-section note-wrap">
           <label for="notes" class="note-label">Special Instructions (optional)</label>
           <textarea id="notes" class="note-textarea" placeholder="e.g., no nuts, extra cold, sauce on the side"></textarea>
         </div>
       </div>
-      <!-- /modal-scroll -->
+      <!-- End of scrollable modal content -->
 
+      <!-- Modal Footer: Quantity selector and Add to Cart button -->
       <div class="modal-footer">
+        <!-- Quantity controls -->
         <div class="qty">
           <button class="qty-btn" data-act="dec">−</button>
           <span id="qtyVal">1</span>
           <button class="qty-btn" data-act="inc">+</button>
         </div>
+        
+        <!-- Add to Cart button with dynamic price display -->
         <button id="addBtn" class="add-btn">
           Add to cart — <span id="addPrice" style="background-color: transparent;">$0.00</span>
         </button>
@@ -97,14 +118,19 @@
     </div>
   </div>
 
-  <!-- Cart Modal (IDs must match your menu.js expectations) -->
+  <!-- Cart Modal: Displays cart contents and checkout options -->
   <div id="cartModal" class="cart-modal" aria-hidden="true" style="display:none;">
     <div class="cart-panel">
+      <!-- Cart header with title and close button -->
       <header class="cart-header">
         <h2>Your Cart</h2>
         <button id="closeCart" class="close-cart" aria-label="Close">×</button>
       </header>
+      
+      <!-- Cart items container (populated by JavaScript) -->
       <div id="cartItems" class="cart-items"></div>
+      
+      <!-- Cart footer with total and action buttons -->
       <footer class="cart-footer">
         <div class="cart-total">
           Total: <span id="cartTotal">$0.00</span>
@@ -117,12 +143,14 @@
     </div>
   </div>
 
-  <!-- Scripts: menu.js should define addToCart(), openCart(), etc. -->
+  <!-- JavaScript Files -->
+  <!-- menu.js: Defines cart functions (addToCart, openCart, etc.) -->
   <script src="menu.js"></script>
+  
+  <!-- build.js: Handles Build Your Own functionality -->
   <script src="build.js"></script>
 
-  <!-- Link authentication  -->
+  <!-- auth.js: Handles user authentication (ES6 module) -->
   <script type="module" src="auth.js"></script>
-
 
 </body></html>

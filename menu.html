@@ -4,223 +4,272 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Menu - Iceland Ice Cream</title>
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Menu - Iceland Ice Cream</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-      .size-btn{margin-right:6px; padding:6px 8px; border-radius:6px}
-    </style>
-  </head>
+  <!-- Link to external stylesheet for page styling -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Main header with navigation and user actions -->
+  <header>
+    <!-- Logo and brand name link that returns to home page -->
+    <a href="index.html" class="logo-link">
+      <img class="logo" src="./img/LOGO.png" alt="Logo">
+      <span>ICELAND ICE CREAM</span>
+    </a>
 
-  <body>
-    <header>
-      <a href="index.html" class="logo-link">
-        <img class="logo" src="./img/LOGO.png" alt="Logo">
-        <span>ICELAND ICE CREAM</span>
-      </a>
-      <nav>
-        <ul class="nav_links">
-          <li><a href="index.html"> Home</a></li>
-          <li><a href="menu.html"> Menu</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
+    <!-- Primary navigation menu -->
+    <nav>
+      <ul class="nav_links">
+        <li><a href="index.html"> Home</a></li>
+        <li><a href="menu.html"> Menu</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Cart button with dynamic item count -->
     <button id="cartBtn" class="cart-btn">Cart (<span id="cartCount">0</span>)</button>
+    <!-- Sign up button link -->
     <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
+    <!-- Logout button (hidden by default, shown when user is logged in) -->
     <button id="logoutBtn" style="display: none;">Log out</button>
-    </header>
+  </header>
 
-    <main style="padding: 2rem 9%;">
-      <h1 style="color:#3b1c13; margin-bottom:1rem;">Our Menu</h1>
-      <div class="switch-bar">
-        <a class="switch-btn active" href="menu.html">Pre Made</a>
-        <a class="switch-btn" href="build.html">Build Your Own</a>
-      </div>
-      <section class="menu-grid" id="menuGrid">
+  <!-- Main content area with padding -->
+  <main style="padding: 2rem 9%;">
+    <!-- Page heading -->
+    <h1 style="color:#3b1c13; margin-bottom:1rem;">Our Menu</h1>
 
-        <article class="menu-card" data-id="item1" data-name="#1 Original Vanilla">
-          <div class="thumb" style="background-image:url('img/num1.png')" aria-hidden="true"></div>
-          <div class="content">
-            <h3>#1 Original Vanilla — Banana & Nutella</h3>
-            <p class="desc">Base: Original Vanilla. Mix: Banana and Nutella. Toppings: Fruit Loops, Banana & Strawberry.</p>
-            <div class="footer">
-              <div class="price">small: $5.25 • regular: $7.25</div>
-              <div class="sizes">
-                <button class="add-cart" data-id="item1" data-name="#1 Original Vanilla" data-size="small" data-price="5.25">Add small</button>
-                <button class="add-cart" data-id="item1" data-name="#1 Original Vanilla" data-size="regular" data-price="7.25">Add regular</button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-card" data-id="item2" data-name="#2 Original Vanilla">
-          <div class="thumb" style="background-image:url('img/num2.png')" aria-hidden="true"></div>
-          <div class="content">
-            <h3>#2 Original Vanilla — Fruity Pebbles</h3>
-            <p class="desc">Base: Original Vanilla. Mix: Fruity Pebbles. Toppings: Whip Cream, Sprinkles & Sour Punch.</p>
-            <div class="footer">
-              <div class="price">small: $5.25 • regular: $7.25</div>
-              <div class="sizes">
-                <button class="add-cart" data-id="item2" data-name="#2 Original Vanilla" data-size="small" data-price="5.25">Add small</button>
-                <button class="add-cart" data-id="item2" data-name="#2 Original Vanilla" data-size="regular" data-price="7.25">Add regular</button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-card" data-id="item3" data-name="#3 Thai Tea">
-          <div class="thumb" style="background-image:url('img/num3.png')" aria-hidden="true"></div>
-          <div class="content">
-            <h3>#3 Thai Tea — Peach</h3>
-            <p class="desc">Base: Thai Tea. Mix: Peach. Toppings: Graham Crackers, Raspberry & Pineapple.</p>
-            <div class="footer">
-              <div class="price">small: $5.25 • regular: $7.25</div>
-              <div class="sizes">
-                <button class="add-cart" data-id="item3" data-name="#3 Thai Tea" data-size="small" data-price="5.25">Add small</button>
-                <button class="add-cart" data-id="item3" data-name="#3 Thai Tea" data-size="regular" data-price="7.25">Add regular</button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-card" data-id="item4" data-name="#4 Mango">
-          <div class="thumb" style="background-image:url('img/num4.png')" aria-hidden="true"></div>
-          <div class="content">
-            <h3>#4 Mango — Pineapple Mix</h3>
-            <p class="desc">Base: Mango. Mix: Pineapple. Toppings: Coconut, Pineapple & Cherry.</p>
-            <div class="footer">
-              <div class="price">small: $5.25 • regular: $7.25</div>
-              <div class="sizes">
-                <button class="add-cart" data-id="item4" data-name="#4 Mango" data-size="small" data-price="5.25">Add small</button>
-                <button class="add-cart" data-id="item4" data-name="#4 Mango" data-size="regular" data-price="7.25">Add regular</button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-card" data-id="item5" data-name="#5 Original Vanilla">
-          <div class="thumb" style="background-image:url('img/num5.png')" aria-hidden="true"></div>
-          <div class="content">
-            <h3>#5 Original Vanilla — Graham Crackers & Strawberry Mix</h3>
-            <p class="desc">Base: Original Vanilla. Mix: Graham Crackers & Strawberry. Toppings: Graham Crackers & Strawberry.</p>
-            <div class="footer">
-              <div class="price">small: $5.25 • regular: $7.25</div>
-              <div class="sizes">
-                <button class="add-cart" data-id="item5" data-name="#5 Original Vanilla" data-size="small" data-price="5.25">Add small</button>
-                <button class="add-cart" data-id="item5" data-name="#5 Original Vanilla" data-size="regular" data-price="7.25">Add regular</button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-card" data-id="item6" data-name="#6 Chocolate">
-          <div class="thumb" style="background-image:url('img/num6.png')" aria-hidden="true"></div>
-          <div class="content">
-            <h3>#6 Chocolate — Brownie & Oreo Mix</h3>
-            <p class="desc">Base: Chocolate. Mix: Brownie & Oreo. Toppings: Brownie, Oreo & Pocky.</p>
-            <div class="footer">
-              <div class="price">small: $5.25 • regular: $7.25</div>
-              <div class="sizes">
-                <button class="add-cart" data-id="item6" data-name="#6 Chocolate" data-size="small" data-price="5.25">Add small</button>
-                <button class="add-cart" data-id="item6" data-name="#6 Chocolate" data-size="regular" data-price="7.25">Add regular</button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-card" data-id="item7" data-name="#7 Original Vanilla">
-          <div class="thumb" style="background-image:url('img/num7.png')" aria-hidden="true"></div>
-          <div class="content">
-            <h3>#7 Original Vanilla — Triple Berry Mix</h3>
-            <p class="desc">Base: Original Vanilla. Mix: Raspberry, Blueberry & Blackberry. Toppings: Raspberry, Blueberry, Blackberry & Sugar Wafers.</p>
-            <div class="footer">
-              <div class="price">small: $5.25 • regular: $7.25</div>
-              <div class="sizes">
-                <button class="add-cart" data-id="item7" data-name="#7 Original Vanilla" data-size="small" data-price="5.25">Add small</button>
-                <button class="add-cart" data-id="item7" data-name="#7 Original Vanilla" data-size="regular" data-price="7.25">Add regular</button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-card" data-id="item8" data-name="#8 Matcha">
-          <div class="thumb" style="background-image:url('img/num8.png')" aria-hidden="true"></div>
-          <div class="content">
-            <h3>#8 Matcha — Strawberry Mix</h3>
-            <p class="desc">Base: Matcha. Mix: Strawberry. Toppings: Strawberry, Strawberry Popping Boba, Strawberry Pocky & Longan.</p>
-            <div class="footer">
-              <div class="price">small: $5.25 • regular: $7.25</div>
-              <div class="sizes">
-                <button class="add-cart" data-id="item8" data-name="#8 Matcha" data-size="small" data-price="5.25">Add small</button>
-                <button class="add-cart" data-id="item8" data-name="#8 Matcha" data-size="regular" data-price="7.25">Add regular</button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-card" data-id="item9" data-name="#9 Original Vanilla">
-          <div class="thumb" style="background-image:url('img/num9.png')" aria-hidden="true"></div>
-          <div class="content">
-            <h3>#9 Original Vanilla — Graham & Oreo Mix</h3>
-            <p class="desc">Base: Original Vanilla. Mix: Graham Crackers & Oreo. Toppings: Toasted Marshmallow, Whip Cream, & Panda Cookies.</p>
-            <div class="footer">
-              <div class="price">small: $5.25 • regular: $7.25</div>
-              <div class="sizes">
-                <button class="add-cart" data-id="item9" data-name="#9 Original Vanilla" data-size="small" data-price="5.25">Add small</button>
-                <button class="add-cart" data-id="item9" data-name="#9 Original Vanilla" data-size="regular" data-price="7.25">Add regular</button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="menu-card" data-id="item10" data-name="#10 Coffee">
-          <div class="thumb" style="background-image:url('img/num10.png')" aria-hidden="true"></div>
-          <div class="content">
-            <h3>#10 Coffee — Nutella Mix</h3>
-            <p class="desc">Base: Coffee. Mix: Nutella. Toppings: Pretzels, Caramel Sauce, Whip Cream & Chocolate Chips.</p>
-            <div class="footer">
-              <div class="price">small: $5.25 • regular: $7.25</div>
-              <div class="sizes">
-                <button class="add-cart" data-id="item10" data-name="#10 Coffee" data-size="small" data-price="5.25">Add small</button>
-                <button class="add-cart" data-id="item10" data-name="#10 Coffee" data-size="regular" data-price="7.25">Add regular</button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-      </section>
-
-    </main>
-
-    <!-- Cart modal -->
-    <div id="cartModal" class="cart-modal" aria-hidden="true">
-      <div class="cart-panel">
-        <header class="cart-header">
-          <h2>Your Cart</h2>
-          <button id="closeCart" class="close-cart">×</button>
-        </header>
-        <div id="cartItems" class="cart-items">
-          <!-- Cart items injected here -->
-        </div>
-        <footer class="cart-footer">
-          <div class="cart-total">Total: <span id="cartTotal">$0.00</span></div>
-          <div class="cart-actions">
-            <button id="clearCart" class="clear-cart">Clear</button>
-            <button id="checkoutBtn" class="checkout">Checkout</button>
-          </div>
-        </footer>
-      </div>
+    <!-- Toggle buttons to switch between Pre Made menu and Build Your Own -->
+    <div class="switch-bar">
+      <a class="switch-btn active" href="menu.html">Pre Made</a>
+      <a class="switch-btn" href="build.html">Build Your Own</a>
     </div>
 
-    <script src="menu.js" defer></script>
+    <!-- Grid container for menu items -->
+    <section class="menu-grid" id="menuGrid">
+      <!-- Menu Item #1: Original Vanilla with Banana & Nutella -->
+      <article class="menu-card" data-id="item1" data-name="#1 Original Vanilla">
+        <!-- Product image thumbnail -->
+        <div class="thumb" style="background-image:url('img/num1.png')" aria-hidden="true"></div>
+        <div class="content">
+          <!-- Item title -->
+          <h3>#1 Original Vanilla — Banana & Nutella</h3>
+          <!-- Item description with base, mix, and toppings -->
+          <p class="desc">Base: Original Vanilla. Mix: Banana and Nutella. Toppings: Fruit Loops, Banana & Strawberry.</p>
+          <!-- Size options and add to cart buttons -->
+          <div class="footer">
+            <div class="size-block">
+              <div class="size-label">small: $5.25</div>
+              <button class="add-cart" data-id="item1" data-name="#1 Original Vanilla" data-size="small" data-price="5.25">Add small</button>
+            </div>
+            <div class="size-block">
+              <div class="size-label">regular: $7.25</div>
+              <button class="add-cart" data-id="item1" data-name="#1 Original Vanilla" data-size="regular" data-price="7.25">Add regular</button>
+            </div>
+          </div>
+        </div>
+      </article>
 
-  <!-- Link authentication  -->
+      <!-- Menu Item #2: Original Vanilla with Fruity Pebbles -->
+      <article class="menu-card" data-id="item2" data-name="#2 Original Vanilla">
+        <div class="thumb" style="background-image:url('img/num2.png')" aria-hidden="true"></div>
+        <div class="content">
+          <h3>#2 Original Vanilla — Fruity Pebbles</h3>
+          <p class="desc">Base: Original Vanilla. Mix: Fruity Pebbles. Toppings: Whip Cream, Sprinkles & Sour Punch.</p>
+          <div class="footer">
+            <div class="size-block">
+              <div class="size-label">small: $5.25</div>
+              <button class="add-cart" data-id="item2" data-name="#2 Original Vanilla" data-size="small" data-price="5.25">Add small</button>
+            </div>
+            <div class="size-block">
+              <div class="size-label">regular: $7.25</div>
+              <button class="add-cart" data-id="item2" data-name="#2 Original Vanilla" data-size="regular" data-price="7.25">Add regular</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Menu Item #3: Thai Tea with Peach -->
+      <article class="menu-card" data-id="item3" data-name="#3 Thai Tea">
+        <div class="thumb" style="background-image:url('img/num3.png')" aria-hidden="true"></div>
+        <div class="content">
+          <h3>#3 Thai Tea — Peach</h3>
+          <p class="desc">Base: Thai Tea. Mix: Peach. Toppings: Graham Crackers, Raspberry & Pineapple.</p>
+          <div class="footer">
+            <div class="size-block">
+              <div class="size-label">small: $5.25</div>
+              <button class="add-cart" data-id="item3" data-name="#3 Thai Tea" data-size="small" data-price="5.25">Add small</button>
+            </div>
+            <div class="size-block">
+              <div class="size-label">regular: $7.25</div>
+              <button class="add-cart" data-id="item3" data-name="#3 Thai Tea" data-size="regular" data-price="7.25">Add regular</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Menu Item #4: Mango with Pineapple Mix -->
+      <article class="menu-card" data-id="item4" data-name="#4 Mango">
+        <div class="thumb" style="background-image:url('img/num4.png')" aria-hidden="true"></div>
+        <div class="content">
+          <h3>#4 Mango — Pineapple Mix</h3>
+          <p class="desc">Base: Mango. Mix: Pineapple. Toppings: Coconut, Pineapple & Cherry.</p>
+          <div class="footer">
+            <div class="size-block">
+              <div class="size-label">small: $5.25</div>
+              <button class="add-cart" data-id="item4" data-name="#4 Mango" data-size="small" data-price="5.25">Add small</button>
+            </div>
+            <div class="size-block">
+              <div class="size-label">regular: $7.25</div>
+              <button class="add-cart" data-id="item4" data-name="#4 Mango" data-size="regular" data-price="7.25">Add regular</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Menu Item #5: Original Vanilla with Graham Crackers & Strawberry -->
+      <article class="menu-card" data-id="item5" data-name="#5 Original Vanilla">
+        <div class="thumb" style="background-image:url('img/num5.png')" aria-hidden="true"></div>
+        <div class="content">
+          <h3>#5 Original Vanilla — Graham Crackers & Strawberry Mix</h3>
+          <p class="desc">Base: Original Vanilla. Mix: Graham Crackers & Strawberry. Toppings: Graham Crackers & Strawberry.</p>
+          <div class="footer">
+            <div class="size-block">
+              <div class="size-label">small: $5.25</div>
+              <button class="add-cart" data-id="item5" data-name="#5 Original Vanilla" data-size="small" data-price="5.25">Add small</button>
+            </div>
+            <div class="size-block">
+              <div class="size-label">regular: $7.25</div>
+              <button class="add-cart" data-id="item5" data-name="#5 Original Vanilla" data-size="regular" data-price="7.25">Add regular</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Menu Item #6: Chocolate with Brownie & Oreo Mix -->
+      <article class="menu-card" data-id="item6" data-name="#6 Chocolate">
+        <div class="thumb" style="background-image:url('img/num6.png')" aria-hidden="true"></div>
+        <div class="content">
+          <h3>#6 Chocolate — Brownie & Oreo Mix</h3>
+          <p class="desc">Base: Chocolate. Mix: Brownie & Oreo. Toppings: Brownie, Oreo & Pocky.</p>
+          <div class="footer">
+            <div class="size-block">
+              <div class="size-label">small: $5.25</div>
+              <button class="add-cart" data-id="item6" data-name="#6 Chocolate" data-size="small" data-price="5.25">Add small</button>
+            </div>
+            <div class="size-block">
+              <div class="size-label">regular: $7.25</div>
+              <button class="add-cart" data-id="item6" data-name="#6 Chocolate" data-size="regular" data-price="7.25">Add regular</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Menu Item #7: Original Vanilla with Triple Berry Mix -->
+      <article class="menu-card" data-id="item7" data-name="#7 Original Vanilla">
+        <div class="thumb" style="background-image:url('img/num7.png')" aria-hidden="true"></div>
+        <div class="content">
+          <h3>#7 Original Vanilla — Triple Berry Mix</h3>
+          <p class="desc">Base: Original Vanilla. Mix: Raspberry, Blueberry & Blackberry. Toppings: Raspberry, Blueberry, Blackberry & Sugar Wafers.</p>
+          <div class="footer">
+            <div class="size-block">
+              <div class="size-label">small: $5.25</div>
+              <button class="add-cart" data-id="item7" data-name="#7 Original Vanilla" data-size="small" data-price="5.25">Add small</button>
+            </div>
+            <div class="size-block">
+              <div class="size-label">regular: $7.25</div>
+              <button class="add-cart" data-id="item7" data-name="#7 Original Vanilla" data-size="regular" data-price="7.25">Add regular</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Menu Item #8: Matcha with Strawberry Mix -->
+      <article class="menu-card" data-id="item8" data-name="#8 Matcha">
+        <div class="thumb" style="background-image:url('img/num8.png')" aria-hidden="true"></div>
+        <div class="content">
+          <h3>#8 Matcha — Strawberry Mix</h3>
+          <p class="desc">Base: Matcha. Mix: Strawberry. Toppings: Strawberry, Strawberry Popping Boba, Strawberry Pocky & Longan.</p>
+          <div class="footer">
+            <div class="size-block">
+              <div class="size-label">small: $5.25</div>
+              <button class="add-cart" data-id="item8" data-name="#8 Matcha" data-size="small" data-price="5.25">Add small</button>
+            </div>
+            <div class="size-block">
+              <div class="size-label">regular: $7.25</div>
+              <button class="add-cart" data-id="item8" data-name="#8 Matcha" data-size="regular" data-price="7.25">Add regular</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Menu Item #9: Original Vanilla with Graham & Oreo Mix -->
+      <article class="menu-card" data-id="item9" data-name="#9 Original Vanilla">
+        <div class="thumb" style="background-image:url('img/num9.png')" aria-hidden="true"></div>
+        <div class="content">
+          <h3>#9 Original Vanilla — Graham & Oreo Mix</h3>
+          <p class="desc">Base: Original Vanilla. Mix: Graham Crackers & Oreo. Toppings: Toasted Marshmallow, Whip Cream, & Panda Cookies.</p>
+          <div class="footer">
+            <div class="size-block">
+              <div class="size-label">small: $5.25</div>
+              <button class="add-cart" data-id="item9" data-name="#9 Original Vanilla" data-size="small" data-price="5.25">Add small</button>
+            </div>
+            <div class="size-block">
+              <div class="size-label">regular: $7.25</div>
+              <button class="add-cart" data-id="item9" data-name="#9 Original Vanilla" data-size="regular" data-price="7.25">Add regular</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Menu Item #10: Coffee with Nutella Mix -->
+      <article class="menu-card" data-id="item10" data-name="#10 Coffee">
+        <div class="thumb" style="background-image:url('img/num10.png')" aria-hidden="true"></div>
+        <div class="content">
+          <h3>#10 Coffee — Nutella Mix</h3>
+          <p class="desc">Base: Coffee. Mix: Nutella. Toppings: Pretzels, Caramel Sauce, Whip Cream & Chocolate Chips.</p>
+          <div class="footer">
+            <div class="size-block">
+              <div class="size-label">small: $5.25</div>
+              <button class="add-cart" data-id="item10" data-name="#10 Coffee" data-size="small" data-price="5.25">Add small</button>
+            </div>
+            <div class="size-block">
+              <div class="size-label">regular: $7.25</div>
+              <button class="add-cart" data-id="item10" data-name="#10 Coffee" data-size="regular" data-price="7.25">Add regular</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Cart modal overlay (hidden by default) -->
+  <div id="cartModal" class="cart-modal" aria-hidden="true">
+    <!-- Cart panel container -->
+    <div class="cart-panel">
+      <!-- Cart header with title and close button -->
+      <header class="cart-header">
+        <h2>Your Cart</h2>
+        <button id="closeCart" class="close-cart">×</button>
+      </header>
+      <!-- Container for cart item list (populated by JavaScript) -->
+      <div id="cartItems" class="cart-items"></div>
+      <!-- Cart footer with total and action buttons -->
+      <footer class="cart-footer">
+        <div class="cart-total">Total: <span id="cartTotal">$0.00</span></div>
+        <div class="cart-actions">
+          <!-- Button to clear all items from cart -->
+          <button id="clearCart" class="clear-cart">Clear</button>
+          <!-- Button to proceed to checkout -->
+          <button id="checkoutBtn" class="checkout">Checkout</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- JavaScript file for menu functionality (cart management, etc.) -->
+  <script src="menu.js" defer></script>
+  <!-- JavaScript module for authentication functionality -->
   <script type="module" src="auth.js"></script>
-
-  </body>
-  </html>
+</body>
+</html>

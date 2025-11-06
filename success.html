@@ -4,8 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment Success - Iceland Ice Cream</title>
+  <!-- Link to main stylesheet -->
   <link rel="stylesheet" href="style.css">
   <style>
+    /* Main container for success page content */
     .success-container {
       max-width: 600px;
       margin: 4rem auto;
@@ -15,30 +17,36 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.15);
       text-align: center;
     }
+    /* Ensure all child elements have transparent backgrounds */
     .success-container * {
       background: transparent;
     }
+    /* Styling for the success checkmark/celebration icon */
     .success-icon {
       font-size: 5rem;
       margin-bottom: 1rem;
     }
+    /* Main success title styling */
     .success-title {
       color: #FF6B9D;
       font-size: 2.5rem;
       margin-bottom: 1rem;
     }
+    /* Success message text styling */
     .success-message {
       color: #2C3E50;
       font-size: 1.2rem;
       margin-bottom: 2rem;
       line-height: 1.6;
     }
+    /* Container for action buttons */
     .success-buttons {
       display: flex;
       gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
     }
+    /* Primary button styling with gradient background */
     .btn-primary {
       padding: 15px 35px;
       background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
@@ -52,11 +60,13 @@
       transition: all 0.3s ease;
       display: inline-block;
     }
+    /* Primary button hover effects */
     .btn-primary:hover {
       background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
       transform: translateY(-2px);
       box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     }
+    /* Secondary button styling with border */
     .btn-secondary {
       padding: 15px 35px;
       background: #85D4F5;
@@ -70,11 +80,13 @@
       transition: all 0.3s ease;
       display: inline-block;
     }
+    /* Secondary button hover effects */
     .btn-secondary:hover {
       background: #5DADE2;
       color: #fff;
       transform: translateY(-2px);
     }
+    /* Order status details section styling */
     .order-details {
       background: linear-gradient(135deg, #FFE5EC 0%, #E3F2FD 100%);
       padding: 1.5rem;
@@ -82,10 +94,12 @@
       margin: 2rem 0;
       border: 2px solid #FFB5C5;
     }
+    /* Heading within order details section */
     .order-details h3 {
       color: #2C3E50;
       margin-bottom: 0.5rem;
     }
+    /* Paragraph text within order details section */
     .order-details p {
       color: #666;
       margin: 0.3rem 0;
@@ -94,11 +108,14 @@
 </head>
 
 <body>
+  <!-- Site header with logo, navigation, and authentication buttons -->
   <header>
+    <!-- Logo and site name link to homepage -->
     <a href="index.html" class="logo-link">
       <img class="logo" src="./img/LOGO.png" alt="Logo">
       <span>ICELAND ICE CREAM</span>
     </a>
+    <!-- Main navigation menu -->
     <nav>
       <ul class="nav_links">
         <li><a href="index.html">Home</a></li>
@@ -107,17 +124,24 @@
         <li><a href="#">Contact</a></li>
       </ul>
     </nav>
+    <!-- Sign up button (shown when user is not logged in) -->
     <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
+    <!-- Log out button (shown when user is logged in) -->
     <button id="logoutBtn" style="display: none;">Log out</button>
   </header>
 
+  <!-- Main success page content container -->
   <div class="success-container">
+    <!-- Celebration emoji icon -->
     <div class="success-icon">🎉</div>
+    <!-- Success page title -->
     <h1 class="success-title">Payment Successful!</h1>
+    <!-- Thank you message to customer -->
     <p class="success-message">
       Thank you for your order! Your delicious ice cream is being prepared and will be ready soon.
     </p>
     
+    <!-- Order status information box -->
     <div class="order-details">
       <h3>What's Next?</h3>
       <p>✅ Payment confirmed</p>
@@ -125,18 +149,21 @@
       <p>📧 Confirmation email sent</p>
     </div>
 
+    <!-- Action buttons for next steps -->
     <div class="success-buttons">
+      <!-- Button to order more items -->
       <a href="menu.html" class="btn-primary">Order More</a>
+      <!-- Button to return to homepage -->
       <a href="index.html" class="btn-secondary">Back to Home</a>
     </div>
   </div>
 
   <script>
-    // Clear cart on success
+    // Clear the shopping cart from localStorage after successful payment
     localStorage.removeItem('site_cart_v1');
   </script>
 
-  <!-- Link authentication  -->
+  <!-- Link to authentication JavaScript module -->
   <script type="module" src="auth.js"></script>
 </body>
 </html>
