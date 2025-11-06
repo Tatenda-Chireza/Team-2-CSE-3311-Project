@@ -1,108 +1,149 @@
-// Load environment variables from .env file (contains sensitive keys like Stripe secret)
-require('dotenv').config();  // Load environment variables from .env
+// server.js — static server + Stripe Checkout + catering (robust writes)
 
-// Import required dependencies
+try { require('dotenv').config(); } catch (_) {}
+
 const express = require('express');
-// Initialize Stripe with secret key from environment variables
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Load secret from .env
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const fsp = require('fs').promises; // for async/atomic writes
 
-// Create Express application instance
 const app = express();
-
-// Enable CORS (Cross-Origin Resource Sharing) for all routes
 app.use(cors());
-// Parse incoming JSON request bodies
 app.use(express.json());
 
-// Serve static files from the project root directory
-app.use(express.static('.'));
+// Serve static files from /public
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Health check
+app.get('/health', (_req, res) => res.json({ ok: true }));
 
 /* ================================
    Stripe: Create Checkout Session
    ================================ */
-// POST endpoint to create a new Stripe checkout session
 app.post('/create-checkout-session', async (req, res) => {
-  try {
-    // Extract line items (products/services) from request body
-    const { line_items } = req.body;
+  const host = req.headers.origin || `http://localhost:${process.env.PORT || 3000}`;
+  const successURL = req.body?.success_url || `${host}/success.html`;
+  const cancelURL  = req.body?.cancel_url  || `${host}/checkout.html`;
 
-    // Create a new Stripe checkout session with the provided configuration
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return res.status(501).json({
+      error: 'Stripe not configured on server',
+      hint: 'Set STRIPE_SECRET_KEY in .env (sk_test_...) and restart.'
+    });
+  }
+
+  const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+  try {
+    // Support both { line_items } and { items: [{name, price, quantity}] }
+    let line_items = req.body?.line_items;
+
+    if (!line_items && Array.isArray(req.body?.items)) {
+      line_items = req.body.items.map(i => {
+        const dollars = Number(i.price || 0);
+        const quantity = Math.max(1, Number(i.quantity || 1));
+        return {
+          quantity,
+          price_data: {
+            currency: 'usd',
+            unit_amount: Math.round(dollars * 100),
+            product_data: { name: String(i.name || 'Item') }
+          }
+        };
+      });
+    }
+
+    if (!Array.isArray(line_items) || line_items.length === 0) {
+      return res.status(400).json({ error: 'No line_items or items provided.' });
+    }
+
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'], // Accept card payments only
-      line_items, // Products/services to be purchased
-      mode: 'payment', // One-time payment (not subscription)
-      success_url: 'http://localhost:3000/success.html', // Redirect here on successful payment
-      cancel_url: 'http://localhost:3000/checkout.html', // Redirect here if user cancels
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items,
+      success_url: successURL,
+      cancel_url:  cancelURL
     });
 
-    // Return the session ID to the client
-    res.json({ id: session.id });
+    return res.json({ url: session.url, id: session.id });
   } catch (error) {
-    // Log any errors and return error message to client
     console.error('Error creating checkout session:', error);
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: 'Stripe session creation failed.' });
   }
 });
 
 /* =========================================
    Catering: Collect booking form submissions
    ========================================= */
-// POST endpoint to handle catering booking requests
-app.post('/api/catering', (req, res) => {
-  // Destructure catering form data from request body
-  const { name, email, date, guests, notes, createdAt } = req.body || {};
 
-  // basic validation
-  // Validate that all required fields are present
-  if (!name || !email || !date || !guests) {
-    return res.status(400).json({ ok: false, error: 'Missing required fields.' });
-  }
+// Absolute, single source of truth for the JSON file
+const DATA_PATH = path.resolve(__dirname, 'catering-requests.json');
 
-  // Create a structured record object with sanitized data
-  const record = {
-    name: String(name).trim(), // Convert to string and remove whitespace
-    email: String(email).trim(),
-    date: String(date),
-    guests: Number(guests), // Convert to number
-    notes: (notes ? String(notes) : '').trim(), // Optional field, default to empty string
-    createdAt: createdAt || new Date().toISOString(), // Use provided timestamp or create new one
-  };
-
-  // Define the path to the JSON file where catering requests are stored
-  const file = path.join(__dirname, 'catering-requests.json');
-
+// helper: load current array (fail-soft)
+async function readRequests() {
   try {
-    // Initialize array to hold existing catering requests
-    let existing = [];
-    // Check if the catering requests file already exists
-    if (fs.existsSync(file)) {
-      // Read the existing file content
-      const raw = fs.readFileSync(file, 'utf8');
-      // Parse JSON content, or use empty array if file is empty
-      existing = raw ? JSON.parse(raw) : [];
-    }
-    // Add the new catering request to the array
-    existing.push(record);
-    // Write the updated array back to the file with pretty formatting
-    fs.writeFileSync(file, JSON.stringify(existing, null, 2));
-    // Return success response to client
-    return res.json({ ok: true });
+    if (!fs.existsSync(DATA_PATH)) return [];
+    const raw = await fsp.readFile(DATA_PATH, 'utf8');
+    if (!raw.trim()) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
   } catch (e) {
-    // Log any file system errors
-    console.error('Failed to write catering request:', e);
-    // Return error response to client
+    console.error('⚠️ catering read/parse error -> starting fresh:', e.message);
+    return [];
+  }
+}
+
+// helper: atomic-ish write
+async function writeRequests(arr) {
+  const tmp = DATA_PATH + '.tmp';
+  await fsp.writeFile(tmp, JSON.stringify(arr, null, 2), 'utf8');
+  await fsp.rename(tmp, DATA_PATH);
+}
+
+app.post('/api/catering', async (req, res) => {
+  try {
+    const { name, email, date, guests, notes, createdAt } = req.body || {};
+    if (!name || !email || !date || !Number(guests)) {
+      return res.status(400).json({ ok: false, error: 'Missing required fields.' });
+    }
+
+    const record = {
+      name: String(name).trim(),
+      email: String(email).trim(),
+      date: String(date),
+      guests: Number(guests),
+      notes: (notes ? String(notes) : '').trim(),
+      createdAt: createdAt || new Date().toISOString()
+    };
+
+    const list = await readRequests();
+    list.push(record);
+    await writeRequests(list);
+
+    console.log('✅ Saved catering entry:', record);
+    console.log('➡️  File updated at:', DATA_PATH);
+    return res.status(201).json({ ok: true, saved: record });
+  } catch (e) {
+    console.error('❌ Failed to write catering request:', e);
     return res.status(500).json({ ok: false, error: 'Server error.' });
   }
 });
 
-// Define the port number for the server
-const PORT = 3000;
-// Start the Express server and listen on the specified port
+// Optional: quick endpoint to inspect what the server wrote
+app.get('/api/catering', async (_req, res) => {
+  const data = await readRequests();
+  res.json({ count: data.length, data });
+});
+
+// ✅ Express v5-safe catch-all: use '/*' (NOT '*')
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  // Log server startup messages to console
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log('Open http://localhost:3000/index.html in your browser');
+  console.log(`✅ Server running: http://localhost:${PORT}`);
+  console.log(`🔎 Health check:  http://localhost:${PORT}/health`);
+  console.log('🗂  Catering JSON path:', DATA_PATH);
 });

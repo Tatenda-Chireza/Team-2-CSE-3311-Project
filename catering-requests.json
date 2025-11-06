@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Alexis Chantel",
+    "email": "chnatel@gmail.com",
+    "date": "2025-11-15",
+    "guests": 90,
+    "notes": "butter pecan flavor",
+    "createdAt": "2025-11-06T17:48:40.419Z"
+  },
+  {
+    "name": "Khushi Gauli",
+    "email": "khushi@gauli.com",
+    "date": "2025-11-22",
+    "guests": 5,
+    "notes": "peachy",
+    "createdAt": "2025-11-06T18:02:43.945Z"
+  },
+  {
+    "name": "Khushi Gauli",
+    "email": "khushi@gauli.com",
+    "date": "2025-11-15",
+    "guests": 63,
+    "notes": "taro",
+    "createdAt": "2025-11-06T18:09:55.892Z"
+  },
+  {
+    "name": "Khushi Gauli",
+    "email": "khushi@gauli.com",
+    "date": "2025-11-15",
+    "guests": 64,
+    "notes": "lavender themed",
+    "createdAt": "2025-11-06T18:13:32.023Z"
+  },
+  {
+    "name": "Khushi Gauli",
+    "email": "khushi@gauli.com",
+    "date": "2025-11-15",
+    "guests": 64,
+    "notes": "taro flavor",
+    "createdAt": "2025-11-06T18:15:54.647Z"
+  }
+]
