@@ -1,120 +1,108 @@
-// server.js — static server + Stripe Checkout + catering (Express v5 safe)
+// Load environment variables from .env file (contains sensitive keys like Stripe secret)
+require('dotenv').config();  // Load environment variables from .env
 
-try { require('dotenv').config(); } catch (_) {}
-
+// Import required dependencies
 const express = require('express');
+// Initialize Stripe with secret key from environment variables
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Load secret from .env
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 
+// Create Express application instance
 const app = express();
+
+// Enable CORS (Cross-Origin Resource Sharing) for all routes
 app.use(cors());
+// Parse incoming JSON request bodies
 app.use(express.json());
 
-// Serve static files from /public
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Health check
-app.get('/health', (_req, res) => res.json({ ok: true }));
+// Serve static files from the project root directory
+app.use(express.static('.'));
 
 /* ================================
    Stripe: Create Checkout Session
    ================================ */
+// POST endpoint to create a new Stripe checkout session
 app.post('/create-checkout-session', async (req, res) => {
-  const host = req.headers.origin || `http://localhost:${process.env.PORT || 3000}`;
-  const successURL = req.body?.success_url || `${host}/success.html`;
-  const cancelURL  = req.body?.cancel_url  || `${host}/checkout.html`;
-
-  if (!process.env.STRIPE_SECRET_KEY) {
-    return res.status(501).json({
-      error: 'Stripe not configured on server',
-      hint: 'Set STRIPE_SECRET_KEY in .env (sk_test_...) and restart.'
-    });
-  }
-
-  const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
   try {
-    let line_items = req.body?.line_items;
+    // Extract line items (products/services) from request body
+    const { line_items } = req.body;
 
-    // Allow shorthand items format
-    if (!line_items && Array.isArray(req.body?.items)) {
-      line_items = req.body.items.map(i => {
-        const dollars = Number(i.price || 0);
-        const quantity = Math.max(1, Number(i.quantity || 1));
-        return {
-          quantity,
-          price_data: {
-            currency: 'usd',
-            unit_amount: Math.round(dollars * 100),
-            product_data: { name: String(i.name || 'Item') }
-          }
-        };
-      });
-    }
-
-    if (!Array.isArray(line_items) || line_items.length === 0) {
-      return res.status(400).json({ error: 'No line_items or items provided.' });
-    }
-
+    // Create a new Stripe checkout session with the provided configuration
     const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      payment_method_types: ['card'],
-      line_items,
-      success_url: successURL,
-      cancel_url: cancelURL
+      payment_method_types: ['card'], // Accept card payments only
+      line_items, // Products/services to be purchased
+      mode: 'payment', // One-time payment (not subscription)
+      success_url: 'http://localhost:3000/success.html', // Redirect here on successful payment
+      cancel_url: 'http://localhost:3000/checkout.html', // Redirect here if user cancels
     });
 
-    return res.json({ url: session.url, id: session.id });
+    // Return the session ID to the client
+    res.json({ id: session.id });
   } catch (error) {
+    // Log any errors and return error message to client
     console.error('Error creating checkout session:', error);
-    return res.status(500).json({ error: 'Stripe session creation failed.' });
+    res.status(500).json({ error: error.message });
   }
 });
 
 /* =========================================
    Catering: Collect booking form submissions
    ========================================= */
+// POST endpoint to handle catering booking requests
 app.post('/api/catering', (req, res) => {
+  // Destructure catering form data from request body
   const { name, email, date, guests, notes, createdAt } = req.body || {};
+
+  // basic validation
+  // Validate that all required fields are present
   if (!name || !email || !date || !guests) {
     return res.status(400).json({ ok: false, error: 'Missing required fields.' });
   }
 
+  // Create a structured record object with sanitized data
   const record = {
-    name: String(name).trim(),
+    name: String(name).trim(), // Convert to string and remove whitespace
     email: String(email).trim(),
     date: String(date),
-    guests: Number(guests),
-    notes: (notes ? String(notes) : '').trim(),
-    createdAt: createdAt || new Date().toISOString()
+    guests: Number(guests), // Convert to number
+    notes: (notes ? String(notes) : '').trim(), // Optional field, default to empty string
+    createdAt: createdAt || new Date().toISOString(), // Use provided timestamp or create new one
   };
 
+  // Define the path to the JSON file where catering requests are stored
   const file = path.join(__dirname, 'catering-requests.json');
 
   try {
+    // Initialize array to hold existing catering requests
     let existing = [];
+    // Check if the catering requests file already exists
     if (fs.existsSync(file)) {
+      // Read the existing file content
       const raw = fs.readFileSync(file, 'utf8');
+      // Parse JSON content, or use empty array if file is empty
       existing = raw ? JSON.parse(raw) : [];
     }
+    // Add the new catering request to the array
     existing.push(record);
+    // Write the updated array back to the file with pretty formatting
     fs.writeFileSync(file, JSON.stringify(existing, null, 2));
+    // Return success response to client
     return res.json({ ok: true });
   } catch (e) {
+    // Log any file system errors
     console.error('Failed to write catering request:', e);
+    // Return error response to client
     return res.status(500).json({ ok: false, error: 'Server error.' });
   }
 });
 
-// ✅ Express v5-safe catch-all (regex instead of '*')
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// Start server
-const PORT = process.env.PORT || 3000;
+// Define the port number for the server
+const PORT = 3000;
+// Start the Express server and listen on the specified port
 app.listen(PORT, () => {
-  console.log(`✅ Server running: http://localhost:${PORT}`);
-  console.log(`🔎 Health check:  http://localhost:${PORT}/health`);
+  // Log server startup messages to console
+  console.log(`Server running on http://localhost:${PORT}`);
+  console.log('Open http://localhost:3000/index.html in your browser');
 });
