@@ -260,6 +260,77 @@
       font-size: 0.9rem;
       background: transparent;
     }
+
+    /* Customer Info Section Styles */
+    .customer-info-section {
+      background: linear-gradient(135deg, #FFF5F7 0%, #F0F8FF 100%) !important;
+      padding: 2rem;
+      border-radius: 15px;
+      border: 2px solid #FFB5C5;
+      margin-bottom: 2rem;
+    }
+    .customer-info-section h3 {
+      color: #2C3E50;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Pickup Section Styles */
+    .pickup-section {
+      background: linear-gradient(135deg, #E8F5E9 0%, #FFF9E6 100%) !important;
+      padding: 2rem;
+      border-radius: 15px;
+      border: 2px solid #81C784;
+      margin-bottom: 2rem;
+    }
+    .pickup-section h3 {
+      color: #2C3E50;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Form Group Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+      background: transparent;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #2C3E50;
+      font-weight: 600;
+      background: transparent;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #E0E0E0;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      background: #fff;
+      color: #2C3E50;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #5DADE2;
+      box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
+    }
+    .form-group input::placeholder {
+      color: #aab7c4;
+    }
   </style>
 </head>
 
@@ -293,6 +364,54 @@
       </div>
     </div>
 
+    <!-- Customer Info Section (for guest checkout) -->
+    <div class="customer-info-section" id="customerInfoSection" style="display: none;">
+      <h3>👤 Your Information</h3>
+      <form id="customer-info-form">
+        <div class="form-group">
+          <label for="customerName">Full Name *</label>
+          <input type="text" id="customerName" name="customerName" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label for="customerEmail">Email Address *</label>
+          <input type="email" id="customerEmail" name="customerEmail" placeholder="Enter your email" required>
+        </div>
+      </form>
+    </div>
+
+    <!-- Pickup Time Section -->
+    <div class="pickup-section">
+      <h3>🕐 Pickup Time</h3>
+      <form id="pickup-form">
+        <div class="form-group">
+          <label for="pickupDate">Pickup Date *</label>
+          <input type="date" id="pickupDate" name="pickupDate" required>
+        </div>
+        <div class="form-group">
+          <label for="pickupTime">Pickup Time *</label>
+          <select id="pickupTime" name="pickupTime" required>
+            <option value="">Select a time...</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="11:30">11:30 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="12:30">12:30 PM</option>
+            <option value="13:00">1:00 PM</option>
+            <option value="13:30">1:30 PM</option>
+            <option value="14:00">2:00 PM</option>
+            <option value="14:30">2:30 PM</option>
+            <option value="15:00">3:00 PM</option>
+            <option value="15:30">3:30 PM</option>
+            <option value="16:00">4:00 PM</option>
+            <option value="16:30">4:30 PM</option>
+            <option value="17:00">5:00 PM</option>
+            <option value="17:30">5:30 PM</option>
+            <option value="18:00">6:00 PM</option>
+            <option value="18:30">6:30 PM</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
     <div class="payment-section">
       <div class="test-mode-badge">🧪 TEST MODE</div>
       <h3>💳 Payment Information</h3>
@@ -320,7 +439,11 @@
     <div class="success-content">
       <div class="success-icon">🎉</div>
       <h2>Payment Successful!</h2>
-      <p>Thank you for your order! Your delicious ice cream will be ready soon.</p>
+      <p>Thank you for your order!</p>
+      <div id="confirmationDetails" style="text-align: left; background: #f5f5f5; padding: 1rem; border-radius: 10px; margin: 1rem 0; font-size: 0.9rem; color: #2C3E50;">
+        <!-- Confirmation details will be inserted here -->
+      </div>
+      <p style="font-size: 0.9rem; color: #666;">A confirmation email has been sent to your email address.</p>
       <a href="menu.html" class="success-btn">Order More</a>
     </div>
   </div>
@@ -379,6 +502,62 @@
     }, 1000);
     
     let totalAmount = 0;
+    let currentUser = null;
+    
+    // Check if user is logged in (Firebase auth is checked in module script below)
+    function checkUserStatus() {
+      // Firebase status check happens in the module script at bottom
+      // This function is kept for compatibility with the DOMContentLoaded event
+    }
+    
+    // Set minimum pickup date to today
+    function setMinimumPickupDate() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const minDate = `${yyyy}-${mm}-${dd}`;
+      
+      document.getElementById('pickupDate').min = minDate;
+      document.getElementById('pickupDate').value = minDate; // Default to today
+    }
+    
+    // Display order confirmation details in success modal
+    function displayConfirmationDetails(orderData) {
+      const confirmationDiv = document.getElementById('confirmationDetails');
+      const pickupDateTime = `${formatDate(orderData.pickupDate)} at ${orderData.pickupTime}`;
+      
+      let itemsHTML = '<strong>Order Items:</strong><br>';
+      Object.values(orderData.items).forEach(item => {
+        itemsHTML += `• ${item.name} x${item.qty} - $${(item.price * item.qty).toFixed(2)}<br>`;
+      });
+      
+      confirmationDiv.innerHTML = `
+        <strong>👤 Customer Name:</strong> ${orderData.customerName}<br>
+        <strong>✉️ Email:</strong> ${orderData.customerEmail}<br>
+        <strong>🕐 Pickup Time:</strong> ${pickupDateTime}<br>
+        <strong>💰 Total Amount:</strong> $${orderData.totalAmount.toFixed(2)}<br><br>
+        ${itemsHTML}
+      `;
+    }
+    
+    // Helper function to format date
+    function formatDate(dateString) {
+      const date = new Date(dateString + 'T00:00:00');
+      return date.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    
+    // Set minimum pickup date to today
+    function setMinimumPickupDate() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const minDate = `${yyyy}-${mm}-${dd}`;
+      
+      document.getElementById('pickupDate').min = minDate;
+      document.getElementById('pickupDate').value = minDate; // Default to today
+    }
     
     // Handle validation errors
     cardElement.on('change', function(event) {
@@ -435,11 +614,68 @@
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       
+      // Validate customer info if guest checkout
+      let customerName = null;
+      let customerEmail = null;
+      
+      if (!window.currentUser) {
+        const customerInfoForm = document.getElementById('customer-info-form');
+        if (!customerInfoForm.checkValidity()) {
+          alert('Please fill in all customer information fields.');
+          return;
+        }
+        customerName = document.getElementById('customerName').value.trim();
+        customerEmail = document.getElementById('customerEmail').value.trim();
+        
+        if (!customerName || !customerEmail) {
+          alert('Please enter your name and email.');
+          return;
+        }
+      } else {
+        // Use logged-in user data
+        customerName = window.currentUser.displayName || window.currentUser.email;
+        customerEmail = window.currentUser.email;
+      }
+      
+      // Validate pickup date and time
+      const pickupDate = document.getElementById('pickupDate').value;
+      const pickupTime = document.getElementById('pickupTime').value;
+      
+      if (!pickupDate) {
+        alert('Please select a pickup date.');
+        return;
+      }
+      if (!pickupTime) {
+        alert('Please select a pickup time.');
+        return;
+      }
+      
+      // Format pickup datetime
+      const pickupDatetime = `${pickupDate} at ${pickupTime}`;
+      
       submitButton.disabled = true;
       submitButton.textContent = 'Processing...';
       
       // For demo: simulate payment processing
       setTimeout(() => {
+        // Prepare order data
+        const cart = JSON.parse(localStorage.getItem('site_cart_v1') || '{}');
+        const orderData = {
+          customerName: customerName,
+          customerEmail: customerEmail,
+          pickupDate: pickupDate,
+          pickupTime: pickupTime,
+          totalAmount: totalAmount,
+          items: cart,
+          orderDate: new Date().toISOString()
+        };
+        
+        // Save order confirmation data
+        localStorage.setItem('lastOrderConfirmation', JSON.stringify(orderData));
+        
+        // Display confirmation details
+        displayConfirmationDetails(orderData);
+        
         // Show success modal
         document.getElementById('successModal').style.display = 'flex';
         
@@ -463,19 +699,39 @@
         submitButton.disabled = false;
         submitButton.textContent = 'Complete Payment';
       } else {
-        // Send to your backend
+        // Prepare order data
+        const cart = JSON.parse(localStorage.getItem('site_cart_v1') || '{}');
+        
+        // Send to your backend with order details
         const response = await fetch('http://localhost:3000/create-payment-intent', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
             payment_method_id: paymentMethod.id,
-            amount: Math.round(totalAmount * 100)
+            amount: Math.round(totalAmount * 100),
+            customerName: customerName,
+            customerEmail: customerEmail,
+            pickupDate: pickupDate,
+            pickupTime: pickupTime,
+            items: cart
           })
         });
         
         const result = await response.json();
         
         if (result.success) {
+          const orderData = {
+            customerName: customerName,
+            customerEmail: customerEmail,
+            pickupDate: pickupDate,
+            pickupTime: pickupTime,
+            totalAmount: totalAmount,
+            items: cart,
+            orderDate: new Date().toISOString()
+          };
+          
+          localStorage.setItem('lastOrderConfirmation', JSON.stringify(orderData));
+          displayConfirmationDetails(orderData);
           document.getElementById('successModal').style.display = 'flex';
           localStorage.removeItem('site_cart_v1');
         } else {
@@ -487,8 +743,43 @@
       */
     });
     
-    // Load cart on page load
-    loadCartData();
+    // Initialize page
+    window.addEventListener('DOMContentLoaded', () => {
+      checkUserStatus();
+      setMinimumPickupDate();
+      loadCartData();
+    });
+  </script>
+
+  <!-- Firebase Authentication -->
+  <script type="module">
+    import { auth } from './auth.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
+    
+    // Make these globally accessible
+    window.checkFirebaseStatus = function() {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is logged in
+          window.currentUser = {
+            email: user.email,
+            displayName: user.displayName || user.email.split('@')[0]
+          };
+          const section = document.getElementById('customerInfoSection');
+          if (section) section.style.display = 'none';
+        } else {
+          // User is NOT logged in - show guest form
+          window.currentUser = null;
+          const section = document.getElementById('customerInfoSection');
+          if (section) section.style.display = 'block';
+        }
+      });
+    };
+    
+    // Check status when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      window.checkFirebaseStatus();
+    });
   </script>
 
   <!-- Link authentication  -->

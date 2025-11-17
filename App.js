@@ -70,6 +70,8 @@ function handleLogin(event) {
     setTimeout(() => {
         currentUser = { email };
         updateHeaderButton(); // ✅ NEW
+        // Store user in localStorage for use in checkout
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
         showSuccessMessage('Login Successful!', `Welcome back, ${email}`);
         
         setTimeout(() => {
@@ -115,6 +117,8 @@ function handleRegister(event) {
             email: email
         };
         updateHeaderButton(); // ✅ NEW
+        // Store user in localStorage for use in checkout
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
         showSuccessMessage(
             'Registration Successful!',
