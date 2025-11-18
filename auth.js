@@ -35,7 +35,9 @@ export const auth = getAuth(app);
  * @returns {string} The first name or email username or "User" as fallback
  */
 function firstNameFromDisplayName(displayName, email) {
+  // If display name exists and isn't empty, split on whitespace and return first word
   if (displayName && displayName.trim()) return displayName.trim().split(/\s+/)[0];
+  // Otherwise extract username portion before @ symbol from email, or return "User"
   return email ? email.split("@")[0] : "User";
 }
 
@@ -46,13 +48,16 @@ function firstNameFromDisplayName(displayName, email) {
  */
 function exposeUser(user) {
   if (user) {
+    // Extract the first name from the user's display name or email
     const name = firstNameFromDisplayName(user.displayName, user.email || "");
+    // Create a simplified user info object on the window object for global access
     window.currentUserInfo = {
       name,
       email: user.email || null,
       rawUser: user
     };
   } else {
+    // Clear the user info when logged out
     window.currentUserInfo = null;
   }
 
@@ -68,40 +73,55 @@ function exposeUser(user) {
  * @param {Object|null} user - Firebase user object or null if not authenticated
  */
 function updateHeader(user) {
+  // Get references to the sign up and logout buttons in the header
   const signupBtn = document.getElementById("signupBtn");
   const logoutBtn = document.getElementById("logoutBtn");
+  
+  // If sign up button doesn't exist (page without header), just expose user and return
   if (!signupBtn) {
     exposeUser(user);
     return;
   }
 
   if (user) {
+    // User is logged in: change button text to greeting with user's first name
     const name = firstNameFromDisplayName(user.displayName, user.email);
     signupBtn.textContent = `Hi, ${name}`;
-    signupBtn.href = "#";
+    signupBtn.href = "#"; // Remove the link since user is already logged in
+    // Show the logout button if it exists
     if (logoutBtn) logoutBtn.style.display = "inline-block";
   } else {
+    // User is logged out: reset button to default "Sign up" text and link
     signupBtn.textContent = "Sign up";
     signupBtn.href = "signup.html";
+    // Hide the logout button
     if (logoutBtn) logoutBtn.style.display = "none";
   }
 
-  // Make user info available globally
+  // Make user info available globally after updating the header
   exposeUser(user);
 }
 
 // Set up authentication state listener - updates header whenever auth state changes
+// This listener fires on page load and whenever user logs in or out
 onAuthStateChanged(auth, user => updateHeader(user));
 
 // Event delegation for logout button click handling
+// Uses event delegation on document to handle clicks even if button added dynamically
 document.addEventListener('click', async (e) => {
+  // Check if the clicked element is or is inside the logout button
   const btn = e.target.closest('#logoutBtn');
-  if (!btn) return;
+  if (!btn) return; // Not a logout button click, ignore
+  
+  // Prevent default link behavior
   e.preventDefault();
+  
+  // Attempt to sign out the user, silently catch any errors
   try { await signOut(auth); } catch (err) { console.error(err); }
 });
 
 // Initialize header on page load with current authentication state
+// This ensures the header displays correctly even before onAuthStateChanged fires
 document.addEventListener('DOMContentLoaded', () => {
   updateHeader(auth.currentUser);
 });

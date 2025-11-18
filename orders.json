@@ -324,5 +324,109 @@
     ],
     "total": 19.75,
     "createdAt": "2025-11-18T03:18:03.511Z"
+  },
+  {
+    "name": "Resha Singh",
+    "email": "txm8930@mavs.uta.edu",
+    "items": [
+      {
+        "name": "Dairy Free (Vanilla) • Regular • M: Graham x1, Lychee x1, Nutella x1, Sprinkles x1, Strawberry x1 (regular)",
+        "qty": 1,
+        "unitPrice": 7.75,
+        "lineTotal": 7.75
+      },
+      {
+        "name": "#2 Original Vanilla (regular)",
+        "qty": 1,
+        "unitPrice": 7.25,
+        "lineTotal": 7.25
+      },
+      {
+        "name": "#2 Original Vanilla (small)",
+        "qty": 1,
+        "unitPrice": 5.25,
+        "lineTotal": 5.25
+      }
+    ],
+    "total": 20.25,
+    "createdAt": "2025-11-18T04:35:12.434Z"
+  },
+  {
+    "name": "Kripa",
+    "email": "txm8930@mavs.uta.edu",
+    "items": [
+      {
+        "name": "#2 Original Vanilla (small)",
+        "qty": 1,
+        "unitPrice": 5.25,
+        "lineTotal": 5.25
+      },
+      {
+        "name": "#3 Thai Tea (small)",
+        "qty": 1,
+        "unitPrice": 5.25,
+        "lineTotal": 5.25
+      },
+      {
+        "name": "#2 Original Vanilla (regular)",
+        "qty": 1,
+        "unitPrice": 7.25,
+        "lineTotal": 7.25
+      }
+    ],
+    "total": 17.75,
+    "createdAt": "2025-11-18T04:37:44.902Z"
+  },
+  {
+    "name": "Shreya Ghoshal",
+    "email": "txm8930@mavs.uta.edu",
+    "items": [
+      {
+        "name": "#2 Original Vanilla (small)",
+        "qty": 1,
+        "unitPrice": 5.25,
+        "lineTotal": 5.25
+      },
+      {
+        "name": "#2 Original Vanilla (regular)",
+        "qty": 1,
+        "unitPrice": 7.25,
+        "lineTotal": 7.25
+      },
+      {
+        "name": "Chocolate • Regular • M: Blackberry x1, Blueberry x1, Brownie x1, Lychee x1, Nutella x1, Pineapple x1 (regular)",
+        "qty": 1,
+        "unitPrice": 8.25,
+        "lineTotal": 8.25
+      }
+    ],
+    "total": 20.75,
+    "createdAt": "2025-11-18T05:11:20.396Z"
+  },
+  {
+    "name": "Sassy",
+    "email": "txm8930@mavs.uta.edu",
+    "items": [
+      {
+        "name": "#2 Original Vanilla (regular)",
+        "qty": 1,
+        "unitPrice": 7.25,
+        "lineTotal": 7.25
+      },
+      {
+        "name": "#2 Original Vanilla (small)",
+        "qty": 1,
+        "unitPrice": 5.25,
+        "lineTotal": 5.25
+      },
+      {
+        "name": "Thai Tea • Regular • M: Banana x1, Blackberry x1, Blueberry x1, Graham x1, Lychee x1, Chocolate Sauce x1 (regular)",
+        "qty": 1,
+        "unitPrice": 8.25,
+        "lineTotal": 8.25
+      }
+    ],
+    "total": 20.75,
+    "createdAt": "2025-11-18T05:12:47.166Z"
   }
 ]

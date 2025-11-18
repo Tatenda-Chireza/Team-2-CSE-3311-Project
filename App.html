@@ -4,10 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Iceland Ice Cream</title>
+  <!-- Link to external stylesheet -->
   <link rel="stylesheet" href="style.css">
+  <!-- Stripe.js library for payment processing -->
   <script src="https://js.stripe.com/v3/"></script>
   <style>
-    /* Hide the Stripe Link autofill warning */
+    /* ========================================
+       STRIPE LINK AUTOFILL HIDING
+       ======================================== */
+    /* Hide the Stripe Link autofill warning messages */
     .p-Link, .p-FieldWrapper-warningContainer, [class*="LinkMessageContainer"] {
       display: none !important;
     }
@@ -17,6 +22,10 @@
       pointer-events: auto !important;
     }
 
+    /* ========================================
+       CHECKOUT CONTAINER STYLES
+       ======================================== */
+    /* Main container for the checkout page */
     .checkout-container {
       max-width: 700px;
       margin: 2rem auto;
@@ -25,9 +34,11 @@
       border-radius: 20px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.1);
     }
+    /* Ensure all child elements have transparent backgrounds */
     .checkout-container * {
       background: transparent;
     }
+    /* Checkout page title styling */
     .checkout-title {
       color: #FF6B9D;
       margin-bottom: 2rem;
@@ -39,7 +50,10 @@
       gap: 15px;
     }
 
-    /* Order Summary Styles */
+    /* ========================================
+       ORDER SUMMARY STYLES
+       ======================================== */
+    /* Container for order summary section */
     .order-summary {
       margin-bottom: 2rem;
       padding: 1.5rem;
@@ -47,12 +61,14 @@
       border-radius: 15px;
       border: 2px solid #FFB5C5;
     }
+    /* Order summary heading */
     .order-summary h3 {
       background: transparent;
       color: #2C3E50;
       margin-bottom: 1rem;
       font-size: 1.3rem;
     }
+    /* Individual order item row */
     .order-item {
       display: flex;
       justify-content: space-between;
@@ -62,21 +78,26 @@
       color: #2C3E50;
       background: transparent;
     }
+    /* Ensure spans within order items are transparent */
     .order-item span {
       background: transparent;
     }
+    /* Product name styling */
     .item-name {
       font-weight: 600;
       flex: 1;
     }
+    /* Quantity display styling */
     .item-qty {
       color: #5DADE2;
       margin: 0 1rem;
     }
+    /* Price display styling */
     .item-price {
       font-weight: bold;
       color: #FF6B9D;
     }
+    /* Order total row styling */
     .order-total {
       display: flex;
       justify-content: space-between;
@@ -88,17 +109,22 @@
       border-top: 2px solid #FFB5C5;
       background: transparent;
     }
+    /* Order total span transparency */
     .order-total span {
       background: transparent;
     }
 
-    /* Payment Form Styles */
+    /* ========================================
+       PAYMENT FORM STYLES
+       ======================================== */
+    /* Payment section container */
     .payment-section {
       background: linear-gradient(135deg, #FFF5F7 0%, #F0F8FF 100%) !important;
       padding: 2rem;
       border-radius: 15px;
       border: 2px solid #FFB5C5;
     }
+    /* Payment section heading */
     .payment-section h3 {
       color: #2C3E50;
       margin-bottom: 1.5rem;
@@ -109,7 +135,10 @@
       gap: 10px;
     }
 
-    /* Stripe Card Element Styling */
+    /* ========================================
+       STRIPE CARD ELEMENT STYLING
+       ======================================== */
+    /* Wrapper for Stripe card input element */
     .card-element-wrapper {
       background: #fff !important;
       padding: 15px;
@@ -118,16 +147,20 @@
       margin-bottom: 1rem;
       transition: border-color 0.3s ease;
     }
+    /* Focus state for card element wrapper */
     .card-element-wrapper:focus-within {
       border-color: #5DADE2;
       box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
     }
+    /* Stripe card element background */
     #card-element {
       background: #fff !important;
     }
+    /* Stripe element class background override */
     .StripeElement {
       background: #fff !important;
     }
+    /* Card validation error messages */
     #card-errors {
       color: #FF6B9D;
       margin-top: 0.5rem;
@@ -136,7 +169,10 @@
       background: transparent;
     }
 
-    /* Test Mode Badge */
+    /* ========================================
+       TEST MODE BADGE
+       ======================================== */
+    /* Badge indicating Stripe test mode */
     .test-mode-badge {
       display: inline-block;
       background: #FFF3CD !important;
@@ -149,7 +185,10 @@
       border: 1px solid #FFE69C;
     }
 
-    /* Payment Button */
+    /* ========================================
+       PAYMENT BUTTON
+       ======================================== */
+    /* Main payment button styling */
     .pay-button {
       width: 100%;
       padding: 18px;
@@ -163,18 +202,23 @@
       transition: all 0.3s ease;
       margin-top: 1rem;
     }
+    /* Payment button hover state (when not disabled) */
     .pay-button:hover:not(:disabled) {
       background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
+    /* Payment button disabled state */
     .pay-button:disabled {
       opacity: 0.6;
       cursor: not-allowed;
       transform: none;
     }
 
-    /* Success Message */
+    /* ========================================
+       SUCCESS MODAL
+       ======================================== */
+    /* Modal overlay for success message */
     .success-modal {
       display: none;
       position: fixed;
@@ -184,6 +228,7 @@
       align-items: center;
       justify-content: center;
     }
+    /* Success modal content box */
     .success-content {
       background: #fff;
       padding: 3rem;
@@ -192,24 +237,29 @@
       text-align: center;
       animation: slideUp 0.3s ease;
     }
+    /* Slide-up animation for success modal */
     @keyframes slideUp {
       from { transform: translateY(50px); opacity: 0; }
       to   { transform: translateY(0);   opacity: 1; }
     }
+    /* Success icon (emoji) styling */
     .success-icon {
       font-size: 4rem;
       margin-bottom: 1rem;
     }
+    /* Success modal heading */
     .success-content h2 {
       color: #FF6B9D;
       margin-bottom: 1rem;
       background: transparent;
     }
+    /* Success modal paragraph text */
     .success-content p {
       color: #2C3E50;
       margin-bottom: 2rem;
       background: transparent;
     }
+    /* Success modal action button */
     .success-btn {
       padding: 12px 30px;
       background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
@@ -222,21 +272,28 @@
       text-decoration: none;
       display: inline-block;
     }
+    /* Success button hover effect */
     .success-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
+    /* ========================================
+       EMPTY CART STYLES
+       ======================================== */
+    /* Empty cart message container */
     .empty-cart {
       text-align: center;
       padding: 3rem;
       color: #2C3E50;
     }
+    /* Empty cart heading */
     .empty-cart h2 {
       color: #FF6B9D;
       margin-bottom: 1rem;
       background: transparent;
     }
+    /* Back to menu button */
     .back-btn {
       display: inline-block;
       margin-top: 1rem;
@@ -247,12 +304,14 @@
       text-decoration: none;
       transition: all 0.3s ease;
     }
+    /* Back button hover effect */
     .back-btn:hover {
       background: #5DADE2;
       color: #fff;
       transform: translateY(-2px);
     }
 
+    /* Secure payment badge text */
     .secure-badge {
       text-align: center;
       margin-top: 1rem;
@@ -261,7 +320,10 @@
       background: transparent;
     }
 
-    /* Customer Info Section Styles */
+    /* ========================================
+       CUSTOMER INFO SECTION STYLES
+       ======================================== */
+    /* Customer information section (for guest checkout) */
     .customer-info-section {
       background: linear-gradient(135deg, #FFF5F7 0%, #F0F8FF 100%) !important;
       padding: 2rem;
@@ -269,6 +331,7 @@
       border: 2px solid #FFB5C5;
       margin-bottom: 2rem;
     }
+    /* Customer info section heading */
     .customer-info-section h3 {
       color: #2C3E50;
       margin-bottom: 1.5rem;
@@ -279,7 +342,10 @@
       gap: 10px;
     }
 
-    /* Pickup Section Styles */
+    /* ========================================
+       PICKUP SECTION STYLES
+       ======================================== */
+    /* Pickup time selection section */
     .pickup-section {
       background: linear-gradient(135deg, #E8F5E9 0%, #FFF9E6 100%) !important;
       padding: 2rem;
@@ -287,6 +353,7 @@
       border: 2px solid #81C784;
       margin-bottom: 2rem;
     }
+    /* Pickup section heading */
     .pickup-section h3 {
       color: #2C3E50;
       margin-bottom: 1.5rem;
@@ -297,11 +364,15 @@
       gap: 10px;
     }
 
-    /* Form Group Styles */
+    /* ========================================
+       FORM GROUP STYLES
+       ======================================== */
+    /* Form field container */
     .form-group {
       margin-bottom: 1.5rem;
       background: transparent;
     }
+    /* Form field labels */
     .form-group label {
       display: block;
       margin-bottom: 0.5rem;
@@ -309,6 +380,7 @@
       font-weight: 600;
       background: transparent;
     }
+    /* Form inputs and select dropdowns */
     .form-group input,
     .form-group select {
       width: 100%;
@@ -322,12 +394,14 @@
       transition: border-color 0.3s ease;
       box-sizing: border-box;
     }
+    /* Focus state for form inputs */
     .form-group input:focus,
     .form-group select:focus {
       outline: none;
       border-color: #5DADE2;
       box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
     }
+    /* Placeholder text styling */
     .form-group input::placeholder {
       color: #aab7c4;
     }
@@ -335,11 +409,16 @@
 </head>
 
 <body>
+  <!-- ========================================
+       HEADER NAVIGATION
+       ======================================== -->
   <header>
+    <!-- Logo and site name link -->
     <a href="index.html" class="logo-link">
       <img class="logo" src="./img/LOGO.png" alt="Logo">
       <span>ICELAND ICE CREAM</span>
     </a>
+    <!-- Main navigation menu -->
     <nav>
       <ul class="nav_links">
         <li><a href="index.html">Home</a></li>
@@ -348,30 +427,45 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
+    <!-- Auth buttons (Sign up/Log out) - toggled based on login state -->
     <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
     <button id="logoutBtn" style="display: none;">Log out</button>
   </header>
 
+  <!-- ========================================
+       CHECKOUT CONTAINER
+       ======================================== -->
   <div class="checkout-container" id="checkoutContainer">
+    <!-- Page title with emoji -->
     <h1 class="checkout-title">🍦 Checkout</h1>
 
+    <!-- ========================================
+         ORDER SUMMARY SECTION
+         ======================================== -->
     <div class="order-summary">
       <h3>📋 Order Summary</h3>
+      <!-- Order items will be dynamically inserted here -->
       <div id="orderItems"></div>
+      <!-- Total amount display -->
       <div class="order-total">
         <span>Total:</span>
         <span id="totalAmount">$0.00</span>
       </div>
     </div>
 
-    <!-- Customer Info Section (only for guest checkout) -->
+    <!-- ========================================
+         CUSTOMER INFO SECTION (Guest Checkout Only)
+         ======================================== -->
+    <!-- This section is hidden for logged-in users -->
     <div class="customer-info-section" id="customerInfoSection" style="display: none;">
       <h3>👤 Your Information</h3>
       <form id="customer-info-form">
+        <!-- Full name input field -->
         <div class="form-group">
           <label for="customerName">Full Name *</label>
           <input type="text" id="customerName" name="customerName" placeholder="Enter your name" required>
         </div>
+        <!-- Email address input field -->
         <div class="form-group">
           <label for="customerEmail">Email Address *</label>
           <input type="email" id="customerEmail" name="customerEmail" placeholder="Enter your email" required>
@@ -379,14 +473,18 @@
       </form>
     </div>
 
-    <!-- Pickup Time Section -->
+    <!-- ========================================
+         PICKUP TIME SECTION
+         ======================================== -->
     <div class="pickup-section">
       <h3>🕐 Pickup Time</h3>
       <form id="pickup-form">
+        <!-- Pickup date selector -->
         <div class="form-group">
           <label for="pickupDate">Pickup Date *</label>
           <input type="date" id="pickupDate" name="pickupDate" required>
         </div>
+        <!-- Pickup time dropdown -->
         <div class="form-group">
           <label for="pickupTime">Pickup Time *</label>
           <select id="pickupTime" name="pickupTime" required>
@@ -412,49 +510,72 @@
       </form>
     </div>
 
+    <!-- ========================================
+         PAYMENT SECTION
+         ======================================== -->
     <div class="payment-section">
+      <!-- Test mode indicator -->
       <div class="test-mode-badge">🧪 TEST MODE</div>
       <h3>💳 Payment Information</h3>
+      <!-- Payment form with Stripe card element -->
       <form id="payment-form">
+        <!-- Stripe card input element container -->
         <div class="card-element-wrapper">
           <div id="card-element"></div>
         </div>
+        <!-- Error message display area -->
         <div id="card-errors" role="alert"></div>
+        <!-- Submit payment button -->
         <button type="submit" class="pay-button" id="submit-button">
           Complete Payment
         </button>
       </form>
+      <!-- Secure payment badge -->
       <div class="secure-badge">🔒 Secure payment powered by Stripe</div>
     </div>
   </div>
 
+  <!-- ========================================
+       EMPTY CART MESSAGE
+       ======================================== -->
+  <!-- Shown when cart is empty, hidden by default -->
   <div class="checkout-container empty-cart" id="emptyCart" style="display: none;">
     <h2>Your cart is empty! 🛒</h2>
     <p>Add some delicious ice cream to your cart before checking out.</p>
     <a href="menu.html" class="back-btn">Browse Menu</a>
   </div>
 
-  <!-- Success Modal -->
+  <!-- ========================================
+       SUCCESS MODAL
+       ======================================== -->
+  <!-- Modal displayed after successful payment -->
   <div class="success-modal" id="successModal">
     <div class="success-content">
+      <!-- Success icon -->
       <div class="success-icon">🎉</div>
       <h2>Payment Successful!</h2>
       <p>Thank you for your order!</p>
+      <!-- Order confirmation details -->
       <div id="confirmationDetails"
            style="text-align: left; background: #f5f5f5; padding: 1rem; border-radius: 10px; margin: 1rem 0; font-size: 0.9rem; color: #2C3E50;">
         <!-- Confirmation details will be inserted here -->
       </div>
       <p style="font-size: 0.9rem; color: #666;">A confirmation email has been sent to your email address.</p>
+      <!-- Button to return to menu -->
       <a href="menu.html" class="success-btn">Order More</a>
     </div>
   </div>
 
   <script>
-    // ---------- Stripe setup ----------
+    // ========================================
+    // STRIPE SETUP
+    // ========================================
+    // Initialize Stripe with publishable key (test mode)
     const stripe = Stripe('pk_test_51RuPUMR7q4tFjI22c0epR9XweQ8WZQTRlnICYkraCMFyrgMUMRtjaJ4hjrTLpWUs6GFqLWSQdYZy8V26P8IMBoHB00C86vSVNL', {
       betas: ['card_country_event_beta_1']
     });
 
+    // Define Stripe Elements appearance/theme
     const appearance = {
       theme: 'stripe',
       variables: {
@@ -467,11 +588,13 @@
       }
     };
 
+    // Create Stripe Elements instance with custom appearance
     const elements = stripe.elements({
       appearance,
       loader: 'never'
     });
 
+    // Create and configure card element
     const cardElement = elements.create('card', {
       style: {
         base: {
@@ -489,9 +612,10 @@
         }
       }
     });
+    // Mount card element to DOM
     cardElement.mount('#card-element');
 
-    // Hide Stripe Link warnings
+    // Hide Stripe Link autofill warnings after a delay
     setTimeout(() => {
       const warnings = document.querySelectorAll('[class*="Link"], [class*="warning"]');
       warnings.forEach(el => {
@@ -501,12 +625,18 @@
       });
     }, 1000);
 
-    let totalAmount = 0;
-    // we'll store Firebase user here:
-    window.currentUser = null;
+    // Global variables
+    let totalAmount = 0; // Store total order amount
+    window.currentUser = null; // Store Firebase user data (if logged in)
 
-    // ---------- Helper functions ----------
+    // ========================================
+    // HELPER FUNCTIONS
+    // ========================================
 
+    /**
+     * Set minimum pickup date to today
+     * Prevents users from selecting past dates
+     */
     function setMinimumPickupDate() {
       const today = new Date();
       const yyyy = today.getFullYear();
@@ -519,6 +649,11 @@
       dateInput.value = minDate; // default to today
     }
 
+    /**
+     * Format date string to readable format
+     * @param {string} dateString - Date string in YYYY-MM-DD format
+     * @returns {string} Formatted date (e.g., "Mon, Nov 17, 2025")
+     */
     function formatDate(dateString) {
       const date = new Date(dateString + 'T00:00:00');
       return date.toLocaleDateString('en-US', {
@@ -529,15 +664,21 @@
       });
     }
 
+    /**
+     * Display order confirmation details in success modal
+     * @param {Object} orderData - Complete order data object
+     */
     function displayConfirmationDetails(orderData) {
       const confirmationDiv = document.getElementById('confirmationDetails');
       const pickupDateTime = `${formatDate(orderData.pickupDate)} at ${orderData.pickupTime}`;
 
+      // Build items list HTML
       let itemsHTML = '<strong>Order Items:</strong><br>';
       Object.values(orderData.items).forEach(item => {
         itemsHTML += `• ${item.name} x${item.qty} - $${(item.price * item.qty).toFixed(2)}<br>`;
       });
 
+      // Insert confirmation details into modal
       confirmationDiv.innerHTML = `
         <strong>👤 Customer Name:</strong> ${orderData.customerName}<br>
         <strong>✉️ Email:</strong> ${orderData.customerEmail}<br>
@@ -547,9 +688,13 @@
       `;
     }
 
-    // send order to Express backend so it saves + emails
+    /**
+     * Send order data to Express backend for storage and email confirmation
+     * @param {Object} orderData - Complete order data object
+     */
     async function sendOrderToServer(orderData) {
       try {
+        // Transform cart items to server format
         const itemsForServer = Object.values(orderData.items).map(item => ({
           name: item.name,
           qty: item.qty,
@@ -557,6 +702,7 @@
           lineTotal: item.price * item.qty
         }));
 
+        // POST order data to backend API
         await fetch('/api/order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -570,35 +716,51 @@
         });
       } catch (err) {
         console.error('Failed to send order to server:', err);
-        // we still show success on the front-end so the user isn’t stuck
+        // Still show success to user even if server request fails
       }
     }
 
-    // Show Stripe errors
+    // ========================================
+    // STRIPE CARD ELEMENT EVENT HANDLERS
+    // ========================================
+    /**
+     * Listen for card input changes and display validation errors
+     */
     cardElement.on('change', function (event) {
       const displayError = document.getElementById('card-errors');
       displayError.textContent = event.error ? event.error.message : '';
     });
 
-    // Load cart data
+    // ========================================
+    // LOAD CART DATA
+    // ========================================
+    /**
+     * Load cart data from localStorage and display order summary
+     * Shows empty cart message if no items in cart
+     */
     function loadCartData() {
       try {
+        // Retrieve cart from localStorage
         const cart = JSON.parse(localStorage.getItem('site_cart_v1') || '{}');
         const orderItemsDiv = document.getElementById('orderItems');
         totalAmount = 0;
 
+        // Check if cart is empty
         if (Object.keys(cart).length === 0) {
           document.getElementById('checkoutContainer').style.display = 'none';
           document.getElementById('emptyCart').style.display = 'block';
           return;
         }
 
+        // Clear previous order items
         orderItemsDiv.innerHTML = '';
 
+        // Loop through cart items and create order item elements
         Object.values(cart).forEach(item => {
           const itemTotal = item.price * item.qty;
           totalAmount += itemTotal;
 
+          // Create order item HTML
           const itemDiv = document.createElement('div');
           itemDiv.className = 'order-item';
           itemDiv.innerHTML = `
@@ -609,28 +771,37 @@
           orderItemsDiv.appendChild(itemDiv);
         });
 
+        // Update total amount display
         document.getElementById('totalAmount').textContent = `$${totalAmount.toFixed(2)}`;
       } catch (e) {
         console.error('Error loading cart:', e);
+        // Show empty cart on error
         document.getElementById('checkoutContainer').style.display = 'none';
         document.getElementById('emptyCart').style.display = 'block';
       }
     }
 
-    // ---------- Payment submit handler ----------
-
+    // ========================================
+    // PAYMENT FORM SUBMISSION HANDLER
+    // ========================================
     const form = document.getElementById('payment-form');
     const submitButton = document.getElementById('submit-button');
 
+    /**
+     * Handle payment form submission
+     * Validates inputs, simulates payment, sends order to server, shows success modal
+     */
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      // 1) Get customer name/email
+      // ========================================
+      // STEP 1: Get customer name and email
+      // ========================================
       let customerName;
       let customerEmail;
 
       if (!window.currentUser) {
-        // guest checkout – use form
+        // Guest checkout - get data from form
         const customerInfoForm = document.getElementById('customer-info-form');
         if (!customerInfoForm.checkValidity()) {
           alert('Please fill in all customer information fields.');
@@ -643,12 +814,14 @@
           return;
         }
       } else {
-        // logged-in user – use Firebase user data
+        // Logged-in user - use Firebase user data
         customerName = window.currentUser.displayName || window.currentUser.email;
         customerEmail = window.currentUser.email;
       }
 
-      // 2) Validate pickup date and time
+      // ========================================
+      // STEP 2: Validate pickup date and time
+      // ========================================
       const pickupDate = document.getElementById('pickupDate').value;
       const pickupTime = document.getElementById('pickupTime').value;
 
@@ -661,12 +834,19 @@
         return;
       }
 
+      // Disable submit button and show processing state
       submitButton.disabled = true;
       submitButton.textContent = 'Processing...';
 
-      // Simulate payment, then send order to backend + show success
+      // ========================================
+      // STEP 3: Simulate payment processing
+      // ========================================
+      // In production, this would call Stripe's confirmCardPayment
       setTimeout(async () => {
+        // Retrieve cart data
         const cart = JSON.parse(localStorage.getItem('site_cart_v1') || '{}');
+        
+        // Build order data object
         const orderData = {
           customerName,
           customerEmail,
@@ -677,64 +857,91 @@
           orderDate: new Date().toISOString()
         };
 
-        // Save locally (if you still want it)
+        // Save order confirmation to localStorage
         localStorage.setItem('lastOrderConfirmation', JSON.stringify(orderData));
 
-        // Send to Express server (for JSON file + emails)
+        // ========================================
+        // STEP 4: Send order to Express server
+        // ========================================
+        // Server saves order to JSON file and sends confirmation email
         await sendOrderToServer(orderData);
 
-        // Show confirmation
+        // ========================================
+        // STEP 5: Display success confirmation
+        // ========================================
+        // Show order details in success modal
         displayConfirmationDetails(orderData);
         document.getElementById('successModal').style.display = 'flex';
 
-        // Clear cart
+        // ========================================
+        // STEP 6: Clear cart after successful order
+        // ========================================
         localStorage.removeItem('site_cart_v1');
 
+        // Re-enable submit button
         submitButton.disabled = false;
         submitButton.textContent = 'Complete Payment';
-      }, 2000);
+      }, 2000); // 2-second delay to simulate processing
     });
 
-    // ---------- Page init ----------
+    // ========================================
+    // PAGE INITIALIZATION
+    // ========================================
+    /**
+     * Run initialization functions when page loads
+     */
     window.addEventListener('DOMContentLoaded', () => {
-      setMinimumPickupDate();
-      loadCartData();
+      setMinimumPickupDate(); // Set today as minimum pickup date
+      loadCartData(); // Load and display cart items
       // Firebase auth status is handled in the module script below
     });
   </script>
 
-  <!-- Firebase Authentication for hiding guest form -->
+  <!-- ========================================
+       FIREBASE AUTHENTICATION MODULE
+       ======================================== -->
+  <!-- Handles showing/hiding guest checkout form based on login status -->
   <script type="module">
+    // Import Firebase auth instance and onAuthStateChanged listener
     import { auth } from './auth.js';
     import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
 
+    /**
+     * Apply user authentication state to checkout page
+     * Hides guest info form if user is logged in
+     * @param {Object|null} user - Firebase user object or null if not logged in
+     */
     function applyUserToCheckout(user) {
       const section = document.getElementById('customerInfoSection');
       if (user) {
-        // Logged in – hide guest info section
+        // User is logged in - hide guest checkout form
         window.currentUser = {
           email: user.email,
           displayName: user.displayName || user.email.split('@')[0]
         };
         if (section) section.style.display = 'none';
       } else {
-        // Guest – show name/email fields
+        // User is not logged in - show guest checkout form
         window.currentUser = null;
         if (section) section.style.display = 'block';
       }
     }
 
+    // Listen for authentication state changes
     onAuthStateChanged(auth, (user) => {
       applyUserToCheckout(user);
     });
 
-    // Ensure it runs once on load as well
+    // Apply auth state on initial page load
     window.addEventListener('DOMContentLoaded', () => {
       applyUserToCheckout(auth.currentUser);
     });
   </script>
 
-  <!-- Header auth (Hi, Name / Log out) -->
+  <!-- ========================================
+       HEADER AUTHENTICATION MODULE
+       ======================================== -->
+  <!-- Handles header display for logged-in users (Hi, Name / Log out button) -->
   <script type="module" src="auth.js"></script>
 </body>
 </html>
