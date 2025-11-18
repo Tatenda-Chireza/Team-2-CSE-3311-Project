@@ -6,24 +6,27 @@
   <title>Checkout - Iceland Ice Cream</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://js.stripe.com/v3/"></script>
+
   <style>
     /* Hide the Stripe Link autofill warning */
-    .p-Link, .p-FieldWrapper-warningContainer, [class*="LinkMessageContainer"] {
+    .p-Link,
+    .p-FieldWrapper-warningContainer,
+    [class*="LinkMessageContainer"] {
       display: none !important;
     }
-    
+
     /* Additional hiding for Stripe Link elements */
     .__PrivateStripeElement iframe {
       pointer-events: auto !important;
     }
-    
+
     .checkout-container {
       max-width: 700px;
       margin: 2rem auto;
       padding: 2.5rem;
       background: #fff;
       border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     }
     .checkout-container * {
       background: transparent;
@@ -38,7 +41,7 @@
       justify-content: center;
       gap: 15px;
     }
-    
+
     /* Order Summary Styles */
     .order-summary {
       margin-bottom: 2rem;
@@ -89,175 +92,6 @@
       background: transparent;
     }
     .order-total span {
-      background: transparent;
-    }
-
-    /* Payment Form Styles */
-    .payment-section {
-      background: linear-gradient(135deg, #FFF5F7 0%, #F0F8FF 100%) !important;
-      padding: 2rem;
-      border-radius: 15px;
-      border: 2px solid #FFB5C5;
-    }
-    .payment-section h3 {
-      color: #2C3E50;
-      margin-bottom: 1.5rem;
-      font-size: 1.3rem;
-      background: transparent;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    /* Stripe Card Element Styling */
-    .card-element-wrapper {
-      background: #fff !important;
-      padding: 15px;
-      border: 2px solid #FFB5C5;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-      transition: border-color 0.3s ease;
-    }
-    .card-element-wrapper:focus-within {
-      border-color: #5DADE2;
-      box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
-    }
-    #card-element {
-      background: #fff !important;
-    }
-    .StripeElement {
-      background: #fff !important;
-    }
-    #card-errors {
-      color: #FF6B9D;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      background: transparent;
-    }
-    
-    /* Test Mode Badge */
-    .test-mode-badge {
-      display: inline-block;
-      background: #FFF3CD !important;
-      color: #856404;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      border: 1px solid #FFE69C;
-    }
-    
-    /* Payment Button */
-    .pay-button {
-      width: 100%;
-      padding: 18px;
-      background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 1rem;
-    }
-    .pay-button:hover:not(:disabled) {
-      background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-    .pay-button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-    
-    /* Success Message */
-    .success-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-    }
-    .success-content {
-      background: #fff;
-      padding: 3rem;
-      border-radius: 20px;
-      max-width: 500px;
-      text-align: center;
-      animation: slideUp 0.3s ease;
-    }
-    @keyframes slideUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    .success-icon {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-    }
-    .success-content h2 {
-      color: #FF6B9D;
-      margin-bottom: 1rem;
-      background: transparent;
-    }
-    .success-content p {
-      color: #2C3E50;
-      margin-bottom: 2rem;
-      background: transparent;
-    }
-    .success-btn {
-      padding: 12px 30px;
-      background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
-      color: #fff;
-      border: none;
-      border-radius: 25px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .success-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    
-    .empty-cart {
-      text-align: center;
-      padding: 3rem;
-      color: #2C3E50;
-    }
-    .empty-cart h2 {
-      color: #FF6B9D;
-      margin-bottom: 1rem;
-      background: transparent;
-    }
-    .back-btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 12px 30px;
-      background: #85D4F5;
-      color: #2C3E50;
-      border-radius: 25px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-    .back-btn:hover {
-      background: #5DADE2;
-      color: #fff;
-      transform: translateY(-2px);
-    }
-    
-    .secure-badge {
-      text-align: center;
-      margin-top: 1rem;
-      color: #666;
-      font-size: 0.9rem;
       background: transparent;
     }
 
@@ -331,6 +165,175 @@
     .form-group input::placeholder {
       color: #aab7c4;
     }
+
+    /* Payment Form Styles */
+    .payment-section {
+      background: linear-gradient(135deg, #FFF5F7 0%, #F0F8FF 100%) !important;
+      padding: 2rem;
+      border-radius: 15px;
+      border: 2px solid #FFB5C5;
+    }
+    .payment-section h3 {
+      color: #2C3E50;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Stripe Card Element Styling */
+    .card-element-wrapper {
+      background: #fff !important;
+      padding: 15px;
+      border: 2px solid #FFB5C5;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .card-element-wrapper:focus-within {
+      border-color: #5DADE2;
+      box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
+    }
+    #card-element {
+      background: #fff !important;
+    }
+    .StripeElement {
+      background: #fff !important;
+    }
+    #card-errors {
+      color: #FF6B9D;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: transparent;
+    }
+
+    /* Test Mode Badge */
+    .test-mode-badge {
+      display: inline-block;
+      background: #FFF3CD !important;
+      color: #856404;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      border: 1px solid #FFE69C;
+    }
+
+    /* Payment Button */
+    .pay-button {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+    .pay-button:hover:not(:disabled) {
+      background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .pay-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Success Message */
+    .success-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .success-content {
+      background: #fff;
+      padding: 3rem;
+      border-radius: 20px;
+      max-width: 500px;
+      text-align: center;
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to   { transform: translateY(0);   opacity: 1; }
+    }
+    .success-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    .success-content h2 {
+      color: #FF6B9D;
+      margin-bottom: 1rem;
+      background: transparent;
+    }
+    .success-content p {
+      color: #2C3E50;
+      margin-bottom: 2rem;
+      background: transparent;
+    }
+    .success-btn {
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .success-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 3rem;
+      color: #2C3E50;
+    }
+    .empty-cart h2 {
+      color: #FF6B9D;
+      margin-bottom: 1rem;
+      background: transparent;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 12px 30px;
+      background: #85D4F5;
+      color: #2C3E50;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .back-btn:hover {
+      background: #5DADE2;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .secure-badge {
+      text-align: center;
+      margin-top: 1rem;
+      color: #666;
+      font-size: 0.9rem;
+      background: transparent;
+    }
   </style>
 </head>
 
@@ -354,7 +357,7 @@
 
   <div class="checkout-container" id="checkoutContainer">
     <h1 class="checkout-title">🍦 Checkout</h1>
-    
+
     <div class="order-summary">
       <h3>📋 Order Summary</h3>
       <div id="orderItems"></div>
@@ -364,18 +367,21 @@
       </div>
     </div>
 
-    <!-- Customer Info Section (for guest checkout) -->
-    <div class="customer-info-section" id="customerInfoSection" style="display: none;">
-      <h3>👤 Your Information</h3>
+    <!-- Customer Info Section -->
+    <div class="customer-info-section" id="customerInfoSection">
+      <h3>👤 Customer Details</h3>
       <form id="customer-info-form">
         <div class="form-group">
           <label for="customerName">Full Name *</label>
           <input type="text" id="customerName" name="customerName" placeholder="Enter your name" required>
         </div>
         <div class="form-group">
-          <label for="customerEmail">Email Address *</label>
+          <label for="customerEmail">Email *</label>
           <input type="email" id="customerEmail" name="customerEmail" placeholder="Enter your email" required>
         </div>
+        <p style="font-size: 0.85rem; color:#555; background:transparent;">
+          We’ll send your order confirmation to this email.
+        </p>
       </form>
     </div>
 
@@ -413,7 +419,7 @@
     </div>
 
     <div class="payment-section">
-      <div class="test-mode-badge">🧪 TEST MODE</div>
+      <div class="test-mode-badge">🧪 TEST MODE (no real charge)</div>
       <h3>💳 Payment Information</h3>
       <form id="payment-form">
         <div class="card-element-wrapper">
@@ -421,10 +427,10 @@
         </div>
         <div id="card-errors" role="alert"></div>
         <button type="submit" class="pay-button" id="submit-button">
-          Complete Payment
+          Complete Order
         </button>
       </form>
-      <div class="secure-badge">🔒 Secure payment powered by Stripe</div>
+      <div class="secure-badge">🔒 Secure flow — emails sent on successful order</div>
     </div>
   </div>
 
@@ -440,20 +446,23 @@
       <div class="success-icon">🎉</div>
       <h2>Payment Successful!</h2>
       <p>Thank you for your order!</p>
-      <div id="confirmationDetails" style="text-align: left; background: #f5f5f5; padding: 1rem; border-radius: 10px; margin: 1rem 0; font-size: 0.9rem; color: #2C3E50;">
-        <!-- Confirmation details will be inserted here -->
+      <div id="confirmationDetails"
+           style="text-align:left;background:#f5f5f5;padding:1rem;border-radius:10px;
+                  margin:1rem 0;font-size:0.9rem;color:#2C3E50;">
+        <!-- Filled in by JS -->
       </div>
-      <p style="font-size: 0.9rem; color: #666;">A confirmation email has been sent to your email address.</p>
+      <p style="font-size:0.9rem;color:#666;">A confirmation email has been sent to your email address.</p>
       <a href="menu.html" class="success-btn">Order More</a>
     </div>
   </div>
 
+  <!-- MAIN CHECKOUT LOGIC -->
   <script>
-    // Initialize Stripe with Link disabled
+    // Stripe setup (front-end only, no real charge)
     const stripe = Stripe('pk_test_51RuPUMR7q4tFjI22c0epR9XweQ8WZQTRlnICYkraCMFyrgMUMRtjaJ4hjrTLpWUs6GFqLWSQdYZy8V26P8IMBoHB00C86vSVNL', {
       betas: ['card_country_event_beta_1']
     });
-    
+
     const appearance = {
       theme: 'stripe',
       variables: {
@@ -465,23 +474,17 @@
         borderRadius: '10px'
       }
     };
-    
-    const elements = stripe.elements({ 
-      appearance,
-      loader: 'never'
-    });
-    
-    // Custom styling
-    const cardElement = elements.create('card', { 
+
+    const elements = stripe.elements({ appearance, loader: 'never' });
+
+    const cardElement = elements.create('card', {
       style: {
         base: {
           color: '#2C3E50',
           fontFamily: '"Montserrat", sans-serif',
           fontSmoothing: 'antialiased',
           fontSize: '16px',
-          '::placeholder': {
-            color: '#aab7c4'
-          }
+          '::placeholder': { color: '#aab7c4' }
         },
         invalid: {
           color: '#FF6B9D',
@@ -490,8 +493,8 @@
       }
     });
     cardElement.mount('#card-element');
-    
-    // Hide any Stripe Link warnings after mount
+
+    // hide Stripe Link warnings
     setTimeout(() => {
       const warnings = document.querySelectorAll('[class*="Link"], [class*="warning"]');
       warnings.forEach(el => {
@@ -500,94 +503,49 @@
         }
       });
     }, 1000);
-    
+
     let totalAmount = 0;
-    let currentUser = null;
-    
-    // Check if user is logged in (Firebase auth is checked in module script below)
-    function checkUserStatus() {
-      // Firebase status check happens in the module script at bottom
-      // This function is kept for compatibility with the DOMContentLoaded event
-    }
-    
-    // Set minimum pickup date to today
-    function setMinimumPickupDate() {
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, '0');
-      const dd = String(today.getDate()).padStart(2, '0');
-      const minDate = `${yyyy}-${mm}-${dd}`;
-      
-      document.getElementById('pickupDate').min = minDate;
-      document.getElementById('pickupDate').value = minDate; // Default to today
-    }
-    
-    // Display order confirmation details in success modal
-    function displayConfirmationDetails(orderData) {
-      const confirmationDiv = document.getElementById('confirmationDetails');
-      const pickupDateTime = `${formatDate(orderData.pickupDate)} at ${orderData.pickupTime}`;
-      
-      let itemsHTML = '<strong>Order Items:</strong><br>';
-      Object.values(orderData.items).forEach(item => {
-        itemsHTML += `• ${item.name} x${item.qty} - $${(item.price * item.qty).toFixed(2)}<br>`;
-      });
-      
-      confirmationDiv.innerHTML = `
-        <strong>👤 Customer Name:</strong> ${orderData.customerName}<br>
-        <strong>✉️ Email:</strong> ${orderData.customerEmail}<br>
-        <strong>🕐 Pickup Time:</strong> ${pickupDateTime}<br>
-        <strong>💰 Total Amount:</strong> $${orderData.totalAmount.toFixed(2)}<br><br>
-        ${itemsHTML}
-      `;
-    }
-    
-    // Helper function to format date
-    function formatDate(dateString) {
-      const date = new Date(dateString + 'T00:00:00');
-      return date.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-    }
-    
-    // Set minimum pickup date to today
-    function setMinimumPickupDate() {
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, '0');
-      const dd = String(today.getDate()).padStart(2, '0');
-      const minDate = `${yyyy}-${mm}-${dd}`;
-      
-      document.getElementById('pickupDate').min = minDate;
-      document.getElementById('pickupDate').value = minDate; // Default to today
-    }
-    
-    // Handle validation errors
-    cardElement.on('change', function(event) {
+
+    // show card errors
+    cardElement.on('change', function (event) {
       const displayError = document.getElementById('card-errors');
-      if (event.error) {
-        displayError.textContent = event.error.message;
-      } else {
-        displayError.textContent = '';
-      }
+      displayError.textContent = event.error ? event.error.message : '';
     });
-    
-    // Load cart data
+
+    // set min pickup date
+    function setMinimumPickupDate() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const minDate = `${yyyy}-${mm}-${dd}`;
+
+      const dateInput = document.getElementById('pickupDate');
+      if (dateInput) {
+        dateInput.min = minDate;
+        dateInput.value = minDate;
+      }
+    }
+
+    // load cart into order summary
     function loadCartData() {
       try {
         const cart = JSON.parse(localStorage.getItem('site_cart_v1') || '{}');
         const orderItemsDiv = document.getElementById('orderItems');
         totalAmount = 0;
-        
-        if (Object.keys(cart).length === 0) {
+
+        if (!cart || Object.keys(cart).length === 0) {
           document.getElementById('checkoutContainer').style.display = 'none';
           document.getElementById('emptyCart').style.display = 'block';
           return;
         }
-        
+
         orderItemsDiv.innerHTML = '';
-        
+
         Object.values(cart).forEach(item => {
           const itemTotal = item.price * item.qty;
           totalAmount += itemTotal;
-          
+
           const itemDiv = document.createElement('div');
           itemDiv.className = 'order-item';
           itemDiv.innerHTML = `
@@ -597,50 +555,75 @@
           `;
           orderItemsDiv.appendChild(itemDiv);
         });
-        
-        document.getElementById('totalAmount').textContent = `$${totalAmount.toFixed(2)}`;
-        
+
+        document.getElementById('totalAmount').textContent =
+          `$${totalAmount.toFixed(2)}`;
       } catch (e) {
         console.error('Error loading cart:', e);
         document.getElementById('checkoutContainer').style.display = 'none';
         document.getElementById('emptyCart').style.display = 'block';
       }
     }
-    
-    // Handle form submission
+
+    function formatDate(dateString) {
+      const date = new Date(dateString + 'T00:00:00');
+      return date.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
+
+    function displayConfirmationDetails(orderData) {
+      const confirmationDiv = document.getElementById('confirmationDetails');
+      const pickupDateTime = `${formatDate(orderData.pickupDate)} at ${orderData.pickupTime}`;
+
+      let itemsHTML = '<strong>Order Items:</strong><br>';
+      Object.values(orderData.items).forEach(item => {
+        itemsHTML += `• ${item.name} x${item.qty} - $${(item.price * item.qty).toFixed(2)}<br>`;
+      });
+
+      confirmationDiv.innerHTML = `
+        <strong>👤 Customer Name:</strong> ${orderData.customerName}<br>
+        <strong>✉️ Email:</strong> ${orderData.customerEmail}<br>
+        <strong>🕐 Pickup Time:</strong> ${pickupDateTime}<br>
+        <strong>💰 Total Amount:</strong> $${orderData.totalAmount.toFixed(2)}<br><br>
+        ${itemsHTML}
+      `;
+    }
+
+    // handle submit
     const form = document.getElementById('payment-form');
     const submitButton = document.getElementById('submit-button');
-    
+
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      
-      // Validate customer info if guest checkout
-      let customerName = null;
-      let customerEmail = null;
-      
-      if (!window.currentUser) {
-        const customerInfoForm = document.getElementById('customer-info-form');
-        if (!customerInfoForm.checkValidity()) {
-          alert('Please fill in all customer information fields.');
-          return;
-        }
-        customerName = document.getElementById('customerName').value.trim();
-        customerEmail = document.getElementById('customerEmail').value.trim();
-        
-        if (!customerName || !customerEmail) {
+
+      // Decide where to get name/email from
+      let customerName;
+      let customerEmail;
+
+      if (window.currentUser && window.currentUser.email) {
+        customerName =
+          window.currentUser.displayName ||
+          window.currentUser.email.split('@')[0];
+        customerEmail = window.currentUser.email;
+      } else {
+        const nameInput = document.getElementById('customerName');
+        const emailInput = document.getElementById('customerEmail');
+
+        if (!nameInput.value.trim() || !emailInput.value.trim()) {
           alert('Please enter your name and email.');
           return;
         }
-      } else {
-        // Use logged-in user data
-        customerName = window.currentUser.displayName || window.currentUser.email;
-        customerEmail = window.currentUser.email;
+        customerName = nameInput.value.trim();
+        customerEmail = emailInput.value.trim();
       }
-      
-      // Validate pickup date and time
+
       const pickupDate = document.getElementById('pickupDate').value;
       const pickupTime = document.getElementById('pickupTime').value;
-      
+
       if (!pickupDate) {
         alert('Please select a pickup date.');
         return;
@@ -649,140 +632,107 @@
         alert('Please select a pickup time.');
         return;
       }
-      
-      // Format pickup datetime
-      const pickupDatetime = `${pickupDate} at ${pickupTime}`;
-      
+
       submitButton.disabled = true;
       submitButton.textContent = 'Processing...';
-      
-      // For demo: simulate payment processing
-      setTimeout(() => {
-        // Prepare order data
-        const cart = JSON.parse(localStorage.getItem('site_cart_v1') || '{}');
-        const orderData = {
-          customerName: customerName,
-          customerEmail: customerEmail,
-          pickupDate: pickupDate,
-          pickupTime: pickupTime,
-          totalAmount: totalAmount,
-          items: cart,
-          orderDate: new Date().toISOString()
-        };
-        
-        // Save order confirmation data
-        localStorage.setItem('lastOrderConfirmation', JSON.stringify(orderData));
-        
-        // Display confirmation details
-        displayConfirmationDetails(orderData);
-        
-        // Show success modal
-        document.getElementById('successModal').style.display = 'flex';
-        
-        // Clear cart
-        localStorage.removeItem('site_cart_v1');
-        
-        // Reset button
-        submitButton.disabled = false;
-        submitButton.textContent = 'Complete Payment';
-      }, 2000);
-      
-      /* 
-      // REAL STRIPE PAYMENT (uncomment when you have backend)
-      const {error, paymentMethod} = await stripe.createPaymentMethod({
-        type: 'card',
-        card: cardElement,
-      });
-      
-      if (error) {
-        document.getElementById('card-errors').textContent = error.message;
-        submitButton.disabled = false;
-        submitButton.textContent = 'Complete Payment';
-      } else {
-        // Prepare order data
-        const cart = JSON.parse(localStorage.getItem('site_cart_v1') || '{}');
-        
-        // Send to your backend with order details
-        const response = await fetch('http://localhost:3000/create-payment-intent', {
+
+      const cart = JSON.parse(localStorage.getItem('site_cart_v1') || '{}');
+      const orderDate = new Date().toISOString();
+
+      const orderData = {
+        customerName,
+        customerEmail,
+        pickupDate,
+        pickupTime,
+        totalAmount,
+        items: cart,
+        orderDate
+      };
+
+      // send order to backend for email + logging
+      try {
+        const itemsForServer = Object.values(cart).map(item => ({
+          name: item.name,
+          qty: item.qty,
+          unitPrice: item.price,
+          lineTotal: item.price * item.qty
+        }));
+
+        fetch('/api/order', {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            payment_method_id: paymentMethod.id,
-            amount: Math.round(totalAmount * 100),
-            customerName: customerName,
-            customerEmail: customerEmail,
-            pickupDate: pickupDate,
-            pickupTime: pickupTime,
-            items: cart
+            name: customerName,
+            email: customerEmail,
+            items: itemsForServer,
+            total: totalAmount,
+            createdAt: orderDate
           })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-          const orderData = {
-            customerName: customerName,
-            customerEmail: customerEmail,
-            pickupDate: pickupDate,
-            pickupTime: pickupTime,
-            totalAmount: totalAmount,
-            items: cart,
-            orderDate: new Date().toISOString()
-          };
-          
-          localStorage.setItem('lastOrderConfirmation', JSON.stringify(orderData));
-          displayConfirmationDetails(orderData);
-          document.getElementById('successModal').style.display = 'flex';
-          localStorage.removeItem('site_cart_v1');
-        } else {
-          document.getElementById('card-errors').textContent = 'Payment failed. Please try again.';
-          submitButton.disabled = false;
-          submitButton.textContent = 'Complete Payment';
-        }
+        }).catch(err => console.error('Order API error:', err));
+      } catch (err) {
+        console.error('Error preparing order for server:', err);
       }
-      */
+
+      // fake payment delay
+      setTimeout(() => {
+        localStorage.setItem('lastOrderConfirmation', JSON.stringify(orderData));
+        displayConfirmationDetails(orderData);
+        document.getElementById('successModal').style.display = 'flex';
+        localStorage.removeItem('site_cart_v1');
+
+        submitButton.disabled = false;
+        submitButton.textContent = 'Complete Order';
+      }, 1500);
     });
-    
-    // Initialize page
+
     window.addEventListener('DOMContentLoaded', () => {
-      checkUserStatus();
       setMinimumPickupDate();
       loadCartData();
     });
   </script>
 
-  <!-- Firebase Authentication -->
+  <!-- Firebase: make logged-in users auto-fill name/email -->
   <script type="module">
     import { auth } from './auth.js';
     import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
-    
-    // Make these globally accessible
-    window.checkFirebaseStatus = function() {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is logged in
-          window.currentUser = {
-            email: user.email,
-            displayName: user.displayName || user.email.split('@')[0]
-          };
-          const section = document.getElementById('customerInfoSection');
-          if (section) section.style.display = 'none';
-        } else {
-          // User is NOT logged in - show guest form
-          window.currentUser = null;
-          const section = document.getElementById('customerInfoSection');
-          if (section) section.style.display = 'block';
+
+    onAuthStateChanged(auth, (user) => {
+      const section = document.getElementById('customerInfoSection');
+      const nameInput = document.getElementById('customerName');
+      const emailInput = document.getElementById('customerEmail');
+
+      if (user) {
+        window.currentUser = {
+          email: user.email,
+          displayName: user.displayName || user.email.split('@')[0]
+        };
+
+        if (section) section.style.display = 'block'; // keep visible
+        if (nameInput) {
+          nameInput.value = window.currentUser.displayName;
+          nameInput.readOnly = true;
         }
-      });
-    };
-    
-    // Check status when page loads
-    window.addEventListener('DOMContentLoaded', () => {
-      window.checkFirebaseStatus();
+        if (emailInput) {
+          emailInput.value = window.currentUser.email;
+          emailInput.readOnly = true;
+        }
+      } else {
+        window.currentUser = null;
+
+        if (section) section.style.display = 'block';
+        if (nameInput) {
+          nameInput.value = '';
+          nameInput.readOnly = false;
+        }
+        if (emailInput) {
+          emailInput.value = '';
+          emailInput.readOnly = false;
+        }
+      }
     });
   </script>
 
-  <!-- Link authentication  -->
+  <!-- Header auth (Hi, Name / logout) -->
   <script type="module" src="auth.js"></script>
 </body>
 </html>

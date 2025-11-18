@@ -8,9 +8,6 @@ import {
   getAuth, onAuthStateChanged, signOut
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
-// Optional analytics (only if you want it and page is served over HTTPS or localhost)
-// import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
-
 // Global function to force logout - can be called from browser console for debugging
 window.forceLogout = async () => { try { await signOut(auth); } catch {} };
 
@@ -27,12 +24,9 @@ const firebaseConfig = {
 
 // Initialize Firebase app with the configuration
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app); // optional
 
 // Create and export the authentication instance for use in other modules
 export const auth = getAuth(app);
-
-// ---- Header greeting: "Hi, Name" ----
 
 /**
  * Extracts the first name from a display name or email address
@@ -46,6 +40,29 @@ function firstNameFromDisplayName(displayName, email) {
 }
 
 /**
+ * Makes the current user info available to non-module scripts
+ * and notifies any listeners (checkout, catering, etc.)
+ * @param {import("firebase/auth").User|null} user
+ */
+function exposeUser(user) {
+  if (user) {
+    const name = firstNameFromDisplayName(user.displayName, user.email || "");
+    window.currentUserInfo = {
+      name,
+      email: user.email || null,
+      rawUser: user
+    };
+  } else {
+    window.currentUserInfo = null;
+  }
+
+  // Fire a custom event so pages can react when login state changes
+  window.dispatchEvent(new CustomEvent("app:user-changed", {
+    detail: window.currentUserInfo
+  }));
+}
+
+/**
  * Updates the header UI based on user authentication state
  * Changes sign up button to greeting when logged in, shows/hides logout button
  * @param {Object|null} user - Firebase user object or null if not authenticated
@@ -53,27 +70,30 @@ function firstNameFromDisplayName(displayName, email) {
 function updateHeader(user) {
   const signupBtn = document.getElementById("signupBtn");
   const logoutBtn = document.getElementById("logoutBtn");
-  if (!signupBtn) return;
+  if (!signupBtn) {
+    exposeUser(user);
+    return;
+  }
 
   if (user) {
-    // User is logged in: show personalized greeting
     const name = firstNameFromDisplayName(user.displayName, user.email);
     signupBtn.textContent = `Hi, ${name}`;
     signupBtn.href = "#";
     if (logoutBtn) logoutBtn.style.display = "inline-block";
   } else {
-    // User is logged out: show sign up link
     signupBtn.textContent = "Sign up";
     signupBtn.href = "signup.html";
     if (logoutBtn) logoutBtn.style.display = "none";
   }
+
+  // Make user info available globally
+  exposeUser(user);
 }
 
 // Set up authentication state listener - updates header whenever auth state changes
 onAuthStateChanged(auth, user => updateHeader(user));
 
 // Event delegation for logout button click handling
-// Uses event delegation on document to handle dynamically shown/hidden logout button
 document.addEventListener('click', async (e) => {
   const btn = e.target.closest('#logoutBtn');
   if (!btn) return;
@@ -82,7 +102,6 @@ document.addEventListener('click', async (e) => {
 });
 
 // Initialize header on page load with current authentication state
-// Ensures header displays correctly even before onAuthStateChanged fires
 document.addEventListener('DOMContentLoaded', () => {
   updateHeader(auth.currentUser);
 });

@@ -1,152 +1,740 @@
-let currentUser = null;
-
-// ✅ NEW: redirect to menu after closing modal if user is logged in
-function closeModal() {
-    document.getElementById('login-form').style.display = 'none';
-    document.body.style.overflow = 'auto';
-    clearError();
-
-    // ✅ NEW: redirect to menu page
-    if (currentUser) {
-        window.location.href = 'menu.html';
-    }
-}
-
-// Initialize user state on page load
-window.onload = function() {
-    checkUserStatus();
-    updateHeaderButton(); // ✅ NEW: update header button if already logged in
-};
-
-function checkUserStatus() {
-    console.log('Checking user status.')
-}
-
-function getUserData() {
-    return currentUser;
-}
-
-function showError(message) {
-    const errorDiv = document.getElementById('errorMessage');
-    errorDiv.textContent = message;
-    errorDiv.style.display = 'block';
-}
-
-function clearError() {
-    const errorDiv = document.getElementById('errorMessage');
-    errorDiv.style.display = 'none';
-}
-
-// ✅ NEW: dynamically update the signup button
-function updateHeaderButton() {
-    const btn = document.getElementById('signupBtn');
-    if (currentUser) {
-        btn.textContent = `Hi, ${currentUser.firstName || currentUser.email.split('@')[0]}`;
-        btn.onclick = null; // remove modal popup
-    } else {
-        btn.textContent = 'Sign up';
-        btn.onclick = openModal;
-    }
-}
-
-function handleLogin(event) {
-    event.preventDefault();
-    clearError();
-      
-    const formData = new FormData(event.target);
-    const email = formData.get('loginEmail');
-    const password = formData.get('loginPassword');
-
-    if (!email || !password) {
-        showError('Please fill in all fields');
-        return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Iceland Ice Cream</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    /* Hide the Stripe Link autofill warning */
+    .p-Link, .p-FieldWrapper-warningContainer, [class*="LinkMessageContainer"] {
+      display: none !important;
     }
 
-    if (password.length < 8) {
-        showError('Password length invalid');
-        return;
+    /* Additional hiding for Stripe Link elements */
+    .__PrivateStripeElement iframe {
+      pointer-events: auto !important;
     }
 
+    .checkout-container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2.5rem;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    .checkout-container * {
+      background: transparent;
+    }
+    .checkout-title {
+      color: #FF6B9D;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    /* Order Summary Styles */
+    .order-summary {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #FFE5EC 0%, #E3F2FD 100%) !important;
+      border-radius: 15px;
+      border: 2px solid #FFB5C5;
+    }
+    .order-summary h3 {
+      background: transparent;
+      color: #2C3E50;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      color: #2C3E50;
+      background: transparent;
+    }
+    .order-item span {
+      background: transparent;
+    }
+    .item-name {
+      font-weight: 600;
+      flex: 1;
+    }
+    .item-qty {
+      color: #5DADE2;
+      margin: 0 1rem;
+    }
+    .item-price {
+      font-weight: bold;
+      color: #FF6B9D;
+    }
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #FF6B9D;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 2px solid #FFB5C5;
+      background: transparent;
+    }
+    .order-total span {
+      background: transparent;
+    }
+
+    /* Payment Form Styles */
+    .payment-section {
+      background: linear-gradient(135deg, #FFF5F7 0%, #F0F8FF 100%) !important;
+      padding: 2rem;
+      border-radius: 15px;
+      border: 2px solid #FFB5C5;
+    }
+    .payment-section h3 {
+      color: #2C3E50;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Stripe Card Element Styling */
+    .card-element-wrapper {
+      background: #fff !important;
+      padding: 15px;
+      border: 2px solid #FFB5C5;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .card-element-wrapper:focus-within {
+      border-color: #5DADE2;
+      box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
+    }
+    #card-element {
+      background: #fff !important;
+    }
+    .StripeElement {
+      background: #fff !important;
+    }
+    #card-errors {
+      color: #FF6B9D;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: transparent;
+    }
+
+    /* Test Mode Badge */
+    .test-mode-badge {
+      display: inline-block;
+      background: #FFF3CD !important;
+      color: #856404;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      border: 1px solid #FFE69C;
+    }
+
+    /* Payment Button */
+    .pay-button {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+    .pay-button:hover:not(:disabled) {
+      background: linear-gradient(135deg, #FF6B9D 0%, #3498DB 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .pay-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Success Message */
+    .success-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .success-content {
+      background: #fff;
+      padding: 3rem;
+      border-radius: 20px;
+      max-width: 500px;
+      text-align: center;
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to   { transform: translateY(0);   opacity: 1; }
+    }
+    .success-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    .success-content h2 {
+      color: #FF6B9D;
+      margin-bottom: 1rem;
+      background: transparent;
+    }
+    .success-content p {
+      color: #2C3E50;
+      margin-bottom: 2rem;
+      background: transparent;
+    }
+    .success-btn {
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #FF85A2 0%, #5DADE2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .success-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 3rem;
+      color: #2C3E50;
+    }
+    .empty-cart h2 {
+      color: #FF6B9D;
+      margin-bottom: 1rem;
+      background: transparent;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 12px 30px;
+      background: #85D4F5;
+      color: #2C3E50;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .back-btn:hover {
+      background: #5DADE2;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .secure-badge {
+      text-align: center;
+      margin-top: 1rem;
+      color: #666;
+      font-size: 0.9rem;
+      background: transparent;
+    }
+
+    /* Customer Info Section Styles */
+    .customer-info-section {
+      background: linear-gradient(135deg, #FFF5F7 0%, #F0F8FF 100%) !important;
+      padding: 2rem;
+      border-radius: 15px;
+      border: 2px solid #FFB5C5;
+      margin-bottom: 2rem;
+    }
+    .customer-info-section h3 {
+      color: #2C3E50;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Pickup Section Styles */
+    .pickup-section {
+      background: linear-gradient(135deg, #E8F5E9 0%, #FFF9E6 100%) !important;
+      padding: 2rem;
+      border-radius: 15px;
+      border: 2px solid #81C784;
+      margin-bottom: 2rem;
+    }
+    .pickup-section h3 {
+      color: #2C3E50;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Form Group Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+      background: transparent;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #2C3E50;
+      font-weight: 600;
+      background: transparent;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #E0E0E0;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      background: #fff;
+      color: #2C3E50;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #5DADE2;
+      box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
+    }
+    .form-group input::placeholder {
+      color: #aab7c4;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="index.html" class="logo-link">
+      <img class="logo" src="./img/LOGO.png" alt="Logo">
+      <span>ICELAND ICE CREAM</span>
+    </a>
+    <nav>
+      <ul class="nav_links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
+    <button id="logoutBtn" style="display: none;">Log out</button>
+  </header>
+
+  <div class="checkout-container" id="checkoutContainer">
+    <h1 class="checkout-title">🍦 Checkout</h1>
+
+    <div class="order-summary">
+      <h3>📋 Order Summary</h3>
+      <div id="orderItems"></div>
+      <div class="order-total">
+        <span>Total:</span>
+        <span id="totalAmount">$0.00</span>
+      </div>
+    </div>
+
+    <!-- Customer Info Section (only for guest checkout) -->
+    <div class="customer-info-section" id="customerInfoSection" style="display: none;">
+      <h3>👤 Your Information</h3>
+      <form id="customer-info-form">
+        <div class="form-group">
+          <label for="customerName">Full Name *</label>
+          <input type="text" id="customerName" name="customerName" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label for="customerEmail">Email Address *</label>
+          <input type="email" id="customerEmail" name="customerEmail" placeholder="Enter your email" required>
+        </div>
+      </form>
+    </div>
+
+    <!-- Pickup Time Section -->
+    <div class="pickup-section">
+      <h3>🕐 Pickup Time</h3>
+      <form id="pickup-form">
+        <div class="form-group">
+          <label for="pickupDate">Pickup Date *</label>
+          <input type="date" id="pickupDate" name="pickupDate" required>
+        </div>
+        <div class="form-group">
+          <label for="pickupTime">Pickup Time *</label>
+          <select id="pickupTime" name="pickupTime" required>
+            <option value="">Select a time...</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="11:30">11:30 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="12:30">12:30 PM</option>
+            <option value="13:00">1:00 PM</option>
+            <option value="13:30">1:30 PM</option>
+            <option value="14:00">2:00 PM</option>
+            <option value="14:30">2:30 PM</option>
+            <option value="15:00">3:00 PM</option>
+            <option value="15:30">3:30 PM</option>
+            <option value="16:00">4:00 PM</option>
+            <option value="16:30">4:30 PM</option>
+            <option value="17:00">5:00 PM</option>
+            <option value="17:30">5:30 PM</option>
+            <option value="18:00">6:00 PM</option>
+            <option value="18:30">6:30 PM</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <div class="payment-section">
+      <div class="test-mode-badge">🧪 TEST MODE</div>
+      <h3>💳 Payment Information</h3>
+      <form id="payment-form">
+        <div class="card-element-wrapper">
+          <div id="card-element"></div>
+        </div>
+        <div id="card-errors" role="alert"></div>
+        <button type="submit" class="pay-button" id="submit-button">
+          Complete Payment
+        </button>
+      </form>
+      <div class="secure-badge">🔒 Secure payment powered by Stripe</div>
+    </div>
+  </div>
+
+  <div class="checkout-container empty-cart" id="emptyCart" style="display: none;">
+    <h2>Your cart is empty! 🛒</h2>
+    <p>Add some delicious ice cream to your cart before checking out.</p>
+    <a href="menu.html" class="back-btn">Browse Menu</a>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="success-modal" id="successModal">
+    <div class="success-content">
+      <div class="success-icon">🎉</div>
+      <h2>Payment Successful!</h2>
+      <p>Thank you for your order!</p>
+      <div id="confirmationDetails"
+           style="text-align: left; background: #f5f5f5; padding: 1rem; border-radius: 10px; margin: 1rem 0; font-size: 0.9rem; color: #2C3E50;">
+        <!-- Confirmation details will be inserted here -->
+      </div>
+      <p style="font-size: 0.9rem; color: #666;">A confirmation email has been sent to your email address.</p>
+      <a href="menu.html" class="success-btn">Order More</a>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Stripe setup ----------
+    const stripe = Stripe('pk_test_51RuPUMR7q4tFjI22c0epR9XweQ8WZQTRlnICYkraCMFyrgMUMRtjaJ4hjrTLpWUs6GFqLWSQdYZy8V26P8IMBoHB00C86vSVNL', {
+      betas: ['card_country_event_beta_1']
+    });
+
+    const appearance = {
+      theme: 'stripe',
+      variables: {
+        colorPrimary: '#FF6B9D',
+        colorBackground: '#ffffff',
+        colorText: '#2C3E50',
+        colorDanger: '#FF6B9D',
+        fontFamily: 'Montserrat, sans-serif',
+        borderRadius: '10px'
+      }
+    };
+
+    const elements = stripe.elements({
+      appearance,
+      loader: 'never'
+    });
+
+    const cardElement = elements.create('card', {
+      style: {
+        base: {
+          color: '#2C3E50',
+          fontFamily: '"Montserrat", sans-serif',
+          fontSmoothing: 'antialiased',
+          fontSize: '16px',
+          '::placeholder': {
+            color: '#aab7c4'
+          }
+        },
+        invalid: {
+          color: '#FF6B9D',
+          iconColor: '#FF6B9D'
+        }
+      }
+    });
+    cardElement.mount('#card-element');
+
+    // Hide Stripe Link warnings
     setTimeout(() => {
-        currentUser = { email };
-        updateHeaderButton(); // ✅ NEW
-        // Store user in localStorage for use in checkout
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        showSuccessMessage('Login Successful!', `Welcome back, ${email}`);
-        
-        setTimeout(() => {
-            closeModal(); // ✅ NEW: redirect happens here
-        }, 2000);
+      const warnings = document.querySelectorAll('[class*="Link"], [class*="warning"]');
+      warnings.forEach(el => {
+        if (el.textContent.includes('Automatic payment') || el.textContent.includes('autofill')) {
+          el.style.display = 'none';
+        }
+      });
+    }, 1000);
 
-        setTimeout(() => {
-            closeSuccessModal();
-        }, 4000);
-    }, 500);
-}
+    let totalAmount = 0;
+    // we'll store Firebase user here:
+    window.currentUser = null;
 
-function handleRegister(event) {
-    event.preventDefault();
-    clearError();
-      
-    const formData = new FormData(event.target);
-    const firstName = formData.get('firstName');
-    const lastName = formData.get('lastName');
-    const email = formData.get('email');
-    const password = formData.get('password');
-    const confirmPassword = formData.get('confirmPassword');
+    // ---------- Helper functions ----------
 
-    if (!firstName || !lastName || !email || !password || !confirmPassword) {
-        showError('Please fill in all fields');
-        return;
+    function setMinimumPickupDate() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const minDate = `${yyyy}-${mm}-${dd}`;
+
+      const dateInput = document.getElementById('pickupDate');
+      dateInput.min = minDate;
+      dateInput.value = minDate; // default to today
     }
 
-    if (password !== confirmPassword) {
-        showError('Passwords do not match!');
-        return;
+    function formatDate(dateString) {
+      const date = new Date(dateString + 'T00:00:00');
+      return date.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
     }
 
-    if (password.length < 8) {
-        showError('Password must be at least 8 characters long');
-        return;
+    function displayConfirmationDetails(orderData) {
+      const confirmationDiv = document.getElementById('confirmationDetails');
+      const pickupDateTime = `${formatDate(orderData.pickupDate)} at ${orderData.pickupTime}`;
+
+      let itemsHTML = '<strong>Order Items:</strong><br>';
+      Object.values(orderData.items).forEach(item => {
+        itemsHTML += `• ${item.name} x${item.qty} - $${(item.price * item.qty).toFixed(2)}<br>`;
+      });
+
+      confirmationDiv.innerHTML = `
+        <strong>👤 Customer Name:</strong> ${orderData.customerName}<br>
+        <strong>✉️ Email:</strong> ${orderData.customerEmail}<br>
+        <strong>🕐 Pickup Time:</strong> ${pickupDateTime}<br>
+        <strong>💰 Total Amount:</strong> $${orderData.totalAmount.toFixed(2)}<br><br>
+        ${itemsHTML}
+      `;
     }
 
-    setTimeout(() => {
-        currentUser = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email
+    // send order to Express backend so it saves + emails
+    async function sendOrderToServer(orderData) {
+      try {
+        const itemsForServer = Object.values(orderData.items).map(item => ({
+          name: item.name,
+          qty: item.qty,
+          unitPrice: item.price,
+          lineTotal: item.price * item.qty
+        }));
+
+        await fetch('/api/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: orderData.customerName,
+            email: orderData.customerEmail,
+            items: itemsForServer,
+            total: orderData.totalAmount,
+            createdAt: orderData.orderDate
+          })
+        });
+      } catch (err) {
+        console.error('Failed to send order to server:', err);
+        // we still show success on the front-end so the user isn’t stuck
+      }
+    }
+
+    // Show Stripe errors
+    cardElement.on('change', function (event) {
+      const displayError = document.getElementById('card-errors');
+      displayError.textContent = event.error ? event.error.message : '';
+    });
+
+    // Load cart data
+    function loadCartData() {
+      try {
+        const cart = JSON.parse(localStorage.getItem('site_cart_v1') || '{}');
+        const orderItemsDiv = document.getElementById('orderItems');
+        totalAmount = 0;
+
+        if (Object.keys(cart).length === 0) {
+          document.getElementById('checkoutContainer').style.display = 'none';
+          document.getElementById('emptyCart').style.display = 'block';
+          return;
+        }
+
+        orderItemsDiv.innerHTML = '';
+
+        Object.values(cart).forEach(item => {
+          const itemTotal = item.price * item.qty;
+          totalAmount += itemTotal;
+
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'order-item';
+          itemDiv.innerHTML = `
+            <span class="item-name">${item.name}</span>
+            <span class="item-qty">x${item.qty}</span>
+            <span class="item-price">$${itemTotal.toFixed(2)}</span>
+          `;
+          orderItemsDiv.appendChild(itemDiv);
+        });
+
+        document.getElementById('totalAmount').textContent = `$${totalAmount.toFixed(2)}`;
+      } catch (e) {
+        console.error('Error loading cart:', e);
+        document.getElementById('checkoutContainer').style.display = 'none';
+        document.getElementById('emptyCart').style.display = 'block';
+      }
+    }
+
+    // ---------- Payment submit handler ----------
+
+    const form = document.getElementById('payment-form');
+    const submitButton = document.getElementById('submit-button');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // 1) Get customer name/email
+      let customerName;
+      let customerEmail;
+
+      if (!window.currentUser) {
+        // guest checkout – use form
+        const customerInfoForm = document.getElementById('customer-info-form');
+        if (!customerInfoForm.checkValidity()) {
+          alert('Please fill in all customer information fields.');
+          return;
+        }
+        customerName = document.getElementById('customerName').value.trim();
+        customerEmail = document.getElementById('customerEmail').value.trim();
+        if (!customerName || !customerEmail) {
+          alert('Please enter your name and email.');
+          return;
+        }
+      } else {
+        // logged-in user – use Firebase user data
+        customerName = window.currentUser.displayName || window.currentUser.email;
+        customerEmail = window.currentUser.email;
+      }
+
+      // 2) Validate pickup date and time
+      const pickupDate = document.getElementById('pickupDate').value;
+      const pickupTime = document.getElementById('pickupTime').value;
+
+      if (!pickupDate) {
+        alert('Please select a pickup date.');
+        return;
+      }
+      if (!pickupTime) {
+        alert('Please select a pickup time.');
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Processing...';
+
+      // Simulate payment, then send order to backend + show success
+      setTimeout(async () => {
+        const cart = JSON.parse(localStorage.getItem('site_cart_v1') || '{}');
+        const orderData = {
+          customerName,
+          customerEmail,
+          pickupDate,
+          pickupTime,
+          totalAmount,
+          items: cart,
+          orderDate: new Date().toISOString()
         };
-        updateHeaderButton(); // ✅ NEW
-        // Store user in localStorage for use in checkout
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
-        showSuccessMessage(
-            'Registration Successful!',
-            'Your account has been created and you are now logged in.'
-        );
+        // Save locally (if you still want it)
+        localStorage.setItem('lastOrderConfirmation', JSON.stringify(orderData));
 
-        setTimeout(() => {
-            closeModal(); // ✅ NEW: redirect happens here
-        }, 2000);
+        // Send to Express server (for JSON file + emails)
+        await sendOrderToServer(orderData);
 
-        setTimeout(() => {
-            closeSuccessModal();
-        }, 4000);
-    }, 500);
-}
+        // Show confirmation
+        displayConfirmationDetails(orderData);
+        document.getElementById('successModal').style.display = 'flex';
 
-function showSuccessMessage(title, message) {
-    document.getElementById('successTitle').textContent = title;
-    document.getElementById('successMessage').textContent = message;
-    document.getElementById('successModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
+        // Clear cart
+        localStorage.removeItem('site_cart_v1');
 
-function closeSuccessModal() {
-    document.getElementById('successModal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
+        submitButton.disabled = false;
+        submitButton.textContent = 'Complete Payment';
+      }, 2000);
+    });
 
-function showMessage(message, type) {
-    alert(message);
-}
+    // ---------- Page init ----------
+    window.addEventListener('DOMContentLoaded', () => {
+      setMinimumPickupDate();
+      loadCartData();
+      // Firebase auth status is handled in the module script below
+    });
+  </script>
+
+  <!-- Firebase Authentication for hiding guest form -->
+  <script type="module">
+    import { auth } from './auth.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
+
+    function applyUserToCheckout(user) {
+      const section = document.getElementById('customerInfoSection');
+      if (user) {
+        // Logged in – hide guest info section
+        window.currentUser = {
+          email: user.email,
+          displayName: user.displayName || user.email.split('@')[0]
+        };
+        if (section) section.style.display = 'none';
+      } else {
+        // Guest – show name/email fields
+        window.currentUser = null;
+        if (section) section.style.display = 'block';
+      }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      applyUserToCheckout(user);
+    });
+
+    // Ensure it runs once on load as well
+    window.addEventListener('DOMContentLoaded', () => {
+      applyUserToCheckout(auth.currentUser);
+    });
+  </script>
+
+  <!-- Header auth (Hi, Name / Log out) -->
+  <script type="module" src="auth.js"></script>
+</body>
+</html>
