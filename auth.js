@@ -8,6 +8,8 @@ import {
   getAuth, onAuthStateChanged, signOut
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
+export const OWNER_EMAIL = "isabelmuniz001@gmail.com";
+
 // Global function to force logout - can be called from browser console for debugging
 window.forceLogout = async () => { try { await signOut(auth); } catch {} };
 
@@ -21,6 +23,7 @@ const firebaseConfig = {
   appId: "1:809532079713:web:74b8ecfc4501d28a3c3420",
   measurementId: "G-P5GVDVMQS6" // optional
 };
+
 
 // Initialize Firebase app with the configuration
 const app = initializeApp(firebaseConfig);

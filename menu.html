@@ -6,6 +6,9 @@
   <title>Menu - Iceland Ice Cream</title>
   <!-- Link to external stylesheet for page styling -->
   <link rel="stylesheet" href="style.css">
+  <script type="module" src="menu.js"></script>
+  <script type="module" src="build.js"></script>
+
 </head>
 <body>
   <!-- Main header with navigation and user actions -->
@@ -23,6 +26,7 @@
         <li><a href="menu.html"> Menu</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li id="dashboardTab" style="display:none;"><a href="dashboard.html">Dashboard</a></li>
       </ul>
     </nav>
 
@@ -267,9 +271,10 @@
     </div>
   </div>
 
-  <!-- JavaScript file for menu functionality (cart management, etc.) -->
-  <script src="menu.js" defer></script>
+
   <!-- JavaScript module for authentication functionality -->
   <script type="module" src="auth.js"></script>
+
+
 </body>
 </html>

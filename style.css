@@ -1028,3 +1028,52 @@ section { padding: 2rem 9%; }
     font-size: 0.9rem;
   }
 }
+
+/* Dashboard Styling*/
+.nav_links {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+.nav_links li:last-child {
+  margin-left: auto; /* pushes last item to the right */
+}
+
+/* ----- Out of Stock Styling ----- */
+.menu-card.out-of-stock {
+  opacity: 0.5;           /* grayed out */
+}
+
+/* Disable pointer events only for add-cart buttons, not the whole card */
+.menu-card.out-of-stock .add-cart {
+  pointer-events: none;    /* prevent clicking add-cart buttons */
+  opacity: 0.6;            /* slightly dim button */
+}
+
+/* Owner toggle button styling */
+.toggle-availability {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background-color: #3b1c13;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  z-index: 10;
+  position: relative;      /* ensures it sits above card opacity */
+}
+
+/* hover effect for owner toggle */
+.toggle-availability:hover {
+  background-color: #5a2a1f;
+}
+
+.out-of-stock {
+  opacity: 0.4;
+}
+
+
+
+

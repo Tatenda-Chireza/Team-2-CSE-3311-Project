@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner Dashboard - Iceland Ice Cream</title>
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+
+
+<body>
+
+  <!-- ========================================
+       HEADER NAVIGATION
+       ======================================== -->
+  <header>
+    <!-- Logo and site name link -->
+    <a href="index.html" class="logo-link">
+      <img class="logo" src="./img/LOGO.png" alt="Logo">
+      <span>ICELAND ICE CREAM</span>
+    </a>
+    <!-- Main navigation menu -->
+    <nav>
+      <ul class="nav_links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li id="dashboardTab" style="display:none;"><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </nav>
+    <!-- Auth buttons (Sign up/Log out) - toggled based on login state -->
+    <a id="signupBtn" class="signupbtn" href="signup.html">Sign up</a>
+    <button id="logoutBtn" style="display: none;">Log out</button>
+  </header>
+
+  <h1 style="margin-top: 2rem; color: #FF6B9D">Owner Dashboard</h1>
+  <h2 style="text-align: center; color: #FF6B9D">Welcome, Owner! Here are all pending orders:</h2>
+
+  <div id="ordersContainer"></div>
+
+  <script type="module">
+  import { getFirestore, collection, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+  import { auth, OWNER_EMAIL } from "./auth.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+  const db = getFirestore();
+  const ordersCol = collection(db, "orders");
+  const container = document.getElementById('ordersContainer');
+
+  onAuthStateChanged(auth, (user) => {
+  const dashboardTab = document.getElementById("dashboardTab");
+  const signupBtn = document.getElementById("signupBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (!user) {
+    alert("You are not authorized to view this page.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  if (user.email === OWNER_EMAIL) {
+    // Owner logged in
+    dashboardTab.style.display = "block";
+    signupBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+    renderOrdersRealTime(); // show orders
+  } else {
+    // Regular user
+    dashboardTab.style.display = "none";
+    signupBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+  }
+
+  // Logout button
+  logoutBtn?.addEventListener("click", () => {
+    auth.signOut().then(() => {
+      window.location.href = "index.html";
+    });
+  });
+});
+
+</script>
+
+
+</body>
+</html>

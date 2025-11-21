@@ -2,6 +2,7 @@
 // Sizes: Small $5.25, Regular $7.25
 // Pricing: included up to LIMITS[size].maxTotal; up to 2 extras cost $0.50 each
 
+
 // ========== DATA DEFINITIONS ==========
 
 // Array of base flavor options with metadata (id, name, image path, description with calories)
@@ -271,47 +272,67 @@ function updatePrice() {
 
 // Handles adding the customized item to the cart
 function onAddToCart() {
+  // ----- Calculate selected toppings, mixes, and total count -----
   const { toppingCount, mixCount, total } = counts();
+
+  // Get allowed limit based on cup size (base limit + optional extras)
   const limit = LIMITS[current.size]?.maxTotal ?? 0;
 
-  // Validate that total items don't exceed limit + max extras
+  // Enforce topping/mix limits
   if (total > limit + MAX_EXTRAS) {
-    alert(`For a ${current.size} cup, you can add at most ${limit} included items plus ${MAX_EXTRAS} extra (charged) items.`);
+    alert(`For a ${current.size} cup, you can add at most ${limit} included items plus ${MAX_EXTRAS} extra.`);
     return;
   }
 
-  // Build descriptive label for cart item
+  // ----- Create final label that will appear in the cart -----
+
+  // Human-readable size label
   const sizeLabel = SIZES.find(s => s.id === current.size)?.label || '';
-  
-  // Format selected toppings with quantities
+
+  // Convert selected toppings into formatted text list
   const selT = Object.entries(current.toppings)
     .filter(([_, qty]) => qty > 0)
     .map(([id, qty]) => `${TOPPINGS.find(t => t.id === id)?.name} x${qty}`);
 
-  // Format selected mix-ins with quantities
+  // Convert selected mix-ins into formatted text list
   const selM = Object.entries(current.mixes)
     .filter(([_, qty]) => qty > 0)
     .map(([id, qty]) => `${MIXES.find(m => m.id === id)?.name} x${qty}`);
 
-  // Build complete label: base • size • toppings • mix-ins • notes
+  // Base title: flavor + size
   let label = `${current.base.name} • ${sizeLabel}`;
+
+  // Append visible topping list if any are selected
   if (selT.length) label += ` • T: ${selT.join(', ')}`;
+
+  // Append visible mix-in list if any are selected
   if (selM.length) label += ` • M: ${selM.join(', ')}`;
+
+  // Append notes (if user typed anything in notes field)
   if (current.notes) label += ` • notes: ${current.notes}`;
 
+  // Price per unit based on size + toppings + extras
   const unit = calcUnit();
 
-  // Add to cart using global addToCart function if available
-  if (typeof addToCart === 'function') {
-    // Add the item 'qty' times to the cart
-    for (let i = 0; i < current.qty; i++) addToCart('BYO', label, unit, current.size);
+  // ----- Add to system cart if cart system exists -----
+  if (typeof window.addToCart === 'function') {
+
+    // Add multiple items if quantity > 1
+    for (let i = 0; i < current.qty; i++) {
+      window.addToCart('BYO', label, unit, current.size);
+    }
+
     alert('Added to cart!');
+
   } else {
-    // Fallback demo mode if addToCart function doesn't exist
+    // Fallback mode if cart system isn’t connected (testing mode)
     alert(`(Demo) ${current.qty} × ${label} — $${(unit * current.qty).toFixed(2)}`);
   }
+
+  // Close modal after adding
   closeModal();
 }
+
 
 // ========== CART MODAL INTEGRATION ==========
 

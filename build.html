@@ -4,6 +4,10 @@
   <title>Build Your Own</title>
   <!-- Link to external stylesheet -->
   <link rel="stylesheet" href="style.css">
+  <!-- menu.js must load before build.js -->
+  <script type="module" src="menu.js"></script>
+  <script type="module" src="build.js"></script>
+
 </head>
 
 <body>
@@ -20,8 +24,9 @@
       <ul class="nav_links">
         <li><a href="index.html">Home</a></li>
         <li><a href="menu.html">Menu</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li id="dashboardTab" style="display:none;"><a href="dashboard.html">Dashboard</a></li>
       </ul>
     </nav>
     
@@ -152,5 +157,43 @@
 
   <!-- auth.js: Handles user authentication (ES6 module) -->
   <script type="module" src="auth.js"></script>
+
+  <script type="module">
+  import { auth } from './auth.js';
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+  import { OWNER_EMAIL } from "./auth.js";
+
+
+  onAuthStateChanged(auth, (user) => {
+    const dashboardTab = document.getElementById("dashboardTab");
+    const signupBtn = document.getElementById("signupBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (user && user.email === OWNER_EMAIL) {
+      // Owner logged in → show dashboard + logout
+      dashboardTab.style.display = "block";
+      signupBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+    } else if (user) {
+      // Normal customer logged in → hide dashboard
+      dashboardTab.style.display = "none";
+      signupBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+    } else {
+      // No one logged in → only show SignUp
+      dashboardTab.style.display = "none";
+      signupBtn.style.display = "inline-block";
+      logoutBtn.style.display = "none";
+    }
+
+    // Logout handling
+    logoutBtn?.addEventListener("click", () => {
+      auth.signOut().then(() => {
+        window.location.href = "index.html";
+      });
+    });
+  });
+</script>
+
 
 </body></html>

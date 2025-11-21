@@ -425,6 +425,7 @@
         <li><a href="menu.html">Menu</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li id="dashboardTab" style="display:none;"><a href="dashboard.html">Dashboard</a></li>
       </ul>
     </nav>
     <!-- Auth buttons (Sign up/Log out) - toggled based on login state -->
@@ -938,10 +939,69 @@
     });
   </script>
 
+  <script>
+    import { auth } from './auth.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
+
+    window.currentUser = null;
+    window.isOwner = false;
+
+      onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.currentUser = user;
+      window.isOwner = user.email === OWNER_EMAIL;
+      renderNavigation(); 
+    } else {
+      window.currentUser = null;
+      window.isOwner = false;
+      renderNavigation();
+    }
+});
+
+  </script>
+
   <!-- ========================================
        HEADER AUTHENTICATION MODULE
        ======================================== -->
   <!-- Handles header display for logged-in users (Hi, Name / Log out button) -->
   <script type="module" src="auth.js"></script>
+
+  <script type="module">
+  import { auth } from './auth.js';
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+  const OWNER_EMAIL = "isabelmuniz001@gmail.com";
+
+  onAuthStateChanged(auth, (user) => {
+    const dashboardTab = document.getElementById("dashboardTab");
+    const signupBtn = document.getElementById("signupBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (user && user.email === OWNER_EMAIL) {
+      // Owner logged in → show dashboard + logout
+      dashboardTab.style.display = "block";
+      signupBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+    } else if (user) {
+      // Normal customer logged in → hide dashboard
+      dashboardTab.style.display = "none";
+      signupBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+    } else {
+      // No one logged in → only show SignUp
+      dashboardTab.style.display = "none";
+      signupBtn.style.display = "inline-block";
+      logoutBtn.style.display = "none";
+    }
+
+    // Logout handling
+    logoutBtn?.addEventListener("click", () => {
+      auth.signOut().then(() => {
+        window.location.href = "index.html";
+      });
+    });
+  });
+</script>
+
 </body>
 </html>

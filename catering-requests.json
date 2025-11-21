@@ -110,5 +110,13 @@
     "guests": 79,
     "notes": "CC",
     "createdAt": "2025-11-18T05:13:17.557Z"
+  },
+  {
+    "name": "Isabel Muniz",
+    "email": "ixm9432@mavs.uta.edu",
+    "date": "2025-11-27",
+    "guests": 13,
+    "notes": "Birthday Party",
+    "createdAt": "2025-11-18T08:01:56.170Z"
   }
 ]

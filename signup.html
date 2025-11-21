@@ -25,10 +25,10 @@
     <nav>
       <ul class="nav_links">
         <li><a href="index.html">Home</a></li>
-        <!-- Menu currently links to # in your version. You can point this to menu.html if desired. -->
         <li><a href="menu.html">Menu</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li id="dashboardTab" style="display:none;"><a href="dashboard.html">Dashboard</a></li>
       </ul>
     </nav>
 
@@ -253,6 +253,8 @@
       signInWithEmailAndPassword,
       updateProfile
     } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+    import { OWNER_EMAIL } from "./auth.js";
+
 
     // Grab the forms by their actual IDs in your markup
     const loginForm    = document.getElementById("login");
@@ -282,6 +284,7 @@
       }
     }
 
+
     // LOGIN SUBMIT HANDLER (Log In tab)
     if (loginForm) {
       loginForm.addEventListener("submit", async (e) => {
@@ -292,15 +295,23 @@
 
         try {
           // Ask Firebase to sign in with email/password
-          await signInWithEmailAndPassword(auth, email, password);
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
 
           // SUCCESS ONLY:
           // If we get here, credentials were valid.
           // Close modal (so user doesn't see it flash on next page load)
           closeModal();
 
-          // Go to menu.html (your desired redirect target)
-          window.location.href = "menu.html";
+
+          // --- NEW LOGIC: Owner check ---
+          if (user.email === OWNER_EMAIL) {
+            // Owner -> redirect to dashboard
+            window.location.href = "dashboard.html";
+          } else {
+            // Regular user -> redirect to menu
+            window.location.href = "menu.html";
+        }
 
         } catch (err) {
           // FAILURE ONLY:
@@ -361,6 +372,41 @@
        MAKE SURE every page that has the header includes this line
        *at the END of <body>* like this.
        =========================== -->
-  <script type="module" src="auth.js"></script>
+
+  <script type="module">
+  import { auth, OWNER_EMAIL } from './auth.js';
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+  onAuthStateChanged(auth, (user) => {
+    const dashboardTab = document.getElementById("dashboardTab");
+    const signupBtn = document.getElementById("signupBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (user && user.email === OWNER_EMAIL) {
+      // Owner logged in → show dashboard + logout
+      dashboardTab.style.display = "block";
+      signupBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+    } else if (user) {
+      // Normal customer logged in → hide dashboard
+      dashboardTab.style.display = "none";
+      signupBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+    } else {
+      // No one logged in → only show SignUp
+      dashboardTab.style.display = "none";
+      signupBtn.style.display = "inline-block";
+      logoutBtn.style.display = "none";
+    }
+
+    // Logout handling
+    logoutBtn?.addEventListener("click", () => {
+      auth.signOut().then(() => {
+        window.location.href = "index.html";
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
